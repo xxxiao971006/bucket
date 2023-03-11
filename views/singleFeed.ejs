@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Feeds</title>
+  </head>
+  <body>
+    <h1><%= feed.title %></h1>
+
+    <p><%= feed.contents %></p>
+    <p><%= new Date(feed.timestamp) %></p>
+
+    <a href="/feeds">Back</a>
+
+    <form action="/feeds/<%= feed.id %>/delete" method="post">
+      <button type="submit">Delete Feed</button>
+    </form>
+  </body>
+</html>
