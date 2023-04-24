@@ -9,6 +9,17 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/createPost", (req, res) => { 
+  res.render("createPost.ejs");
+});
+
+router.post("/:id/delete", (req, res) => {
+  const id = +req.params.id;
+  database.deleteFeed(id);
+
+  res.redirect("/feeds");
+});
+
 router.get("/:id", (req, res) => {
   const id = +req.params.id;
   const feed = database.getFeed(id);
