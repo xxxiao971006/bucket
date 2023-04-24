@@ -1,14 +1,41 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
-const database = require("./database");
+const database = require("./fake-db");
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
     numberOfItterations: 50,
   });
+});
+
+//app login part
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.post("/login", (req, res) => {
+  let givenUsername = req.body.username;
+  let givenPassword = req.body.password;
+  if (!givenUsername || !givenPassword) {
+    res.redirect("/login");
+  } else {
+    let foundUser = database.getUserByUsername(givenUsername);
+    if (foundUser && foundUser.password === givenPassword) {
+      res.cookie("whoami", givenUsername, { signed: true });
+      console.log(`login attempt from user ${givenUsername}, SUCCESS`);
+      res.redirect("/");
+    } else {
+      console.log(
+        `login attempt from user ${givenUsername}, failure, might be a hacker`
+      );
+      res.redirect("/login");
+    }
+  }
 });
 
 app.get("/feeds", (req, res) => {
