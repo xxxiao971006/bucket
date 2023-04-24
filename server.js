@@ -1,11 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+add-login-functionality
 const database = require("./fake-db");
+=======
+const home = require("./routes/home");
+const feeds = require("./routes/feeds");
+const createPost = require("./routes/createPost");
+const deletePost = require("./routes/deletePost");
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
@@ -72,12 +81,19 @@ app.post("/feeds/:id/delete", (req, res) => {
   const id = +req.params.id;
   database.deleteFeed(id);
 
-  res.redirect("/feeds");
+app.use("/", home); // Add this line back
+app.use("/feeds", feeds);
+app.use("/createPost", createPost);
+app.use("/deletePost", deletePost);
+
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
 });
 
-app.use(express.static("public"));
-
-const port = 8080;
+const port = 8000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
