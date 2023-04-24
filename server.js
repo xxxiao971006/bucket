@@ -1,18 +1,14 @@
 const express = require("express");
 const app = express();
 const home = require("./routes/home");
-const feeds = require("./routes/feeds");
-const createPost = require("./routes/createPost");
-const deletePost = require("./routes/deletePost");
+const feedsFunctions = require("./routes/feedsFunctions");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.use("/", home); // Add this line back
-app.use("/feeds", feeds);
-app.use("/createPost", createPost);
-app.use("/deletePost", deletePost);
+app.use("/", home);
+app.use("/feeds", feedsFunctions); 
 
 // Error handling middleware
 app.use((err, req, res, next) => {
