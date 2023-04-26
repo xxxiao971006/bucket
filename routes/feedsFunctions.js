@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/createPost", (req, res) => { 
+router.get("/createPost", (req, res) => {
   res.render("createPost.ejs");
 });
 

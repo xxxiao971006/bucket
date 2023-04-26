@@ -5,7 +5,7 @@ const users = [
     email: "samsmith@gmail.com",
     password: "sam123",
     following: ["3", "4", "5"],
-    message: "1001"
+    message: "1001",
   },
   {
     id: "2",
@@ -139,7 +139,7 @@ const buckets = [
   },
 ];
 
-const message = [
+const messages = [
   {
     id: 1001,
     user_id: 1,
@@ -149,4 +149,144 @@ const message = [
     timestamp: Date.now(),
     completed: false,
   },
+  {
+    id: 1002,
+    user_id: 2,
+    bucket_id: 4,
+    message: "I finally get to visit my friends after so long! Can't wait!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1003,
+    user_id: 2,
+    bucket_id: 6,
+    message: "Thinking of adopting a pet, any suggestions for a good pet?",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1004,
+    user_id: 3,
+    bucket_id: 5,
+    message: "Going skiing this weekend, anyone else up for it?",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1005,
+    user_id: 4,
+    bucket_id: 2,
+    message:
+      "Training for a marathon is hard work, but I'm up for the challenge!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1006,
+    user_id: 5,
+    bucket_id: 8,
+    message: "Just went for a swim, feels so refreshing!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1007,
+    user_id: 6,
+    bucket_id: 7,
+    message:
+      "Going fishing with some friends this weekend, can't wait to catch some fish!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1008,
+    user_id: 6,
+    bucket_id: 1,
+    message: "Going to ride a roller coaster for the first time, wish me luck!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1009,
+    user_id: 7,
+    bucket_id: 3,
+    message: "I love trying new foods, any suggestions for a good restaurant?",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1010,
+    user_id: 1,
+    bucket_id: 6,
+    message:
+      "Going for a hike in the mountains, can't wait to see the beautiful scenery!",
+    timestamp: Date.now(),
+    completed: false,
+  },
+  {
+    id: 1011,
+    user_id: 2,
+    bucket_id: 9,
+    message:
+      "Thinking of trying something new, any ideas for a unique experience?",
+    timestamp: Date.now(),
+    completed: false,
+  },
 ];
+
+function getUsers() {
+  return users;
+}
+exports.getUsers = getUsers;
+
+function getUserById(id) {
+  return users.find((user) => user.id === id);
+}
+exports.getUserById = getUserById;
+
+function getUserByUsername(username) {
+  return users.find((user) => user.username === username);
+}
+exports.getUserByUsername = getUserByUsername;
+
+function getFilters() {
+  return filters;
+}
+exports.getFilters = getFilters;
+
+function getFilterById(id) {
+  return filters.find((filter) => filter.id === id);
+}
+exports.getFilterById = getFilterById;
+
+function getBuckets() {
+  return buckets;
+}
+exports.getBuckets = getBuckets;
+
+function getBucketById(id) {
+  return buckets.find((bucket) => bucket.id === id);
+}
+exports.getBucketById = getBucketById;
+
+function getMessages() {
+  return messages;
+}
+exports.getMessages = getMessages;
+
+function getMessageById(id) {
+  return messages.find((message) => message.id === id);
+}
+exports.getMessageById = getMessageById;
+
+function getMessagesByUserId(id) {
+  return messages.filter((message) => message.user_id === id);
+}
+exports.getMessagesByUserId = getMessagesByUserId;
+
+function isCompletedById(id) {
+  return messages.find((message) => message.id === id).completed;
+}
+exports.isCompletedById = isCompletedById;
+
