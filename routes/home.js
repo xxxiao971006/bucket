@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const database = require("../database");
+const database = require("../fake-db");
 
 router.get("/", (req, res) => {
     res.render("index.ejs", {

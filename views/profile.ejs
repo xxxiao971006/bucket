@@ -20,7 +20,7 @@
         </svg>                              
       </div>
       <div class="profile-photo">
-        <img src="<%= user.photo %>" alt="Profile photo" />
+        <!-- <img src="<%= user.photo %>" alt="Profile photo" /> -->
       </div>
       <h1>
         <%= user.username %>
@@ -33,30 +33,30 @@
       </div>
     </div>
     <div class="posts-container">
-        <% user.message.forEach((messageId) => { %>
-            <% const message = locals.database && typeof locals.database.getMessageById === 'function' ? locals.database.getMessageById(messageId) : null; %>
-            <% if (message) { %>
-              <div class="post">
-                <h3><%= user.username %></h3>
-                <p><%= message.message %></p>
-                <div class="post-actions">
-                  <button class="like-button" data-message-id="<%= message.id %>">
-                    <i class="fas fa-heart"></i>
-                    <% if (message.likes) { %>
-                      <span class="likes-count"><%= message.likes %></span>
-                    <% } %>
-                  </button>
-                  <button class="comment-button">
-                    <i class="fas fa-comment"></i>
-                    <% if (message.comments && message.comments.length) { %>
-                      <span class="comments-count"><%= message.comments.length %></span>
-                    <% } %>
-                  </button>
-                </div>
-              </div>
-            <% } %>
-          <% }) %>
-      </div>
+      <% user.message.forEach((messageId) => { %>
+        <% const message = database.getMessageById(messageId); %>
+        <% if (message) { %>
+          <div class="post">
+            <h3><%= user.username %></h3>
+            <p><%= message.message %></p>
+            <div class="post-actions">
+              <button class="like-button" data-message-id="<%= message.id %>">
+                <i class="fas fa-heart"></i>
+                <% if (message.likes) { %>
+                  <span class="likes-count"><%= message.likes %></span>
+                <% } %>
+              </button>
+              <button class="comment-button">
+                <i class="fas fa-comment"></i>
+                <% if (message.comments && message.comments.length) { %>
+                  <span class="comments-count"><%= message.comments.length %></span>
+                <% } %>
+              </button>
+            </div>
+          </div>
+        <% } %>
+      <% }) %>
+    </div>
     <div class="navbar">
       <a href="#"><i class="fas fa-home"></i></a>
       <a href="#"><i class="fas fa-search"></i></a>

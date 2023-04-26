@@ -3,7 +3,7 @@ const app = express();
 const home = require("./routes/home");
 const feedsFunctions = require("./routes/feedsFunctions");
 const profileFunctions = require("./routes/profileFunctions");
-const database = require("./database");
+const database = require("./fake-db");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/styles", express.static(__dirname + "/styles"));

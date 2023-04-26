@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <title>Pocket List</title>
+    <link rel="stylesheet" href="../styles/style_home.css">
+
+    <title>Bucketed</title>
 </head>
 <body>
-    <h1>Pocket List</h1>
-    
-    <h2><a href="/feeds">Go to Feeds</a></h2>
-    <h2><a href="/feeds/createPost">Create New Feed</a></h2>
-    
-    
-    <h2><%= Date() %></h2>
-    
-    <img src="Nam.jpg" class="center">
+    <div class="wrapper">
+        <h1>Bucketed</h1>
+        <div class="grey_background"></div>
+        <div class="container">
+            <img class="logo" src="../styles/images/balde-removebg-preview.png" alt="logo">
+            <form action="/profile">
+                <button class="start_button" type="submit"><span>Start</span></button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
