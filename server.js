@@ -2,14 +2,19 @@ const express = require("express");
 const app = express();
 const home = require("./routes/home");
 const feedsFunctions = require("./routes/feedsFunctions");
-const database = require("./database");
-
+const profileFunctions = require("./routes/profileFunctions");
+const database = require("./fake-db");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use("/styles", express.static(__dirname + "/styles"));
 
 app.use("/", home);
-app.use("/feeds", feedsFunctions);
+app.use("/feeds", feedsFunctions); 
+app.use("/profile", profileFunctions);
+
+
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,15 +1,16 @@
 const users = [
   {
     id: "1",
-    username: "samsmith",
+    username: "@samsmith",
     email: "samsmith@gmail.com",
     password: "sam123",
     following: ["3", "4", "5"],
     message: ["1001"],
+    message: ["1001"],
   },
   {
     id: "2",
-    username: "janedoe",
+    username: "@janedoe",
     email: "janedoe@gmail.com",
     password: "jane123",
     following: ["1", "4", "7"],
@@ -17,7 +18,7 @@ const users = [
   },
   {
     id: "3",
-    username: "johnbrown",
+    username: "@johnbrown",
     email: "johnbrown@gmail.com",
     password: "john123",
     following: ["1", "2"],
@@ -25,7 +26,7 @@ const users = [
   },
   {
     id: "4",
-    username: "annalee",
+    username: "@annalee",
     email: "annalee@gmail.com",
     password: "anna123",
     following: ["1", "2", "6"],
@@ -33,7 +34,7 @@ const users = [
   },
   {
     id: "5",
-    username: "davidc",
+    username: "@davidc",
     email: "davidc@gmail.com",
     password: "david123",
     following: ["1"],
@@ -41,7 +42,7 @@ const users = [
   },
   {
     id: "6",
-    username: "mikejones",
+    username: "@mikejones",
     email: "mikejones@gmail.com",
     password: "mike123",
     following: ["4", "7"],
