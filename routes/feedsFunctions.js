@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const database = require("../database");
+const { database } = require("../database");
+const { getFriendsFeed } = require("../fake-db");
 
 router.get("/", (req, res) => {
   const feeds = database.getFeeds();
@@ -9,8 +10,13 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/createPost", (req, res) => { 
-  res.render("createPost.ejs");
+router.get("/friendspost", (req, res) => {
+  const feed = getFriendsFeed("1");
+  res.render("friendspost", { feed });
+});
+
+router.get("/createPost", (req, res) => {
+  res.render("createPost.ejs"); // remove .ejs?
 });
 
 router.post("/:id/delete", (req, res) => {
