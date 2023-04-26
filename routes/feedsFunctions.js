@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getUserFeed } = require("../fake-db");
+const { getUserFeed, getFriendsFeed } = require("../fake-db");
 
 router.get("/", (req, res) => {
   const feeds = database.getFeeds();
@@ -9,13 +9,25 @@ router.get("/", (req, res) => {
   });
 });
 
+//Showing all User(only)'s posts
 router.get("/home", (req, res) => {
   const data = getUserFeed("1");
   res.render("home-feed-foryou", { data });
 });
 
 router.get("/createPost", (req, res) => {
-  res.render("createPost.ejs");
+  res.render("createPost.ejs");}
+);
+
+//Showing all User's friends' posts
+router.get("/friendspost", (req, res) => {
+  const feed = getFriendsFeed("1");
+  res.render("friendspost", { feed });
+});
+
+
+router.get("/createPost", (req, res) => {
+  res.render("createPost.ejs"); 
 });
 
 router.post("/:id/delete", (req, res) => {
