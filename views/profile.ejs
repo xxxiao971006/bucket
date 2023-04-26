@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/style_profile.css">
+  <title>My Profile</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="background-container">
+      <div class="setting">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="45px" height="40px">
+          <rect x="4" y="6.5" width="16" height="1" fill="#8083FF"/>
+          <circle cx="12" cy="7.25" r="3" fill="white"/>
+          <circle cx="12" cy="7.25" r="3" stroke="#8083FF" fill="none"/>
+          <rect x="12" y="15.5" width="16" height="1" fill="#8083FF"/>
+          <circle cx="19" cy="16.25" r="3" fill="#8083FF"/>
+        </svg>                              
+      </div>
+      <div class="profile-photo">
+        <img src="<%= user.photo %>" alt="Profile photo" />
+      </div>
+      <h1>
+        <%= user.username %>
+      </h1>
+      <button class="edit-button">Edit Profile</button>
+      <div class="buttons">
+        <button>All</button>
+        <button>Media</button>
+        <button>Message Posts</button>
+      </div>
+    </div>
+    <div class="posts-container">
+        <% user.message.forEach((messageId) => { %>
+            <% const message = locals.database && typeof locals.database.getMessageById === 'function' ? locals.database.getMessageById(messageId) : null; %>
+            <% if (message) { %>
+              <div class="post">
+                <h3><%= user.username %></h3>
+                <p><%= message.message %></p>
+                <div class="post-actions">
+                  <button class="like-button" data-message-id="<%= message.id %>">
+                    <i class="fas fa-heart"></i>
+                    <% if (message.likes) { %>
+                      <span class="likes-count"><%= message.likes %></span>
+                    <% } %>
+                  </button>
+                  <button class="comment-button">
+                    <i class="fas fa-comment"></i>
+                    <% if (message.comments && message.comments.length) { %>
+                      <span class="comments-count"><%= message.comments.length %></span>
+                    <% } %>
+                  </button>
+                </div>
+              </div>
+            <% } %>
+          <% }) %>
+      </div>
+    <div class="navbar">
+      <a href="#"><i class="fas fa-home"></i></a>
+      <a href="#"><i class="fas fa-search"></i></a>
+      <div class="circle">
+        <a href="#"><i class="fas fa-bucket"></i></a>
+      </div>
+      <a href="#"><i class="fas fa-bars"></i></a>
+      <a href="#"><i class="fas fa-user"></i></a>
+    </div>
+  </div>
+</body>
+</html>
