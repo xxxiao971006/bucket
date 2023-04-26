@@ -8,23 +8,14 @@
     <title>Feed - For you</title>
   </head>
   <body>
-    <h1><a href="/">For you</a></h1>
-    <h2><a href="/">Main</a></h2>
-    <h2><a href="/home-feed-foryou">For you</a></h2>
     <div class="wrapper">
-      <% userMessage = messages.filter((message) => message.user_id === 1)%> 
-      <% userMessage.forEach((message) => { %>
-      <% for (let i = 0; i < messages.length; i++) { %>
-      <% if (messages[i].completed === false) { %>
-      <% messages[i].completed = "Progress"; %>
-      <% } else {%>
-      <% messages[i].completed = "Completed"; %>
-      <% } %>
-      <% } %>
+      <% data.forEach(post => { %>
       <div>
-      <%= message.user_id %>:<br /> <%= message.completed %><br /><%= message.message %><br />
+        <p>username: <%=post.username%></p>
+        <p>Title: <%=post.completed%> <%=post.bucketName%></p>
+        <p>Message: <%=post.messages%></p>
       </div>
-      <% }); %>
+      <% }) %>
     </div>
   </body>
 </html>

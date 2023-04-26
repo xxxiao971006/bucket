@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const database = require("../database");
+const { getUserFeed } = require("../fake-db");
 
 router.get("/", (req, res) => {
   const feeds = database.getFeeds();
   res.render("feeds.ejs", {
     feeds,
   });
+});
+
+router.get("/home", (req, res) => {
+  const data = getUserFeed("1");
+  res.render("home-feed-foryou", { data });
 });
 
 router.get("/createPost", (req, res) => {

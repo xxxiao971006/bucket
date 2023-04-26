@@ -42,18 +42,6 @@ app.post("/login", (req, res) => {
   }
 });
 
-///////////Jun's testing home-feed-foryou//////////
-app.get("/home-feed-foryou", (req, res) => {
-  const users = database.getUsers();
-  const messages = database.getMessages();
-  const usersMessages = database.getMessagesByUserId();
-  res.render("home-feed-foryou", {
-    users,
-    messages,
-    usersMessages,
-  });
-});
-
 const port = 8000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

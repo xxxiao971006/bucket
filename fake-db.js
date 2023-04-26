@@ -5,7 +5,7 @@ const users = [
     email: "samsmith@gmail.com",
     password: "sam123",
     following: ["3", "4", "5"],
-    message: "1001",
+    message: ["1001"],
   },
   {
     id: "2",
@@ -235,58 +235,49 @@ const messages = [
   },
 ];
 
-function getUsers() {
-  return users;
-}
-exports.getUsers = getUsers;
+// function getUsers() {
+//   return users;
+// }
+// exports.getUsers = getUsers;
 
-function getUserById(id) {
-  return users.find((user) => user.id === id);
-}
-exports.getUserById = getUserById;
+// function getUserById(id) {
+//   return users.find((user) => user.id === id);
+// }
+// exports.getUserById = getUserById;
 
-function getUserByUsername(username) {
-  return users.find((user) => user.username === username);
-}
-exports.getUserByUsername = getUserByUsername;
+const getUsernameById = (id) => {
+  return users.find((user) => user.id == id).username;
+}; //returning username
 
-function getFilters() {
-  return filters;
-}
-exports.getFilters = getFilters;
+const getUserMessageIdByUserId = (user_id) => {
+  const userInformation = users.find((user) => user.id === user_id);
+  return userInformation ? userInformation.message : null;
+  //user_id : 1 => return ["1001"];
+};
 
-function getFilterById(id) {
-  return filters.find((filter) => filter.id === id);
-}
-exports.getFilterById = getFilterById;
+const getMessageByMessageId = (messageId) => {
+  return messages.find((message) => message.id == messageId);
+};
 
-function getBuckets() {
-  return buckets;
-}
-exports.getBuckets = getBuckets;
+const getBucketById = (id) => {
+  return buckets.find((bucket) => bucket.id == id).title;
+}; //gives the bucket title
 
-function getBucketById(id) {
-  return buckets.find((bucket) => bucket.id === id);
-}
-exports.getBucketById = getBucketById;
+const getUserFeed = (user_id) => {
+  let userMessage = getUserMessageIdByUserId(user_id);
+  let outcome = userMessage.map((userMessageId) => {
+    return {
+      username: getUsernameById(user_id), //samsmith
+      completed: getMessageByMessageId(userMessageId).completed
+        ? "Completed"
+        : "In Progress",
+      bucketName: getBucketById(getMessageByMessageId(userMessageId).bucket_id),
+      messages: getMessageByMessageId(userMessageId).message,
+    };
+  });
+  return outcome;
+};
 
-function getMessages() {
-  return messages;
-}
-exports.getMessages = getMessages;
-
-function getMessageById(id) {
-  return messages.find((message) => message.id === id);
-}
-exports.getMessageById = getMessageById;
-
-function getMessagesByUserId(id) {
-  return messages.filter((message) => message.user_id === id);
-}
-exports.getMessagesByUserId = getMessagesByUserId;
-
-function isCompletedById(id) {
-  return messages.find((message) => message.id === id).completed;
-}
-exports.isCompletedById = isCompletedById;
-
+module.exports = {
+  getUserFeed,
+};
