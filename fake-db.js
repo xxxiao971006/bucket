@@ -1,15 +1,16 @@
 const users = [
   {
     id: "1",
-    username: "samsmith",
+    username: "@samsmith",
     email: "samsmith@gmail.com",
     password: "sam123",
     following: ["3", "4", "5"],
     message: ["1001"],
+    message: ["1001"],
   },
   {
     id: "2",
-    username: "janedoe",
+    username: "@janedoe",
     email: "janedoe@gmail.com",
     password: "jane123",
     following: ["1", "4", "7"],
@@ -17,7 +18,7 @@ const users = [
   },
   {
     id: "3",
-    username: "johnbrown",
+    username: "@johnbrown",
     email: "johnbrown@gmail.com",
     password: "john123",
     following: ["1", "2"],
@@ -25,7 +26,7 @@ const users = [
   },
   {
     id: "4",
-    username: "annalee",
+    username: "@annalee",
     email: "annalee@gmail.com",
     password: "anna123",
     following: ["1", "2", "6"],
@@ -33,7 +34,7 @@ const users = [
   },
   {
     id: "5",
-    username: "davidc",
+    username: "@davidc",
     email: "davidc@gmail.com",
     password: "david123",
     following: ["1"],
@@ -41,7 +42,7 @@ const users = [
   },
   {
     id: "6",
-    username: "mikejones",
+    username: "@mikejones",
     email: "mikejones@gmail.com",
     password: "mike123",
     following: ["4", "7"],
@@ -222,51 +223,3 @@ const messages = [
     completed: true,
   },
 ];
-
-//ASSUME THAT LOGGED IN USER IS USER_ID : "1"
-const getFollowingByUserId = (user_Id) => {
-  const userInformation = users.find((user) => user.id === user_Id);
-  return userInformation ? userInformation.following : null;
-};
-
-const getUsernameById = (id) => {
-  return users.find((user) => user.id == id).username;
-};
-// console.log(getUserFollowingByUserId("1")); //return ["3","4","5"];
-
-const getMessageIdsByUserId = (user_Id) => {
-  const userInformation = users.find((user) => user.id === user_Id);
-  return userInformation ? userInformation.message : null;
-};
-
-const getBucketById = (id) => {
-  return buckets.find((bucket) => bucket.id == id).title;
-};
-
-const getMessagesByMessageId = (id) => {
-  return messages.find((message) => message.id == id);
-};
-
-
-const getFriendsFeed = (loggedInUserId) => {
-  // TODO: REFACTOR THIS FUNCTION
-  // getMessagesByMessageId;
-  let friends = getFollowingByUserId(loggedInUserId);
-  friends = friends.map((friendId) => {
-    return {
-      username: getUsernameById(friendId),
-      completed: getMessageIdsByUserId(friendId).map((msgId) =>
-        getMessagesByMessageId(msgId).completed ? "Completed" : "In Progress"
-      ),
-      bucketName: getMessageIdsByUserId(friendId).map((msgId) =>
-        getBucketById(getMessagesByMessageId(msgId).bucket_id)
-      ),
-      messages: getMessageIdsByUserId(friendId).map(
-        (msgId) => getMessagesByMessageId(msgId).message
-      ),
-    };
-  });
-  return friends;
-}; 
-
-module.exports = { getFriendsFeed };
