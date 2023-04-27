@@ -13,9 +13,6 @@ app.use("/feeds", feedsFunctions);
 app.use("/profile", profileFunctions);
 
 
-
-
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
