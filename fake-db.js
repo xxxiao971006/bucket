@@ -262,6 +262,11 @@ const getUserFeed = (user_id) => {
 };
 ;
 
+const getUserInfoByUsername = (username) => {
+  return users.find((user) => user.username === username);
+};
+console.log(getUserInfoByUsername(("@samsmith")));
+
 const getMessagesByMessageId = (id) => {
   return messages.find((message) => message.id == id);
 };
@@ -288,4 +293,4 @@ const getFriendsFeed = (loggedInUserId) => {
   return friends;
 }; 
 
-module.exports = { getFriendsFeed, getUserFeed };
+module.exports = {getMessageByMessageId, getUserInfoByUsername, getUsernameById, getFriendsFeed, getUserFeed };
