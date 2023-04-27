@@ -19,6 +19,20 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/logout", (req, res) => {
+  res.render("logout");
+});
+
+
 const port = 8000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

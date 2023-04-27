@@ -60,39 +60,39 @@ const users = [
 
 const filters = [
   {
-    id: "1",
+    id: 1,
     filter: "Travel",
   },
   {
-    id: "2",
+    id: 2,
     filter: "Adventure",
   },
   {
-    id: "3",
+    id: 3,
     filter: "Food",
   },
   {
-    id: "4",
+    id: 4,
     filter: "Study",
   },
   {
-    id: "5",
+    id: 5,
     filter: "Fun",
   },
   {
-    id: "6",
+    id: 6,
     filter: "Nature",
   },
   {
-    id: "7",
+    id: 7,
     filter: "Culture",
   },
   {
-    id: "8",
+    id: 8,
     filter: "Exercise",
   },
   {
-    id: "9",
+    id: 9,
     filter: "Others",
   },
 ];
@@ -147,7 +147,7 @@ const messages = [
     bucket_id: 1,
     message:
       "I am going to mentor someone! I am so excited to help other students!",
-    timestamp: Date.now(),
+    timestamp: "2021-06-19T17:10:12.891Z",
     completed: false,
   },
   {
@@ -232,7 +232,6 @@ const getUsernameById = (id) => {
 const getUserMessageIdByUserId = (user_id) => {
   const userInformation = users.find((user) => user.id == user_id);
   return userInformation ? userInformation.message : null;
-  //user_id : 1 => return ["1001"];
 };
 
 const getMessagesByMessageId = (messageId) => {
@@ -269,10 +268,9 @@ const getUserFeed = (user_id) => {
   });
   return outcome;
 };
+;
 
 const getFriendsFeed = (loggedInUserId) => {
-  // TODO: REFACTOR THIS FUNCTION
-  // getMessagesByMessageId;
   let friends = getFollowingByUserId(loggedInUserId);
   friends = friends.map((friendId) => {
     return {
@@ -294,7 +292,7 @@ const getFriendsFeed = (loggedInUserId) => {
 const getUserByUserId = (user_id) => {
   return users.find((user) => user.id == user_id);
 };
-///
+
 const getBucketIdByBucketTitle = (bucket_title) => {
   const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
   return bucketFound ? bucketFound.id : null;
@@ -316,17 +314,14 @@ const createNewBucket = (user_id, bucketTitle, messageInput) => {
     timestamp: Date.now(),
     completed: false,
   };
-  // console.log(newMessage);
   messages.push(newMessage);
   updateUserMessage(user_id, newMessage.id);
 };
 
-///
-
 module.exports = {
   buckets,
   createNewBucket,
-  getBucketById: getBucketByBucketId,
+  getBucketByBucketId,
   getFriendsFeed,
   getUserFeed,
 };
