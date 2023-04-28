@@ -36,14 +36,26 @@
         <div class="user-input-wrapper">
           <div class="wrapwrap" style="display: flex; align-items: flex-start">
             <div class="user-avatar"></div>
-            <select name="Buckets" ID="bucket-select">
-              <option value="">Please choose your bucket</option>
-              <% data.forEach(element => { %>
-              <option value="<%element.bucketName%>">
-                <%=element.bucketName%>
-              </option>
-              <% }) %>
-            </select>
+            <form
+              style="
+                background-color: #d9d9d9;
+                display: flex;
+                align-items: flex-end;
+                margin: 10px;
+                border-radius: 10px;
+              "
+              action="/profile/"
+              method="POST"
+            >
+              <select name="bucket">
+                <option>Please choose your bucket</option>
+                <% data.forEach(element => { %>
+                <option selected value="<%=element.bucketName%>">
+                  <%=element.bucketName%>
+                </option>
+                <% }) %>
+              </select>
+            </form>
           </div>
 
           <form

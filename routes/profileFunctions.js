@@ -11,8 +11,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { newMessage } = req.body;
+  const { newMessage, bucket } = req.body;
   console.log(newMessage);
+  console.log(bucket);
   const data = getUserFeed("1");
   res.render("profile", { data });
 });
