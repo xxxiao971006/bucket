@@ -124,6 +124,9 @@ button {
   border: 20px solid var(-clr);
 }
 
+.navbar img {
+  margin: 0 10px;
+}
 .circle {
   position: absolute;
   top: -50px;
@@ -140,10 +143,9 @@ button {
     #8083ff;
 }
 
-a[href="/buckets"] img {
-  margin-top: 10px;
-  margin-left: 10px;
-}
+a[href='/feeds/createBucket'] img {
+  margin-top: 10px; 
+  }
 
 .setting {
   position: absolute;
