@@ -14,7 +14,7 @@
           <path fill="currentColor" d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z"/>
         </svg>
       </button>
-      <button class="add-button">Add</button>
+      <button class="add-button">Add New Bucket🪣</button>
       <div class="top_buttons">
         <form action="/feeds/inProgress">
           <button class="in_progress" type="submit">In Progress</button>
@@ -26,13 +26,13 @@
       <div class="bucket-content">
         <%bucketlists.forEach(bucket => {%>
           <form method="GET" action="/createBucket">
+            <div class="bucket-item">
+            <img src="../styles/images/inProgress_icon_noBackground.png" class="bucket-img" id="bucket-img" />
             <a href="/feeds/createMessage?bucket=<%= bucket%>" class="bucket-link">
-              <div class="bucket-item">
-                <img src="../styles/images/inProgress_icon_noBackground.png" class="bucket-img" />
                 <p><%=bucket%></p>
                 <input type="hidden" name="btnData" value="<%bucket%>" />
-              </div>
-            </a>
+              </a>
+            </div>
           </form>
         <%});%>
       </div>
@@ -62,5 +62,18 @@
     function goBack() {
       window.history.back();
     }
-  </script>
+
+    const bucketImgs = document.querySelectorAll('.bucket-img');
+bucketImgs.forEach(bucketImg => {
+  bucketImg.addEventListener('click', () => {
+    if (bucketImg.src.endsWith('inProgress_icon_noBackground.png')) {
+      bucketImg.src = '../styles/images/red_icon_noBackground.png';
+    } else if (bucketImg.src.endsWith('red_icon_noBackground.png')) {
+      bucketImg.src = '../styles/images/completed_icon_noBackground.png';
+    } else {
+      bucketImg.src = '../styles/images/inProgress_icon_noBackground.png';
+    }
+  });
+})
+    </script>
 </html>

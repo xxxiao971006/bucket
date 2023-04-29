@@ -172,8 +172,8 @@ a[href='/feeds/createBucket'] img {
 }
 
 .user-picture {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: black;
   position: absolute;
@@ -181,6 +181,13 @@ a[href='/feeds/createBucket'] img {
   top: 10px;
 }
 
+.username{
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #000000;
+}
 .post-content {
   margin-left: 60px;
 }
@@ -188,7 +195,7 @@ a[href='/feeds/createBucket'] img {
 .create_post {
   background-color: #d9d9d9;
   border-radius: 10px;
-  width: 100%;
+  width: 80%;
   height: 150px;
   padding: 6px 14px;
   font-size: 18px;
@@ -201,6 +208,13 @@ a[href='/feeds/createBucket'] img {
   padding-top: 10%;
 }
 
+.createInput{
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: flex-end;
+  margin: 10px;
+  border-radius: 10px;
+}
 .user-input-wrapper {
   position: relative;
   width: 100%;
@@ -225,9 +239,6 @@ select {
 }
 
 .user-avatar {
-  /* position: absolute; */
-  /* top: 25%; */
-  /* left: 15px; */
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
@@ -249,4 +260,11 @@ select {
   font-size: 14px;
   font-family: "Open Sans";
   font-style: normal;
+}
+
+
+button[type='submit'] {
+  font-family:'Courier New', Courier, monospace;
+  margin-right: 10px;
+  color: #636363;
 }

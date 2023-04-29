@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome Back =) </title>
+    <link rel="stylesheet" href="../styles/style_signup.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Welcome!</h1>
+      <h2> Sign Up</h2>
+      <div class="grey_background"></div>
+      <div class="inside_wrapper">
+        <form method="POST" action="/profile">
+          <input required id="email" name="email" placeholder="Email" />
+          <input required id="username" name="username" placeholder="username" />
+          <input required id="password" name="password" placeholder="Password" />
+          <button type="submit" class="sign-button">Sign Up</button>
+        </form>
+         <div class="login">
+          <p>Already have an account? <a href="/login">Login</a></p>
+         </div>
+      </div>
+    </div>
+  </body>
+</html>
