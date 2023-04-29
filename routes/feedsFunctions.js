@@ -11,15 +11,15 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/home", (req, res) => {
-  console.log("Rendering home-feed-foryou.ejs"); // for debugging
+  console.log("Rendering mainfeedUser.ejs"); // for debugging
   const data = getUserFeed("1");
-  res.render("home-feed-foryou", { data });
+  res.render("mainfeedUser", { data });
 });
 
 router.get("/friendspost", (req, res) => {
   console.log("Rendering friendspost.ejs"); // for debugging
   const feed = getFriendsFeed("1");
-  res.render("friendspost", { feed });
+  res.render("mainfeedFriends", { feed });
 });
 
 router.get("/createBucket", (req, res) => {

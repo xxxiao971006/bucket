@@ -8,10 +8,11 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/styles", express.static(__dirname + "/styles"));
 
-app.use("/", home);
-app.use("/feeds", feedsFunctions); 
-app.use("/profile", profileFunctions);
+app.use(express.static("static"));
 
+app.use("/", home);
+app.use("/feeds", feedsFunctions);
+app.use("/profile", profileFunctions);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -23,7 +24,6 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-
 app.get("/login", (req, res) => {
   res.render("login");
 });
@@ -31,7 +31,6 @@ app.get("/login", (req, res) => {
 app.get("/logout", (req, res) => {
   res.render("logout");
 });
-
 
 const port = 8000;
 app.listen(port, () => {

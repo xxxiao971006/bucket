@@ -268,7 +268,6 @@ const getUserFeed = (user_id) => {
   });
   return outcome;
 };
-;
 
 const getFriendsFeed = (loggedInUserId) => {
   let friends = getFollowingByUserId(loggedInUserId);
@@ -306,16 +305,36 @@ const updateUserMessage = (user_id, new_Message_Id) => {
 const createNewBucket = (user_id, bucketTitle, messageInput) => {
   const maxId = Math.max(...messages.map((message) => message.id));
   const newId = maxId + 1;
-  let newMessage = {
-    id: newId,
-    user_id: user_id,
-    bucket_id: getBucketIdByBucketTitle(bucketTitle),
-    message: messageInput,
-    timestamp: Date.now(),
-    completed: false,
+  let newMessage;
+  if (bucketTitle && messageInput) {
+    newMessage = {
+      id: newId,
+      user_id: user_id,
+      bucket_id: getBucketIdByBucketTitle(bucketTitle),
+      message: messageInput,
+      timestamp: Date.now(),
+      completed: false,
+    };
+    messages.push(newMessage);
+    updateUserMessage(user_id, newMessage.id);
+  }
+};
+
+const changeProgressStatus = (post) =>{
+  post = {
+    ...post,
+    creator: users[post.creator],
+    votes: getVotesForPost(post.id),
+    comments: Object.values(comments)
+      .filter((comment) => comment.post_id === post.id)
+      .map((comment) => {
+        console.log("the creator is: ");
+        console.log(comment);
+        return { ...comment, creator: users[comment.creator] };
+      }),
   };
-  messages.push(newMessage);
-  updateUserMessage(user_id, newMessage.id);
+  console.log(post.comments);
+  return post;
 };
 
 module.exports = {
