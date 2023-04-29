@@ -7,6 +7,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res) => {
   const data = getUserFeed(1);
+  console.log(data);
   res.render("profile", { data });
 });
 

@@ -77,21 +77,11 @@ a[href='/feeds/createBucket'] img {
 }
 
 .friends {
-  background-color: #ffffff;
-  color: #8083ff;
+  background-color: #8083ff;
+  color: #ffffff;
 }
 
 .for_you {
-  background-color: #8083ff;
-  color: #ffffff;
-}
-
-.friends:hover {
-  background-color: #8083ff;
-  color: #ffffff;
-}
-
-.for_you:hover {
   background-color: #ffffff;
   color: #8083ff;
 }
