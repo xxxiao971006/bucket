@@ -2,7 +2,7 @@
 const users = [
   {
     id: 1,
-    username: "@samsmith",
+    username: "samsmith",
     email: "samsmith@gmail.com",
     password: "sam123",
     following: [3, 4, 5],
@@ -10,7 +10,7 @@ const users = [
   },
   {
     id: 2,
-    username: "@janedoe",
+    username: "janedoe",
     email: "janedoe@gmail.com",
     password: "jane123",
     following: [1, 4, 7],
@@ -18,7 +18,7 @@ const users = [
   },
   {
     id: 3,
-    username: "@johnbrown",
+    username: "johnbrown",
     email: "johnbrown@gmail.com",
     password: "john123",
     following: [1, 2],
@@ -26,7 +26,7 @@ const users = [
   },
   {
     id: 4,
-    username: "@annalee",
+    username: "annalee",
     email: "annalee@gmail.com",
     password: "anna123",
     following: [1, 2, 6],
@@ -34,7 +34,7 @@ const users = [
   },
   {
     id: 5,
-    username: "@davidc",
+    username: "davidc",
     email: "davidc@gmail.com",
     password: "david123",
     following: [1],
@@ -42,7 +42,7 @@ const users = [
   },
   {
     id: 6,
-    username: "@mikejones",
+    username: "mikejones",
     email: "mikejones@gmail.com",
     password: "mike123",
     following: [4, 7],
@@ -320,7 +320,7 @@ const createNewBucket = (user_id, bucketTitle, messageInput) => {
   }
 };
 
-const changeProgressStatus = (post) =>{
+const changeProgressStatus = (post) => {
   post = {
     ...post,
     creator: users[post.creator],
@@ -337,10 +337,42 @@ const changeProgressStatus = (post) =>{
   return post;
 };
 
+const getUserByUsernameAndPassword = (username, password) => {
+  return users.find(
+    (user) => user.username == username && user.password == password
+  );
+};
+
+const createUser = (user) => {
+  const { email, username, password } = user;
+  const existingUser = users.find((user) => {
+    return user.email === email || user.username === username;
+  });
+  if (existingUser) {
+    return false;
+  } else {
+    const maxId = Math.max(...users.map((user) => user.id));
+    const newId = maxId + 1;
+    const newUser = {
+      id: newId,
+      username: username,
+      email: email,
+      password: password,
+      following: [],
+      message: [],
+    };
+    users.push(newUser);
+    return newUser;
+  }
+};
+
 module.exports = {
   buckets,
   createNewBucket,
   getBucketByBucketId,
   getFriendsFeed,
   getUserFeed,
+  getUserByUsernameAndPassword,
+  getUserByUserId,
+  createUser,
 };

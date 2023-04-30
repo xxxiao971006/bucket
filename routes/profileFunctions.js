@@ -6,15 +6,17 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res) => {
-  const data = getUserFeed(1);
+  const user_id = req.user.id;
+  const data = getUserFeed(user_id);
   console.log(data);
   res.render("profile", { data });
 });
 
 router.post("/", (req, res) => {
   const { newMessage, bucket } = req.body;
-  console.log(newMessage);
-  createNewBucket(1, bucket, newMessage);
+  const user_id = req.user.id;
+  // console.log(newMessage);
+  createNewBucket(user_id, bucket, newMessage);
   res.redirect("/profile/");
 });
 
