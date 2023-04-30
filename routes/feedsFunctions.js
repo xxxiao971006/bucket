@@ -6,19 +6,22 @@ const {
   getUserFeed,
   getFriendsFeed,
 } = require("../fake-db");
-const bodyParser = require("body-parser");
 
-router.use(bodyParser.urlencoded({ extended: false }));
+const { ensureAuthenticated } = require("../middleware");
 
+router.use(ensureAuthenticated);
 router.get("/home", (req, res) => {
-  console.log("Rendering mainfeedUser.ejs"); // for debugging
-  const data = getUserFeed("1");
-  res.render("mainfeedUser", { data });
+  // console.log("Rendering mainfeedUser.ejs");
+  const user_id = req.user.id;
+  const currentUser = req.user;
+  const data = getUserFeed(user_id);
+  res.render("mainfeedUser", { data, currentUser });
 });
 
 router.get("/friendspost", (req, res) => {
+  const user_id = req.user.id;
   console.log("Rendering friendspost.ejs"); // for debugging
-  const feed = getFriendsFeed("1");
+  const feed = getFriendsFeed(user_id);
   res.render("mainfeedFriends", { feed });
 });
 
@@ -36,10 +39,9 @@ router.get("/createMessage", (req, res) => {
 });
 
 router.post("/createMessage", (req, res) => {
-  //HARD CODE USER_ID -- fix it later!
-  const user_id = 1;
+  const user_id = req.user.id;
   const { newMessage, bucketTitle } = req.body;
-  createNewBucket(1, bucketTitle, newMessage);
+  createNewBucket(user_id, bucketTitle, newMessage);
   res.redirect("/feeds/home");
 });
 

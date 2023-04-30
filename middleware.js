@@ -1,16 +1,14 @@
 module.exports = {
-  checkIfLoggedIn: (req, res, next) => {
-    if (req.isLoggedIn) {
-      next();
-    } else {
-      res.redirect("/login");
+  ensureAuthenticated: function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
     }
+    res.redirect("/auth/login");
   },
-  loginWall: (req, res, next) => {
-    if (req.isLoggedIn) {
-      res.redirect("/");
-    } else {
-      next();
+  forwardAuthenticated: function (req, res, next) {
+    if (!req.isAuthenticated()) {
+      return next();
     }
+    res.redirect("/feeds/home");
   },
 };
