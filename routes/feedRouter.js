@@ -28,11 +28,13 @@ router.get("/createBucket", (req, res) => {
 
 router.get("/createMessage", (req, res) => {
   const bucketTitle = req.query.bucket;
-  res.render("createMessage", { bucketTitle });
+  const data = getUserFeed(req.user.id);
+  res.render("createMessage", { data, bucketTitle });
 });
 
 router.post("/createMessage", (req, res) => {
   const user_id = req.user.id;
+  const data = getUserFeed(user_id);
   const { newMessage, bucketTitle } = req.body;
   createNewBucket(user_id, bucketTitle, newMessage);
   res.redirect("/feeds/home");
