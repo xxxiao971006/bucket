@@ -13,18 +13,9 @@ const { ensureAuthenticated } = require("../middleware");
 router.use(ensureAuthenticated);
 
 router.get("/home", (req, res) => {
-  // console.log("Rendering mainfeedUser.ejs");
   const user_id = req.user.id;
-  const currentUser = req.user;
-  const data = getUserFeed(user_id);
-  res.render("mainfeedUser", { data, currentUser });
-});
-
-router.get("/friendspost", (req, res) => {
-  const user_id = req.user.id;
-  console.log("Rendering friendspost.ejs"); // for debugging
   const feed = getFriendsFeed(user_id);
-  res.render("mainfeedFriends", { feed });
+  res.render("mainfeed", { feed });
 });
 
 router.get("/createBucket", (req, res) => {
