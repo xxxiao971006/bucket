@@ -1,0 +1,27 @@
+      <form class="user-info" action="/profile/" method="POST">
+        <div class="user-input-wrapper">
+          <div class="wrapwrap" style="display: flex; align-items: flex-start">
+            <div class="user-avatar"></div>
+            <div>
+              <select name="bucket">
+                <option value="">Please choose your bucket</option>
+                <% data.forEach(element=> { %>
+                    <option value="<%=element.bucketName%>">
+                      <%=element.bucketName%>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <div class="createInput">
+                <textarea
+                  style="outline: none; resize: none"
+                  type="text"
+                  name="newMessage"
+                  placeholder="What's on your mind?"
+                  class="create_post"
+                ></textarea>
+                <button type="submit">Add</button>
+              </div>
+            </div>
+          </form>

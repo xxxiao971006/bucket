@@ -1,15 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { getUserFeed, createNewBucket } = require("../fake-db");
+const { getUserFeed, createNewBucket, showBuckets } = require("../fake-db");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
+const { ensureAuthenticated } = require("../middleware");
+
+router.use(ensureAuthenticated);
+
 router.get("/", (req, res) => {
   const user_id = req.user.id;
   const data = getUserFeed(user_id);
-  // console.log(data);
-  res.render("profile", { data });
+  const netBucket = showBuckets("all", req.user).length;
+  res.render("profile", { data, netBucket});
 });
 
 router.post("/", (req, res) => {

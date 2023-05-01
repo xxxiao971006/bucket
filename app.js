@@ -30,12 +30,12 @@ app.use(express.urlencoded({ extended: true }));
 //ROUTERS:
 const home = require("./routes/home");
 const feedRouter = require("./routes/feedRouter");
-const profileFunctions = require("./routes/profileFunctions");
+const profileRouter = require("./routes/profileRouter");
 const authFunctions = require("./routes/authFunctions");
 
 app.use("/", home);
 app.use("/feeds", feedRouter);
-app.use("/profile", profileFunctions);
+app.use("/profile", profileRouter);
 app.use("/auth", authFunctions);
 
 // Error handling middleware

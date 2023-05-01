@@ -379,8 +379,11 @@ const showBuckets = (status, currentUser) => {
   const messageIds = user.message;
   const bucketIdsBeforeFiltering = messageIds.map((id) => {
     const foundMsg = getMessagesByMessageId(id);
+
     if (status == "inprogress") {
       if (!foundMsg.completed) return foundMsg.bucket_id;
+    } else if (status == "all") {
+      return foundMsg.bucket_id;
     } else {
       if (foundMsg.completed) return foundMsg.bucket_id;
     }
@@ -392,14 +395,20 @@ const showBuckets = (status, currentUser) => {
   return bucketTitles;
 };
 
-showBuckets("completed", {
-  id: 1,
-  username: "samsmith",
-  email: "samsmith@gmail.com",
-  password: "sam123",
-  following: [3, 4, 5],
-  message: [1001, 1002],
-});
+//TEST:
+// console.log(getUserByUserId(1));
+// console.log(get(1));
+// console.log(getUserByUserId(1));
+console.log(
+  showBuckets("all", {
+    id: 1,
+    username: "samsmith",
+    email: "samsmith@gmail.com",
+    password: "sam123",
+    following: [3, 4, 5],
+    message: [1001, 1002],
+  })
+);
 
 module.exports = {
   buckets,
