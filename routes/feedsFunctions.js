@@ -5,11 +5,13 @@ const {
   buckets,
   getUserFeed,
   getFriendsFeed,
+  showBuckets,
 } = require("../fake-db");
 
 const { ensureAuthenticated } = require("../middleware");
 
 router.use(ensureAuthenticated);
+
 router.get("/home", (req, res) => {
   // console.log("Rendering mainfeedUser.ejs");
   const user_id = req.user.id;
@@ -43,6 +45,13 @@ router.post("/createMessage", (req, res) => {
   const { newMessage, bucketTitle } = req.body;
   createNewBucket(user_id, bucketTitle, newMessage);
   res.redirect("/feeds/home");
+});
+
+router.get("/buckets", (req, res) => {
+  const { show } = req.query; // "inprogress" "completed"
+  const currentUser = req.user;
+  const bucketTitles = showBuckets(show, currentUser);
+  res.render("showBuckets", { bucketTitles });
 });
 
 module.exports = router;

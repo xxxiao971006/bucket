@@ -6,7 +6,7 @@ const users = [
     email: "samsmith@gmail.com",
     password: "sam123",
     following: [3, 4, 5],
-    message: [1001],
+    message: [1001, 1002],
   },
   {
     id: 2,
@@ -55,6 +55,14 @@ const users = [
     password: "jessica123",
     following: [2, 6],
     message: [1009],
+  },
+  {
+    id: 8,
+    username: "a",
+    email: "a@gmail.com",
+    password: "a",
+    following: [1, 4, 5],
+    message: [],
   },
 ];
 
@@ -157,7 +165,7 @@ const messages = [
     message:
       "Libero fugit ex assumenda exercitationem praesentium atque debitis. Dolorum rem maiores aliquam ex qui. Sed maiores saepe saepe ullam libero est temporibus veniam deleniti. Minima dolores esse voluptate officia.",
     timestamp: "2022-06-19T17:10:12.891Z",
-    completed: false,
+    completed: true,
   },
   {
     id: 1003,
@@ -366,6 +374,33 @@ const createUser = (user) => {
   }
 };
 
+const showBuckets = (status, currentUser) => {
+  const user = getUserByUserId(currentUser.id);
+  const messageIds = user.message;
+  const bucketIdsBeforeFiltering = messageIds.map((id) => {
+    const foundMsg = getMessagesByMessageId(id);
+    if (status == "inprogress") {
+      if (!foundMsg.completed) return foundMsg.bucket_id;
+    } else {
+      if (foundMsg.completed) return foundMsg.bucket_id;
+    }
+  });
+  const bucketIds = [...new Set([...bucketIdsBeforeFiltering])].filter(
+    (val) => val !== undefined
+  );
+  const bucketTitles = bucketIds.map((id) => getBucketByBucketId(id));
+  return bucketTitles;
+};
+
+showBuckets("completed", {
+  id: 1,
+  username: "samsmith",
+  email: "samsmith@gmail.com",
+  password: "sam123",
+  following: [3, 4, 5],
+  message: [1001, 1002],
+});
+
 module.exports = {
   buckets,
   createNewBucket,
@@ -375,4 +410,5 @@ module.exports = {
   getUserByUsernameAndPassword,
   getUserByUserId,
   createUser,
+  showBuckets,
 };
