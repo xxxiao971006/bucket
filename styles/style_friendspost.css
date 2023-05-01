@@ -33,8 +33,8 @@
 }
 
 .navbar img {
-    margin: 0 10px;
-  }
+  margin: 0 10px;
+}
 
 .circle {
   position: absolute;
@@ -52,9 +52,9 @@
     #8083ff;
 }
 
-a[href='/feeds/createBucket'] img {
-    margin-top: 10px; 
-    }
+a[href="/feeds/buckets?show=inprogress"] img {
+  margin-top: 10px;
+}
 
 .top_buttons {
   margin-top: 45px;
@@ -87,23 +87,23 @@ a[href='/feeds/createBucket'] img {
 }
 
 .post {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .post p {
-    font-family: "Opens Sans", sans-serif;
-    font-size: 14px;
-    margin: 0 0 10px;
-    line-height: 15px;
-    font-style: normal;
-    word-wrap: break-word; 
-  }
+  font-family: "Opens Sans", sans-serif;
+  font-size: 14px;
+  margin: 0 0 10px;
+  line-height: 15px;
+  font-style: normal;
+  word-wrap: break-word;
+}
 
 .post p:last-child {
   margin-bottom: 0;
@@ -114,15 +114,15 @@ a[href='/feeds/createBucket'] img {
   align-items: center;
 }
 .user-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background-color: #b1b1b1;
-    position: absolute; 
-    top: 10px; 
-    left: 10px; 
-  }
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #b1b1b1;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
 
 .username {
   font-weight: normal;
@@ -135,39 +135,39 @@ a[href='/feeds/createBucket'] img {
 }
 
 .post-content {
-    margin-left: 60px; 
-    margin-top: 10px;
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 19px;
-    padding-right: 10px; 
-  }
+  margin-left: 60px;
+  margin-top: 10px;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  padding-right: 10px;
+}
 
 .posts-container {
   overflow-y: auto;
-  max-height: calc(80vh - 230px); 
-  width: 100%; 
+  max-height: calc(80vh - 230px);
+  width: 100%;
   padding: 0 15px;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .create_post {
-    background-color: #d9d9d9;
-    border-radius: 10px;
-    width: 100%;
-    height: 220px; 
-    padding: 6px 14px; 
-    font-size: 18px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    padding-left: 60px;
-    border: none;
-    position: relative;
-    top: 10px; 
-    padding-top: 10%; 
-  }
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  width: 100%;
+  height: 220px;
+  padding: 6px 14px;
+  font-size: 18px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding-left: 60px;
+  border: none;
+  position: relative;
+  top: 10px;
+  padding-top: 10%;
+}
 
 .user-input-wrapper {
   position: relative;
@@ -187,8 +187,7 @@ a[href='/feeds/createBucket'] img {
 }
 
 .create_post::placeholder {
-    font-size: 14px;
-    font-family: "Open Sans";
-    font-style: normal;
- 
+  font-size: 14px;
+  font-family: "Open Sans";
+  font-style: normal;
 }

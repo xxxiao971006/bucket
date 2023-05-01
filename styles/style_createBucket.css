@@ -2,104 +2,103 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 .wrapper {
-    border: solid 0.25rem black;
-    box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
-    border-radius: 2vmin;
-    position: relative;
-    width: 40vh;
-    height: 80vh;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
+  border: solid 0.25rem black;
+  box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
+  border-radius: 2vmin;
+  position: relative;
+  width: 40vh;
+  height: 80vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
 
-  .arrow-left {
-    font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    border: none;
-    padding: 4px 8px;
-    background-color: #ffffff;
-    color: #000000;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-  }
-  
-  .add-button {
-    font-size: 14px;
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-    border: 1px solid #8083ff ;
-    border-radius: 30px;
-    padding: 4px 8px;
-    background-color: #ffffff;
-    color: #8083ff;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    margin-bottom: 10px;
-  }
-  
-  .add-button:hover {
-    background-color: #8083ff;
-    color: #ffffff;
-  }
+.arrow-left {
+  font-size: 18px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  border: none;
+  padding: 4px 8px;
+  background-color: #ffffff;
+  color: #000000;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
 
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(128, 131, 255, 0.75);
-    border-radius: 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 0;
-    border: 20px solid var(-clr);
-  }
-  
-  .navbar img {
-      margin: 0 10px;
-    }
-  
-  .circle {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(
-        270deg,
-        rgba(227, 224, 243, 0.245) 0%,
-        rgba(128, 131, 255, 0.255) 100%
-      ),
-      #8083ff;
-  }
-  
-  a[href='/feeds/createBucket'] img {
-    margin-top: 10px; 
-    }
+.add-button {
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  border: 1px solid #8083ff;
+  border-radius: 30px;
+  padding: 4px 8px;
+  background-color: #ffffff;
+  color: #8083ff;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
 
-  .top_buttons {
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-between;
-    gap: 35px;
-  }
+.add-button:hover {
+  background-color: #8083ff;
+  color: #ffffff;
+}
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(128, 131, 255, 0.75);
+  border-radius: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  border: 20px solid var(-clr);
+}
 
-  .in_progress,
+.navbar img {
+  margin: 0 10px;
+}
+
+.circle {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(
+      270deg,
+      rgba(227, 224, 243, 0.245) 0%,
+      rgba(128, 131, 255, 0.255) 100%
+    ),
+    #8083ff;
+}
+
+a[href="/feeds/buckets?show=inprogress"] img {
+  margin-top: 10px;
+}
+
+.top_buttons {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  gap: 35px;
+}
+
+.in_progress,
 .completed {
   font-family: "Opens Sans", sans-serif;
   font-size: 14px;
@@ -122,12 +121,11 @@
   color: #ffffff;
 }
 
-
 .bucket-item {
-  background: #FFFFFF;
-  border: 2px solid #8083FF;
+  background: #ffffff;
+  border: 2px solid #8083ff;
   border-radius: 15px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 700;
   cursor: pointer;
@@ -135,29 +133,28 @@
   width: 100%;
   margin-bottom: 10px;
   color: black;
-  
 }
 
 .bucket-content {
   max-height: 60vh;
   overflow-y: auto;
-  margin-bottom: 60px; 
-  width: 90%; 
+  margin-bottom: 60px;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 10px;
-  padding-right: 10px; 
+  padding-right: 10px;
   margin-top: 20px;
 }
 
-.bucket-item a{
+.bucket-item a {
   color: black;
   text-decoration: none;
 }
 
 .bucket-img {
   width: 60px;
-  height:60px;
+  height: 60px;
   object-fit: contain;
   margin-right: 10px;
 }
@@ -168,13 +165,11 @@
   align-items: center;
 }
 
-
-
 .bucket-content::-webkit-scrollbar {
   display: none;
 }
 
 .bucket-content {
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }

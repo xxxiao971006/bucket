@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/style_createBucket.css" />
-    <title>Create Bucket 🪣</title>
+    <title>Show Bucket 🪣</title>
   </head>
   <body>
     <div class="wrapper">
@@ -26,17 +26,17 @@
       <div class="top_buttons">
         <!-- <form action="/feeds/buckets?show=inprogress">
           <button class="in_progress" type="submit">In Progress</button>
+        </form>
+        <form action="/feeds/buckets?show=completed">
+          <button class="completed" type="submit">Completed</button>
         </form> -->
         <a href="/feeds/buckets?show=inprogress" class="in_progress"
           >In Progress</a
         >
-        <!-- <form action="/feeds/buckets?show=completed">
-          <button class="completed" type="submit">Completed</button>
-        </form> -->
         <a href="/feeds/buckets?show=completed" class="completed">Completed</a>
       </div>
       <div class="bucket-content">
-        <%bucketlists.forEach(bucket => {%>
+        <% bucketTitles.forEach(title => {%>
         <form method="GET" action="/createBucket">
           <div class="bucket-item">
             <img
@@ -45,11 +45,11 @@
               id="bucket-img"
             />
             <a
-              href="/feeds/createMessage?bucket=<%= bucket%>"
+              href="/feeds/createMessage?bucket=<%= title%>"
               class="bucket-link"
             >
-              <p><%=bucket%></p>
-              <input type="hidden" name="btnData" value="<%bucket%>" />
+              <p><%=title%></p>
+              <input type="hidden" name="btnData" value="<%title%>" />
             </a>
           </div>
         </form>

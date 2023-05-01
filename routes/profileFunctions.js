@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res) => {
   const user_id = req.user.id;
   const data = getUserFeed(user_id);
-  console.log(data);
+  // console.log(data);
   res.render("profile", { data });
 });
 

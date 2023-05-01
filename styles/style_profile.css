@@ -143,9 +143,9 @@ button {
     #8083ff;
 }
 
-a[href='/feeds/createBucket'] img {
-  margin-top: 10px; 
-  }
+a[href="/feeds/buckets?show=inprogress"] img {
+  margin-top: 10px;
+}
 
 .setting {
   position: absolute;
@@ -181,7 +181,7 @@ a[href='/feeds/createBucket'] img {
   top: 10px;
 }
 
-.username{
+.username {
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
   font-size: 14px;
@@ -208,7 +208,7 @@ a[href='/feeds/createBucket'] img {
   padding-top: 10%;
 }
 
-.createInput{
+.createInput {
   background-color: #d9d9d9;
   display: flex;
   align-items: flex-end;
@@ -262,9 +262,8 @@ select {
   font-style: normal;
 }
 
-
-button[type='submit'] {
-  font-family:'Courier New', Courier, monospace;
+button[type="submit"] {
+  font-family: "Courier New", Courier, monospace;
   margin-right: 10px;
   color: #636363;
 }
