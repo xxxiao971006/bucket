@@ -6,7 +6,7 @@
   box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
   border-radius: 2vmin;
   position: relative;
-  max-width: 40vh;
+  width: 40vh;
   height: 80vh;
   margin: auto;
   display: flex;
@@ -49,6 +49,18 @@
   color: #ffffff;
 }
 
+.navbar img {
+  margin: 0 10px;
+}
+
+.navbar a[href="/search"] {
+  margin-right: 40px;
+}
+
+.navbar a[href="/notes"] {
+  margin-left: 40px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -65,17 +77,16 @@
   border: 20px solid var(-clr);
 }
 
-.navbar img {
-  margin: 0 10px;
-}
-
 .circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -50px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -86,7 +97,8 @@
 }
 
 a[href="/feeds/buckets?show=inprogress"] img {
-  margin-top: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .profile-photo {
@@ -102,11 +114,10 @@ a[href="/feeds/buckets?show=inprogress"] img {
   z-index: 1;
   background-color: #b1b1b1;
   right: 120px;
-  top: 90px;
+  top: 120px;
 }
 
 input {
-  background-color: #d9d9d9;
   border-radius: 10px;
   width: 100%;
   height: 150px;
@@ -115,7 +126,7 @@ input {
   box-sizing: border-box;
   margin-bottom: 20px;
   padding-left: 60px;
-  border: none;
+  border-color: #8083ff;
   position: relative;
   top: 20px;
 }
@@ -124,4 +135,5 @@ input[type="text"]::placeholder {
   font-size: 14px;
   font-family: "Open Sans";
   font-style: normal;
+  color: #8083ff;
 }

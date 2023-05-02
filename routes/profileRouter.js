@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getUserFeed, createNewBucket, showBuckets } = require("../fake-db");
+const { getUserFeed, createNewBucket, showBuckets,  getUserByUserId}  = require("../fake-db");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -23,5 +23,13 @@ router.post("/", (req, res) => {
   createNewBucket(user_id, bucket, newMessage);
   res.redirect("/profile/");
 });
+
+
+router.get("/edit", (req, res) => {
+  const user_id = req.user.id;
+  const user =  getUserByUserId(user_id);
+  res.render("editProfile", { user });
+});
+
 
 module.exports = router;

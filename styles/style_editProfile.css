@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display&display=swap');
+
 
 .wrapper {
   border: solid 0.25rem black;
@@ -15,11 +17,10 @@
   justify-content: flex-start;
   overflow: hidden;
 }
-
-.arrow-left {
-  font-size: 18px;
+.cancel {
+  font-size: 14px;
   font-family: "Open Sans", sans-serif;
-  font-style: normal;
+  font-style: light;
   border: none;
   padding: 4px 8px;
   background-color: #ffffff;
@@ -30,28 +31,83 @@
   cursor: pointer;
 }
 
-.add-button {
+.save{
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
-  border: 1px solid #8083ff;
   border-radius: 30px;
   padding: 4px 8px;
-  background-color: #ffffff;
-  color: #8083ff;
+  border: none;
+  color: #000000;
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
   margin-bottom: 10px;
+  background-color: transparent;
 }
 
-.add-button:hover {
-  background-color: #8083ff;
-  color: #ffffff;
+h1{
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
+  img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #000000;
+  }
 
-.navbar img {
+  .picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-picture {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #000000;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+  .edit-picture:hover{
+    color: #8083ff;
+  }
+    
+  h2{
+    font-size: 20px;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .change-username{
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #000000;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+
+/* .navbar img {
   margin: 0 10px;
 }
 
@@ -101,77 +157,4 @@
 a[href="/feeds/buckets?show=inprogress"] img {
   width: 40px;
   height: 40px;
-}
-.top_buttons {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  gap: 35px;
-}
-
-.in_progress,
-.completed {
-  font-family: "Opens Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  border: 3px solid #8083ff;
-  border-radius: 30px;
-  width: 100px;
-  padding: 4px 8px;
-  text-align: center;
-}
-
-
-.bucket-item {
-  background: #ffffff;
-  border: 2px solid #8083ff;
-  border-radius: 15px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-  color: black;
-}
-
-.bucket-content {
-  max-height: 60vh;
-  overflow-y: auto;
-  margin-bottom: 60px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: 20px;
-}
-
-.bucket-item a {
-  color: black;
-  text-decoration: none;
-}
-
-.bucket-img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-right: 10px;
-}
-
-.bucket-link {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.bucket-content::-webkit-scrollbar {
-  display: none;
-}
-
-.bucket-content {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+} */

@@ -16,6 +16,18 @@
   overflow: hidden;
 }
 
+.navbar img {
+  margin: 0 10px;
+}
+
+.navbar a[href="/search"] {
+  margin-right: 40px;
+}
+
+.navbar a[href="/notes"] {
+  margin-left: 40px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -32,17 +44,16 @@
   border: 20px solid var(-clr);
 }
 
-.navbar img {
-  margin: 0 10px;
-}
-
 .circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -50px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -53,7 +64,8 @@
 }
 
 a[href="/feeds/buckets?show=inprogress"] img {
-  margin-top: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .top_buttons {

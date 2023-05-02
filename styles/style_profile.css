@@ -7,7 +7,7 @@
   box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
   border-radius: 2vmin;
   position: relative;
-  max-width: 40vh;
+  width: 40vh;
   height: 80vh;
   margin: auto;
   display: flex;
@@ -25,7 +25,6 @@
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  z-index: -1;
   padding-top: 5vmin;
   padding-bottom: 5px;
   box-sizing: border-box;
@@ -39,27 +38,21 @@ h1 {
   font-size: 18px;
   margin-bottom: 15px;
 }
-
 .profile-photo {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  overflow: hidden;
-  margin: 5px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .profile-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
+
 
 button {
   font-family: "Open Sans", sans-serif;
@@ -108,6 +101,18 @@ button {
   border: 1px solid black;
 }
 
+.navbar img {
+  margin: 0 10px;
+}
+
+.navbar a[href="/search"] {
+  margin-right: 40px;
+}
+
+.navbar a[href="/notes"] {
+  margin-left: 40px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -124,16 +129,16 @@ button {
   border: 20px solid var(-clr);
 }
 
-.navbar img {
-  margin: 0 10px;
-}
 .circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -50px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -144,7 +149,8 @@ button {
 }
 
 a[href="/feeds/buckets?show=inprogress"] img {
-  margin-top: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .setting {
@@ -156,11 +162,19 @@ a[href="/feeds/buckets?show=inprogress"] img {
 
 .posts-container {
   overflow-y: scroll;
-  max-height: 80vh;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
   width: 100%;
   padding: 0 15px;
   margin-top: 10px;
+  height:300px;
+  box-sizing: border-box;
 }
+
+.posts-container::-webkit-scrollbar {
+  display: none;
+}
+
 
 .post {
   background-color: #ffffff;
@@ -193,7 +207,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
 }
 
 .create_post {
-  background-color: #d9d9d9;
+  display: flex;
   border-radius: 10px;
   width: 80%;
   height: 150px;
@@ -202,6 +216,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
   box-sizing: border-box;
   margin-bottom: 20px;
   padding-left: 60px;
+  /* border: #8083ff 1px solid; */
   border: none;
   position: relative;
   top: 20px;
@@ -209,7 +224,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
 }
 
 .createInput {
-  background-color: #d9d9d9;
+  border: #8083ff 1px solid;
   display: flex;
   align-items: flex-end;
   margin: 10px;
@@ -260,10 +275,20 @@ select {
   font-size: 14px;
   font-family: "Open Sans";
   font-style: normal;
+  color: #8083ff;
 }
 
-button[type="submit"] {
+.add-button {
   font-family: "Courier New", Courier, monospace;
   margin-right: 10px;
   color: #636363;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.add-button img {
+  width: 40px;
+  height: 40px;
 }
