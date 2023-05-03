@@ -21,7 +21,6 @@ const passport = require("./passport-middleware");
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.set("view engine", "ejs");
 app.use("/styles", express.static(__dirname + "/styles"));
 app.use(express.static("static"));
@@ -44,9 +43,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
+const port = process.env.PORT || 8000;
 
-
-const port = 8000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
