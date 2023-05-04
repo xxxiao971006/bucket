@@ -16,19 +16,6 @@
   overflow: hidden;
 }
 
-.arrow-left {
-  font-size: 18px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  border: none;
-  padding: 4px 8px;
-  background-color: #ffffff;
-  color: #000000;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  cursor: pointer;
-}
 
 .add-button {
   font-size: 14px;
@@ -40,7 +27,6 @@
   background-color: #ffffff;
   color: #8083ff;
   position: absolute;
-  top: 10px;
   right: 10px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -102,26 +88,27 @@ a[href="/feeds/buckets?show=inprogress"] img {
   width: 40px;
   height: 40px;
 }
-.top_buttons {
+.select-container {
   margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  gap: 35px;
 }
 
-.in_progress,
-.completed {
-  font-family: "Opens Sans", sans-serif;
+.status-select {
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 20px;
-  border: 3px solid #8083ff;
   border-radius: 30px;
-  width: 100px;
+  border:none;
   padding: 4px 8px;
-  text-align: center;
+  background-color: transparent;
+  color: #000000;
+  cursor: pointer;
+
 }
 
+.status-select:focus {
+  outline: none;
+}
 
 .bucket-item {
   background: #ffffff;
@@ -174,4 +161,25 @@ a[href="/feeds/buckets?show=inprogress"] img {
 .bucket-content {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 40px;
+
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px; 
+  text-align: center; 
+  width: 90%; 
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px; 
 }
