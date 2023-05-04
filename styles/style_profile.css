@@ -162,12 +162,12 @@ a[href="/feeds/buckets?show=inprogress"] img {
 
 .posts-container {
   overflow-y: scroll;
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   width: 100%;
   padding: 0 15px;
   margin-top: 10px;
-  height:300px;
+  height: 300px;
   box-sizing: border-box;
 }
 
@@ -175,25 +175,76 @@ a[href="/feeds/buckets?show=inprogress"] img {
   display: none;
 }
 
-
 .post {
   background-color: #ffffff;
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px 0;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-top: 10px;
   position: relative;
+  max-width:80%;
+  margin-left: 25px;
+}
+
+.post p {
+  font-family: "Opens Sans", sans-serif;
+  font-size: 14px;
+  margin: 0 0 10px;
+  line-height: 15px;
+  font-style: normal;
+  word-wrap: break-word;
+}
+
+.post p:last-child {
+  margin-bottom: 0;
 }
 
 .user-picture {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: black;
+  margin-right: 10px;
+  background-color: #b1b1b1;
   position: absolute;
-  left: 10px;
-  top: 10px;
+  top: 18px;
+  left: 22px;
 }
+
+.username {
+  font-weight: normal;
+  margin: 0;
+  line-height: 19px;
+  display: inline;
+}
+
+.post p:nth-child(2) {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.post p:nth-child(3) {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+p.post-message {
+  margin-top: 5px;
+  font-size: 14px;
+  margin-left: -43px;
+}
+
+.post-content {
+  margin-left: 60px;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+.post-content {
+  margin-left: 60px;
+}
+
 
 .username {
   font-family: "Open Sans", sans-serif;
@@ -201,9 +252,6 @@ a[href="/feeds/buckets?show=inprogress"] img {
   font-size: 14px;
   margin-bottom: 5px;
   color: #000000;
-}
-.post-content {
-  margin-left: 60px;
 }
 
 .create_post {
@@ -216,7 +264,6 @@ a[href="/feeds/buckets?show=inprogress"] img {
   box-sizing: border-box;
   margin-bottom: 20px;
   padding-left: 60px;
-  /* border: #8083ff 1px solid; */
   border: none;
   position: relative;
   top: 20px;
@@ -291,4 +338,11 @@ select {
 .add-button img {
   width: 40px;
   height: 40px;
+}
+
+select{
+  border-radius: 10px;
+  background-color: #8083ff;
+  color: white;
+  padding: 2px;
 }
