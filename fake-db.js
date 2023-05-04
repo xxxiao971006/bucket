@@ -270,8 +270,7 @@ const sortPosts = (posts) => {
 
 const getUserFeed = (user_id) => {
   let userMessage = getUserMessageIdByUserId(user_id);
-
-  let outcome = userMessage.map((userMessageId) => {
+  let myPosts = userMessage.map((userMessageId) => {
     return {
       username: getUsernameById(user_id), //samsmith
       completed: [
@@ -286,6 +285,8 @@ const getUserFeed = (user_id) => {
       createdAt: [getMessagesByMessageId(userMessageId).timestamp.slice(0, 10)],
     };
   });
+  const outcome = sortPosts(myPosts);
+
   return outcome;
 };
 
