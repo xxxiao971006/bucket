@@ -14,7 +14,7 @@ const users = [
     email: "janedoe@gmail.com",
     password: "jane123",
     following: [1, 4, 7],
-    message: [1002, 1003],
+    message: [1003],
   },
   {
     id: 3,
@@ -160,7 +160,7 @@ const messages = [
   },
   {
     id: 1002,
-    user_id: 2,
+    user_id: 1,
     bucket_id: 5,
     message:
       "Libero fugit ex assumenda exercitationem praesentium atque debitis. Dolorum rem maiores aliquam ex qui. Sed maiores saepe saepe ullam libero est temporibus veniam deleniti. Minima dolores esse voluptate officia.",
@@ -289,7 +289,7 @@ const getUserFeed = (user_id) => {
   return outcome;
 };
 
-getUserFeed(1);
+// console.log(getUserFeed(1));
 
 const getMainFeed = (user_id) => {
   let friends = getFollowingByUserId(user_id);
@@ -317,8 +317,6 @@ const getMainFeed = (user_id) => {
   return outcome;
 };
 
-console.log(getMainFeed(1));
-
 const getUserByUserId = (user_id) => {
   return users.find((user) => user.id == user_id);
 };
@@ -343,7 +341,7 @@ const createNewBucket = (user_id, bucketTitle, messageInput) => {
       user_id: user_id,
       bucket_id: getBucketIdByBucketTitle(bucketTitle),
       message: messageInput,
-      timestamp: Date.now(),
+      timestamp: new Date().toISOString(),
       completed: false,
     };
     messages.push(newMessage);
@@ -400,6 +398,16 @@ const showBuckets = (status, currentUser) => {
   const bucketTitles = bucketIds.map((id) => getBucketByBucketId(id));
   return bucketTitles;
 };
+
+// const totalBucketTitle = showBuckets("all", {
+//   id: 1,
+//   username: "samsmith",
+//   email: "samsmith@gmail.com",
+//   password: "sam123",
+//   following: [3, 4, 5],
+//   message: [1001, 1002],
+// });
+// console.log(totalBucketTitle);
 
 module.exports = {
   buckets,
