@@ -32,7 +32,7 @@
           </div>
           <div class="profile-photo" style="background-image: url('<%= data[0].profilePhoto %>');"></div>
           <p class="username">@<%= data[0].username %></p>
-          <p class="netBucket"><%=netBucket%> goals</p>
+          <p class="netBucket"><%=totalBucketTitle.length%> goals</p>
           <form action="/profile/edit" class="edit-form">
             <button type="submit" class="edit-button">Edit Profile</button>
           </form>                 
@@ -50,9 +50,9 @@
               <div>
                 <select name="bucket">
                   <option value="">Please choose your bucket</option>
-                  <% data.forEach(element=> { %>
-                  <option value="<%=element.bucketName%>">
-                    <%=element.bucketName%>
+                  <% totalBucketTitle.forEach(element=> { %>
+                  <option value="<%=element%>">
+                    <%=element%>
                   </option>
                   <% }) %>
                 </select>
@@ -76,8 +76,8 @@
           <div class="post">
             <div class="user-picture"></div>
             <div class="post-content">
-              <p>@<%= post.username %></p>
-              <p><%= post.completed %> <%= post.bucketName %></p>
+              <p><%= post.username %></p>
+              <p> <%= post.bucketName %> <%= post.completed %></p>
               <p><%= post.messages %></p>
             </div>
           </div>
