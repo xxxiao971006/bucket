@@ -1,117 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style_createBucket.css" />
-    <title>Show Bucket 🪣</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <button class="arrow-left" onclick="goBack()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          width="18px"
-          height="18px"
-        >
-          <path
-            fill="currentColor"
-            d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z"
-          />
-        </svg>
-      </button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/style_createBucket.css" />
+  <title>Show Bucket 🪣</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="top-controls">
       <a href="/feeds/createBucket" class="add-button">Create Bucketlist🪣</a>
-      <div class="top_buttons">
-   
-        <a href="/feeds/buckets?show=inprogress" class="in_progress"
-          >In Progress</a>
-        <a href="/feeds/buckets?show=completed" class="completed">Completed</a>
-      </div>
-      <div class="bucket-content">
-        <% bucketTitles.forEach(title => {%>
+      <select class="status-select">
+        <option value="/feeds/buckets?show=inprogress">In Progress</option>
+        <option value="/feeds/buckets?show=completed">Completed</option>
+      </select>
+    </div>
+    <h1 id="bucket-title">In Progress</h1>
+    <div class="bucket-content">
+      <% bucketTitles.forEach(title=> {%>
         <form method="GET" action="/createBucket">
           <div class="bucket-item">
-            <img
-              src="../styles/images/inProgress_icon_noBackground.png"
-              class="bucket-img"
-              id="bucket-img"
-            />
-            <a
-              href="/feeds/createMessage?bucket=<%= title%>"
-              class="bucket-link"
-            >
-              <p><%=title%></p>
+            <img src="../styles/images/inProgress_icon_noBackground.png" class="bucket-img" id="bucket-img" />
+            <a href="/feeds/createMessage?bucket=<%= title%>" class="bucket-link">
+              <p>
+                <%=title%>
+              </p>
               <input type="hidden" name="btnData" value="<%title%>" />
             </a>
           </div>
         </form>
         <%});%>
-      </div>
-
-      <div class="navbar">
-        <a href="/feeds/home">
-          <img
-            src="../styles/images/home_icon_noBackground.png"
-            alt="Home"
-            width="40"
-            height="40"
-          />
-        </a>
-        <a href="/search">
-          <img
-            src="../styles/images/search_icon_noBackground.png"
-            alt="Search"
-            width="40"
-            height="40"
-          />
-        </a>
-        <div class="circle">
-          <a href="/feeds/buckets?show=inprogress">
-            <img
-              src="../styles/images/bucket_icon_noBackground.png"
-              alt="Bucket"
-              width="50"
-              height="50"
-            />
-          </a>
-        </div>
-        <a href="/notes">
-          <img
-            src="../styles/images/note_icon_noBackground.png"
-            alt="Notes"
-            width="40"
-            height="40"
-          />
-        </a>
-        <a href="/profile">
-          <img
-            src="../styles/images/profile_icon_noBackground.png"
-            alt="Profile"
-            width="40"
-            height="40"
-          />
-        </a>
-      </div>
     </div>
-  </body>
-  <script>
-    function goBack() {
-      window.history.back();
-    }
 
-    const bucketImgs = document.querySelectorAll(".bucket-img");
-    bucketImgs.forEach((bucketImg) => {
-      bucketImg.addEventListener("click", () => {
-        if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
-          bucketImg.src = "../styles/images/red_icon_noBackground.png";
-        } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
-          bucketImg.src = "../styles/images/completed_icon_noBackground.png";
-        } else {
-          bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
-        }
-      });
+    <div class="navbar">
+      <a href="/feeds/home">
+        <img src="../styles/images/home_icon_noBackground.png" alt="Home" width="40" height="40" />
+      </a>
+      <a href="/search">
+        <img src="../styles/images/search_icon_noBackground.png" alt="Search" width="40" height="40" />
+      </a>
+      <div class="circle">
+        <a href="/feeds/buckets?show=inprogress">
+          <img src="../styles/images/bucket_icon_noBackground.png" alt="Bucket" width="50" height="50" />
+        </a>
+      </div>
+      <a href="/notes">
+        <img src="../styles/images/note_icon_noBackground.png" alt="Notes" width="40" height="40" />
+      </a>
+      <a href="/profile">
+        <img src="../styles/images/profile_icon_noBackground.png" alt="Profile" width="40" height="40" />
+      </a>
+    </div>
+  </div>
+</body>
+<script>
+  // function goBack() {
+  //   window.history.back();
+  // }
+
+  const bucketImgs = document.querySelectorAll(".bucket-img");
+  bucketImgs.forEach((bucketImg) => {
+    bucketImg.addEventListener("click", () => {
+      if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
+        bucketImg.src = "../styles/images/red_icon_noBackground.png";
+      } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
+        bucketImg.src = "../styles/images/completed_icon_noBackground.png";
+      } else {
+        bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
+      }
     });
-  </script>
+  });
+
+  document.querySelector('.status-select').addEventListener('change', function () {
+    const selectedOption = this.value;
+    const currentUrl = window.location.href;
+    const currentStatus = currentUrl.includes("completed") ? "completed" : "In Progress Bucketlist🪣";
+
+
+    if (selectedOption.includes(currentStatus) === false) {
+      window.location = selectedOption;
+    }
+  });
+
+  const currentUrl = window.location.href;
+  if (currentUrl.includes("completed")) {
+    document.querySelector('option[value="/feeds/buckets?show=completed"]').selected = true;
+  } else {
+    document.querySelector('option[value="/feeds/buckets?show=inprogress"]').selected = true;
+  }
+
+  function updateBucketTitle() {
+    const bucketTitle = document.getElementById("bucket-title");
+    const statusSelect = document.querySelector(".status-select");
+
+    if (statusSelect.value === "/feeds/buckets?show=inprogress") {
+      bucketTitle.innerText = "In Progress Bucket List 🪣";
+    } else if (statusSelect.value === "/feeds/buckets?show=completed") {
+      bucketTitle.innerText = "Completed Bucket✅";
+    }
+  }
+
+
+  function updateBucketTitleFromUrl() {
+    const bucketTitle = document.getElementById("bucket-title");
+
+    const currentUrl = new URL(window.location.href);
+
+    const showParam = currentUrl.searchParams.get("show");
+
+    if (showParam === "completed") {
+      bucketTitle.innerText = "Completed Bucket✅";
+      document.querySelector(".status-select").value = "/feeds/buckets?show=completed";
+    } else {
+      bucketTitle.innerText = "In Progress Bucket List 🪣";
+      document.querySelector(".status-select").value = "/feeds/buckets?show=inprogress";
+    }
+  }
+
+  updateBucketTitleFromUrl();
+
+  const statusSelect = document.querySelector(".status-select");
+  statusSelect.addEventListener("change", updateBucketTitle);
+</script>
+
 </html>
