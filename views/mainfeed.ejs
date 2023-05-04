@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="top_buttons">
+      <div class="homefeedTop">
         <p>Cheer Your Friends!🥳</p>
       </div>
       <div class="posts-container">
@@ -18,9 +18,8 @@
         <div class="post">
           <div class="user-picture"></div>
           <div class="post-content">
-            <p class="username">@<%=post.username%></p>
-            <p><%= post.completed[0] %></p>
-            <p><%= post.bucketName[0] %></p>
+            <p class="username"><%=post.username%></p>
+            <p><%= post.bucketName[0] %> <%= post.completed[0] %></p>
             <p><%= post.messages %></p>
           </div>
         </div>

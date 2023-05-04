@@ -4,7 +4,7 @@ const {
   createNewBucket,
   buckets,
   getUserFeed,
-  getFriendsFeed,
+  getMainFeed,
   showBuckets,
 } = require("../fake-db");
 
@@ -14,7 +14,7 @@ router.use(ensureAuthenticated);
 
 router.get("/home", (req, res) => {
   const user_id = req.user.id;
-  const feed = getFriendsFeed(user_id);
+  const feed = getMainFeed(user_id);
   res.render("mainfeed", { feed });
 });
 
