@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "../styles/style_editProfile.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style_editProfile.css" />
     <title>Editing Profile⚙️</title>
-</head>
-<body>
-  <div class="wrapper">
-    <button class="cancel" onclick="goBack()">Cancel</button>
-    <button class="save">Save</button>
-    <h1>Edit Profile</h1>
-    <div class="picture-container">
-        <img src="user_picture.jpg" alt="User Picture" class="user-picture">
-        <button class="edit-picture">Edit Picture</button>
+  </head>
+  <body>
+    <div class="wrapper">
+      <button class="cancel" onclick="goBack()">Cancel</button>
+      <form action="/profile/" method="POST">
+        <button class="save">Save</button>
+        <h1>Edit Profile</h1>
+        <div class="picture-container">
+          <img src="user_picture.jpg" alt="User Picture" class="user-picture" />
+          <button class="edit-picture">Edit Picture</button>
+        </div>
+
+        <textarea
+          class="changeUserName"
+          type="text"
+          name="changeUserName"
+          placeholder="<%= user.username %>"
+        ></textarea>
+      </form>
+
+      <!-- <h2 class="username" id="displayUsername"><%= user.username %></h2> -->
+      <p class="change-username">This could be your first name or a nickname</p>
     </div>
-    <h2 class="username" id="displayUsername"><%= user.username %></h2>
-    <button class="change-username">Change Username</button>
-</div>
-</body>
-<script>
+  </body>
+  <script>
     function goBack() {
       window.history.back();
     }

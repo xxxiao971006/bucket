@@ -37,7 +37,7 @@ router.post("/createMessage", (req, res) => {
   const data = getUserFeed(user_id);
   const { newMessage, bucketTitle } = req.body;
   createNewBucket(user_id, bucketTitle, newMessage);
-  res.redirect("/feeds/home");
+  res.redirect("/profile");
 });
 
 router.get("/buckets", (req, res) => {

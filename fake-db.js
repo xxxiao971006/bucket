@@ -262,7 +262,9 @@ const getBucketByBucketId = (id) => {
 
 const sortPosts = (posts) => {
   try {
-    return posts.sort((a, b) => b.createdAt - a.createdAt);
+    return posts.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
   } catch (error) {
     throw new Error("Method not implemented.");
   }
@@ -282,15 +284,12 @@ const getUserFeed = (user_id) => {
         getBucketByBucketId(getMessagesByMessageId(userMessageId).bucket_id),
       ],
       messages: [getMessagesByMessageId(userMessageId).message],
-      createdAt: [getMessagesByMessageId(userMessageId).timestamp.slice(0, 10)],
+      createdAt: getMessagesByMessageId(userMessageId).timestamp.slice(0, 10),
     };
   });
   const outcome = sortPosts(myPosts);
-
   return outcome;
 };
-
-// console.log(getUserFeed(1));
 
 const getMainFeed = (user_id) => {
   let friends = getFollowingByUserId(user_id);
@@ -308,13 +307,12 @@ const getMainFeed = (user_id) => {
       ),
       createdAt: getMessageIdsByUserId(friendId).map((msgId) =>
         getMessagesByMessageId(msgId).timestamp.slice(0, 10)
-      ),
+      )[0],
     };
   });
   let mine = getUserFeed(user_id);
   let outcomeBeforeSorting = [...friends, ...mine];
   const outcome = sortPosts(outcomeBeforeSorting);
-
   return outcome;
 };
 
@@ -399,16 +397,6 @@ const showBuckets = (status, currentUser) => {
   const bucketTitles = bucketIds.map((id) => getBucketByBucketId(id));
   return bucketTitles;
 };
-
-// const totalBucketTitle = showBuckets("all", {
-//   id: 1,
-//   username: "samsmith",
-//   email: "samsmith@gmail.com",
-//   password: "sam123",
-//   following: [3, 4, 5],
-//   message: [1001, 1002],
-// });
-// console.log(totalBucketTitle);
 
 module.exports = {
   buckets,

@@ -18,8 +18,6 @@ router.get("/", (req, res) => {
   const user_id = req.user.id;
   const data = getUserFeed(user_id);
   const totalBucketTitle = showBuckets("all", req.user);
-  // console.log(totalBucketTitle);
-  // const netBucket = showBuckets("all", req.user).length;
   res.render("profile", { data, totalBucketTitle });
 });
 
