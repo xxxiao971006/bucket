@@ -1,64 +1,73 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
+
 .wrapper {
-  border: solid 0.25rem black;
-  box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
-  border-radius: 2vmin;
-  position: relative;
-  width: 40vh;
-  height: 80vh;
-  margin: auto;
+  max-width: 375px; /* limit the maximum width */
+  height: 100vh;
+  width: 100%;
+  background: #FFFEFE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
+  align-items: center; /* This aligns items in the center horizontally */
+  justify-content: space-between;
+}
+
+.newBucketTitle {
+  text-align: center;
 }
 
 .cancel {
-  font-size: 14px;
+  font-size: 1.75vh;
   font-family: "Open Sans", sans-serif;
   font-style: light;
   border: none;
-  padding: 4px 8px;
   background-color: #ffffff;
   color: #000000;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 2.67vh;
+  left: 2.67vh;
   cursor: pointer;
 }
+
 [type="submit"] {
-  font-size: 14px;
+  font-size: 1.75vh;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
-  border: 1px solid #8083ff;
-  border-radius: 30px;
-  padding: 4px 8px;
+  border: 0.27vh solid #8083ff;
+  border-radius: 8vh;
   background-color: #ffffff;
   color: #8083ff;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 2.67vh;
+  right: 2.67vh;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 2.67vh;
 }
+
 [type="submit"]:hover {
   background-color: #8083ff;
   color: #ffffff;
 }
 
+
 .navbar img {
-  margin: 0 10px;
+  margin: 0 1vh;
 }
 
 .navbar a[href="/search"] {
-  margin-right: 40px;
+  margin-right: 4vh;
 }
 
 .navbar a[href="/notes"] {
-  margin-left: 40px;
+  margin-left: 4vh;
 }
 
 .navbar {
@@ -66,15 +75,15 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 6vh;
   background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(128, 131, 255, 0.75);
-  border-radius: 10px;
+  box-shadow: 0vh 0vh 1vh rgba(128, 131, 255, 0.75);
+  border-radius: 1vh;
   position: absolute;
   bottom: 0;
   left: 0;
   padding: 0;
-  border: 20px solid var(-clr);
+  border: 2vh solid var(-clr);
 }
 
 .circle {
@@ -82,11 +91,11 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -25px;
+  top: -2.5vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
+  width: 6vh;
+  height: 6vh;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -97,43 +106,60 @@
 }
 
 a[href="/feeds/buckets?show=inprogress"] img {
-  width: 40px;
-  height: 40px;
+  width: 4vh;
+  height: 4vh;
 }
 
 .profile-photo {
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  width: 5vh;
+  height: 5vh;
   border-radius: 50%;
   overflow: hidden;
-  margin: 5px auto;
+  margin: 0.5vh auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   z-index: 1;
   background-color: #b1b1b1;
-  right: 120px;
-  top: 120px;
+  top: 110%;  
+  left: 15px; 
+  transform: translateY(-50%); 
 }
 
 input {
-  border-radius: 10px;
+  border-radius: 1vh;
   width: 100%;
-  height: 150px;
-  padding: 6px 14px;
-  font-size: 18px;
+  height: 18vh;
+  padding: 1vh 15vh;
+  font-size: 1.8vh;
   box-sizing: border-box;
-  margin-bottom: 20px;
-  padding-left: 60px;
+  margin-bottom: 2vh;
+  padding-left: 6vh;
   border-color: #8083ff;
   position: relative;
-  top: 20px;
+  top: 18vh;
+  left: 0vh;
+}
+
+.input-container {
+  position: relative;
+  top: 6vh; 
+  left: 0vh;
 }
 
 input[type="text"]::placeholder {
-  font-size: 14px;
+  font-size: 1.4vh;
   font-family: "Open Sans";
   font-style: normal;
   color: #8083ff;
+}
+
+.newBucketTitle{
+  font-size: 1.75vh;
+  font-family: "Open Sans";
+  font-style: normal;
+  position: relative;
+  top: 14vh; /* adjust as necessary */
+  left: 0vh;
 }

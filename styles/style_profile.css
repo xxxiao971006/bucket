@@ -67,20 +67,32 @@ button {
 
 .buttons {
   display: flex;
-  justify-content: space-between;
-  font-size: 1.4px;
+  justify-content: flex-end;
+  width: 80%; 
+  margin: 0 auto; 
 }
 
+/* .buttons button:first-child {
+  margin-right: 5%; 
 
-.buttons button:first-child {
-  margin-right: 9vh;
-  margin-left: 2vh;
 }
 
 .buttons button:nth-child(2) {
-  margin-right: 6vh;
+  margin-right: 3%; 
+} */
+
+.buttons button:first-child {
+  margin-right: 23%; /* adjust as needed */
 }
 
+.buttons button:nth-child(2) {
+  margin-right: 5%; /* adjust as needed */
+}
+
+.buttons button:last-child {
+  margin-right: 0; /* adjust as needed */
+  margin-left: 3%;
+}
 .edit-button {
   font-family: "Open Sans", sans-serif;
   font-weight: 500;
