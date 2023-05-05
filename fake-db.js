@@ -14,7 +14,7 @@ const users = [
     email: "janedoe@gmail.com",
     password: "jane123",
     following: [1, 4, 7],
-    message: [1002, 1003],
+    message: [1003],
   },
   {
     id: 3,
@@ -160,7 +160,7 @@ const messages = [
   },
   {
     id: 1002,
-    user_id: 2,
+    user_id: 1,
     bucket_id: 5,
     message:
       "Libero fugit ex assumenda exercitationem praesentium atque debitis. Dolorum rem maiores aliquam ex qui. Sed maiores saepe saepe ullam libero est temporibus veniam deleniti. Minima dolores esse voluptate officia.",
@@ -260,25 +260,39 @@ const getBucketByBucketId = (id) => {
   return buckets.find((bucket) => bucket.id == id).title;
 }; //gives the bucket title
 
+const sortPosts = (posts) => {
+  try {
+    return posts.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  } catch (error) {
+    throw new Error("Method not implemented.");
+  }
+};
+
 const getUserFeed = (user_id) => {
   let userMessage = getUserMessageIdByUserId(user_id);
-  let outcome = userMessage.map((userMessageId) => {
+  let myPosts = userMessage.map((userMessageId) => {
     return {
       username: getUsernameById(user_id), //samsmith
-      completed: getMessagesByMessageId(userMessageId).completed
-        ? "Completed"
-        : "In Progress",
-      bucketName: getBucketByBucketId(
-        getMessagesByMessageId(userMessageId).bucket_id
-      ),
-      messages: getMessagesByMessageId(userMessageId).message,
+      completed: [
+        getMessagesByMessageId(userMessageId).completed
+          ? "Completed"
+          : "In Progress",
+      ],
+      bucketName: [
+        getBucketByBucketId(getMessagesByMessageId(userMessageId).bucket_id),
+      ],
+      messages: [getMessagesByMessageId(userMessageId).message],
+      createdAt: getMessagesByMessageId(userMessageId).timestamp.slice(0, 10),
     };
   });
+  const outcome = sortPosts(myPosts);
   return outcome;
 };
 
-const getFriendsFeed = (loggedInUserId) => {
-  let friends = getFollowingByUserId(loggedInUserId);
+const getMainFeed = (user_id) => {
+  let friends = getFollowingByUserId(user_id);
   friends = friends.map((friendId) => {
     return {
       username: getUsernameById(friendId),
@@ -291,9 +305,15 @@ const getFriendsFeed = (loggedInUserId) => {
       messages: getMessageIdsByUserId(friendId).map(
         (msgId) => getMessagesByMessageId(msgId).message
       ),
+      createdAt: getMessageIdsByUserId(friendId).map((msgId) =>
+        getMessagesByMessageId(msgId).timestamp.slice(0, 10)
+      )[0],
     };
   });
-  return friends;
+  let mine = getUserFeed(user_id);
+  let outcomeBeforeSorting = [...friends, ...mine];
+  const outcome = sortPosts(outcomeBeforeSorting);
+  return outcome;
 };
 
 const getUserByUserId = (user_id) => {
@@ -320,29 +340,12 @@ const createNewBucket = (user_id, bucketTitle, messageInput) => {
       user_id: user_id,
       bucket_id: getBucketIdByBucketTitle(bucketTitle),
       message: messageInput,
-      timestamp: Date.now(),
+      timestamp: new Date().toISOString(),
       completed: false,
     };
     messages.push(newMessage);
     updateUserMessage(user_id, newMessage.id);
   }
-};
-
-const changeProgressStatus = (post) => {
-  post = {
-    ...post,
-    creator: users[post.creator],
-    votes: getVotesForPost(post.id),
-    comments: Object.values(comments)
-      .filter((comment) => comment.post_id === post.id)
-      .map((comment) => {
-        console.log("the creator is: ");
-        console.log(comment);
-        return { ...comment, creator: users[comment.creator] };
-      }),
-  };
-  console.log(post.comments);
-  return post;
 };
 
 const getUserByUsernameAndPassword = (username, password) => {
@@ -395,29 +398,14 @@ const showBuckets = (status, currentUser) => {
   return bucketTitles;
 };
 
-//TEST:
-// console.log(getUserByUserId(1));
-// console.log(get(1));
-// console.log(getUserByUserId(1));
-console.log(
-  showBuckets("all", {
-    id: 1,
-    username: "samsmith",
-    email: "samsmith@gmail.com",
-    password: "sam123",
-    following: [3, 4, 5],
-    message: [1001, 1002],
-  })
-);
-
 module.exports = {
   buckets,
   createNewBucket,
   getBucketByBucketId,
-  getFriendsFeed,
-  getUserFeed,
+  getMainFeed,
   getUserByUsernameAndPassword,
   getUserByUserId,
   createUser,
   showBuckets,
+  getUserFeed,
 };

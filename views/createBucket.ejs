@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <button class="arrow-left" onclick="goBack()">
+      <!-- <button class="arrow-left" onclick="goBack()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -21,11 +21,13 @@
             d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z"
           />
         </svg>
-      </button>
-      <a href="/feeds/createBucket" class="add-button">Add New Bucket🪣</a>
-      <div class="top_buttons">
-        <a href="/feeds/buckets?show=inprogress" class="in_progress">In Progress</a>
-        <a href="/feeds/buckets?show=completed" class="completed">Completed</a>
+      </button> -->
+      <div class="top-controls">
+        <a href="/feeds/createBucket" class="add-button">Create Bucketlist🪣</a style= >
+        <!-- <select class="status-select">
+          <option value="/feeds/buckets?show=inprogress">In Progress</option>
+          <option value="/feeds/buckets?show=completed">Completed</option>
+        </select> -->
       </div>
       <div class="bucket-content">
         <%bucketlists.forEach(bucket => {%>

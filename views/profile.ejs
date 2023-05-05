@@ -1,132 +1,111 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="../styles/style_profile.css" />
-      <title>My Profile</title>
-      <script>
-        function updateScrollHeight() {
-          const postsContainer = document.querySelector(".posts-container");
-          postsContainer.scrollTop = postsContainer.scrollHeight;
-        }
-      </script>
-    </head>
-    <body>
-      <div class="wrapper">
-        <div class="background-container">
-          <div class="setting">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="45px"
-              height="40px"
-            >
-              <rect x="4" y="6.5" width="16" height="1" fill="#8083FF" />
-              <circle cx="12" cy="7.25" r="3" fill="white" />
-              <circle cx="12" cy="7.25" r="3" stroke="#8083FF" fill="none" />
-              <rect x="12" y="15.5" width="16" height="1" fill="#8083FF" />
-              <circle cx="19" cy="16.25" r="3" fill="#8083FF" />
-            </svg>
-          </div>
-          <div class="profile-photo" style="background-image: url('<%= data[0].profilePhoto %>');"></div>
-          <p class="username">@<%= data[0].username %></p>
-          <p class="netBucket"><%=netBucket%> goals</p>
-          <form action="/profile/edit" class="edit-form">
-            <button type="submit" class="edit-button">Edit Profile</button>
-          </form>                 
-          <div class="buttons">
-            <button>All</button>
-            <button>Media</button>
-            <button>Message Posts</button>
-          </div>
-        </div>
-        <form class="user-info" action="/profile/" method="POST">
-          <div class="posts-container">
-          <div class="user-input-wrapper">
-            <div class="wrapwrap" style="display: flex; align-items: flex-start">
-              <div class="user-avatar"></div>
-              <div>
-                <select name="bucket">
-                  <option value="">Please choose your bucket</option>
-                  <% data.forEach(element=> { %>
-                  <option value="<%=element.bucketName%>">
-                    <%=element.bucketName%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/style_profile.css" />
+  <title>My Profile</title>
+  <script>
+    function updateScrollHeight() {
+      const postsContainer = document.querySelector(".posts-container");
+      postsContainer.scrollTop = postsContainer.scrollHeight;
+    }
+  </script>
+</head>
+<body>
+  <div class="flex-container">
+  <div class="wrapper">
+    <div class="background-container">
+      <div class="setting">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="45px" height="40px">
+          <rect x="4" y="6.5" width="16" height="1" fill="#8083FF" />
+          <circle cx="12" cy="7.25" r="3" fill="white" />
+          <circle cx="12" cy="7.25" r="3" stroke="#8083FF" fill="none" />
+          <rect x="12" y="15.5" width="16" height="1" fill="#8083FF" />
+          <circle cx="19" cy="16.25" r="3" fill="#8083FF" />
+        </svg>
+      </div>
+      <div class="profile-photo" style="background-image: url('<%= data[0].profilePhoto %>');"></div>
+      <p class="username">@<%= data[0].username %>
+      </p>
+      <p class="netBucket">
+        <%=totalBucketTitle.length%> goals
+      </p>
+      <form action="/profile/edit" class="edit-form">
+        <button type="submit" class="edit-button">Edit Profile</button>
+      </form>
+      <div class="buttons">
+        <button>All</button>
+        <button>Media</button>
+        <button>Message Posts</button>
+      </div>
+    </div>
+    <form class="user-info" action="/profile/" method="POST">
+      <div class="posts-container">
+        <div class="user-input-wrapper">
+          <div class="wrapwrap" style="display: flex; align-items: flex-start">
+            <div class="user-avatar"></div>
+            <div>
+              <select name="bucket">
+                <option value="">Please choose your bucket</option>
+                <% totalBucketTitle.forEach(element=> { %>
+                  <option value="<%=element%>">
+                    <%=element%>
                   </option>
                   <% }) %>
-                </select>
-              </div>
-            </div>
-            <div class="createInput">
-              <textarea
-                style="outline: none; resize: none"
-                type="text"
-                name="newMessage"
-                placeholder="What's on your mind?"
-                class="create_post"
-              ></textarea>
-              <button type="submit" class="add-button">
-                <img src="../styles/images/send_icon_noBackground.png" alt="Add" width="24" height="24">
-              </button>              
+              </select>
             </div>
           </div>
-        </form>
-          <% data.forEach(post=> { %>
-          <div class="post">
-            <div class="user-picture"></div>
-            <div class="post-content">
-              <p>@<%= post.username %></p>
-              <p><%= post.completed %> <%= post.bucketName %></p>
-              <p><%= post.messages %></p>
-            </div>
+          <div class="createInput">
+            <textarea style="outline: none; resize: none" type="text" name="newMessage"
+              placeholder="What's on your mind?" class="create_post"></textarea>
+            <button type="submit" class="add-button">
+              <img src="../styles/images/send_icon_noBackground.png" alt="Add" width="24" height="24">
+            </button>
           </div>
-          <% }) %>
         </div>
-        <div class="navbar">
-          <a href="/feeds/home">
-            <img
-              src="../styles/images/home_icon_noBackground.png"
-              alt="Home"
-              width="40"
-              height="40"
-            />
-          </a>
-          <a href="/search">
-            <img
-              src="../styles/images/search_icon_noBackground.png"
-              alt="Search"
-              width="40"
-              height="40"
-            />
-          </a>
-          <div class="circle">
-            <a href="/feeds/buckets?show=inprogress">
-              <img
-                src="../styles/images/bucket_icon_noBackground.png"
-                alt="Bucket"
-                width="50"
-                height="50"
-              />
-            </a>
-          </div>
-          <a href="/notes">
-            <img
-              src="../styles/images/note_icon_noBackground.png"
-              alt="Notes"
-              width="40"
-              height="40"
-            />
-          </a>
-          <a href="/profile">
-            <img
-              src="../styles/images/profile_icon_noBackground.png"
-              alt="Profile"
-              width="40"
-              height="40"
-            />
-          </a>
+    </form>
+    <% data.forEach(post=> { %>
+      <div class="post">
+        <div class="user-picture"></div>
+        <div class="post-content">
+          <p class="username-inside">
+            <%=post.username%>
+          </p>
+          <p class="bucket-info">
+            <%= post.bucketName[0] %>
+          </p>
+          <!-- <p> <%= post.completed[0] %></p> -->
+          <p class="post-message">
+            <%= post.messages %>
+          </p>
         </div>
       </div>
-    </body>
-  </html>
+      <% }) %>
+  </div>
+  <div class="navbar">
+    <a href="/feeds/home">
+      <img src="../styles/images/home_icon_noBackground.png" alt="Home" width="40" height="40" />
+    </a>
+    <a href="/search">
+      <img src="../styles/images/search_icon_noBackground.png" alt="Search" width="40" height="40" />
+    </a>
+    <div class="circle">
+      <a href="/feeds/buckets?show=inprogress">
+        <img src="../styles/images/bucket_icon_noBackground.png" alt="Bucket" width="50" height="50" />
+      </a>
+    </div>
+    <a href="/notes">
+      <img src="../styles/images/note_icon_noBackground.png" alt="Notes" width="40" height="40" />
+    </a>
+    <a href="/profile">
+      <img src="../styles/images/profile_icon_noBackground.png" alt="Profile" width="40" height="40" />
+    </a>
+  </div>
+  </div>
+</div>
+</body>
+
+</html>

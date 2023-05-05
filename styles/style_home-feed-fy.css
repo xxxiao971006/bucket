@@ -51,8 +51,8 @@
   top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -66,35 +66,6 @@ a[href="/feeds/buckets?show=inprogress"] img {
   margin-top: 10px;
 }
 
-.top_buttons {
-  margin-top: 45px;
-  display: flex;
-  justify-content: space-between;
-  gap: 35px;
-}
-
-.friends,
-.for_you {
-  font-family: "Opens Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  border: 3px solid #8083ff;
-  border-radius: 30px;
-  width: 100px;
-  padding: 4px 8px;
-  text-align: center;
-}
-
-.friends {
-  background-color: #ffffff;
-  color: #8083ff;
-}
-
-.for_you {
-  background-color: #8083ff;
-  color: #ffffff;
-}
 
 .post {
   background-color: #ffffff;
