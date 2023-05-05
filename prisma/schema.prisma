@@ -11,16 +11,48 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  username String   @unique
-  password String
-  buckets  Bucket[]
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String   @unique
+  password  String
+  following User[]   @relation(fields: [userId], references: [id])
+  buckets   Bucket[]
+}
+
+enum Tag {
+  TRAVEL
+  ADVENTURE
+  STUDY
+  FOOD
+  FUN
+  NATURE
+  CULTURE
+  EXERCISE
+  OTHERS
 }
 
 model Bucket {
-  id     Int    @id @default(autoincrement())
-  title  String
-  user   User?  @relation(fields: [userId], references: [id])
-  userId Int?
+  id        Int       @id @default(autoincrement())
+  startDate DateTime  @default(now())
+  dueDate   DateTime
+  title     String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  messages  Message[]
+  tag       Tag       @default(OTHERS)
+  tasks     Task[]
+}
+
+model Task {
+  id       Int    @id @default(autoincrement())
+  message  String
+  bucket   Bucket @relation(fields: [bucketId], references: [id])
+  bucketId Int
+}
+
+model Message {
+  id       Int    @id @default(autoincrement())
+  content  String
+  bucket   Bucket @relation(fields: [bucketId], references: [id])
+  bucketId Int
 }
