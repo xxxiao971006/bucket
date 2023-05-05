@@ -22,6 +22,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  // console.log(req.body);
   const { newMessage, bucket } = req.body;
   const user_id = req.user.id;
   createNewBucket(user_id, bucket, newMessage);

@@ -16,6 +16,10 @@
   overflow: hidden;
 }
 
+.newBucketTitle {
+  text-align: center;
+}
+
 .cancel {
   font-size: 1.75vh;
   font-family: "Open Sans", sans-serif;
