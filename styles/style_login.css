@@ -3,19 +3,19 @@
 @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display&display=swap");
 
 .wrapper {
-  border: solid 0.25rem black;
-  box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
-  border-radius: 2vmin;
-  position: relative;
-  width: 40vh;
-  height: 80vh;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  max-width: 375px; /* limit the maximum width */
+  height: 100vh;
+  width: 100%;
+  background: #FFFEFE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   overflow: hidden;
 }
+
 
 h1,
 h2 {
@@ -23,19 +23,19 @@ h2 {
   margin: 0;
   padding: 0;
   color: transparent;
-  
+  text-align: center;
 }
 
 h1 {
   font-family: "Open Sans", sans-serif;
   font-size: 1.75rem;
-  margin-top: 8vmin; 
+  margin-top: 8vh; 
 }
 
 h2 {
   font-family: "Open Sans", sans-serif;
   font-size: 1.25rem;
-  padding-bottom: 6%;
+  padding-bottom: 6vh;
 }
 
 
@@ -59,7 +59,7 @@ h2::before {
   width: 100%;
   height: 100%;
   left: 0;
-  top: 180px;
+  top: 18vh;
   z-index: -1;
 }
 
@@ -69,7 +69,7 @@ h2::before {
   position: absolute;
   border-radius: 100% 0% 100% 0% /30% 100% 0% 70%;
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 5vh);
   background: linear-gradient(
     190.99deg,
     rgba(116, 209, 174, 0.32) 1.82%,
@@ -77,6 +77,7 @@ h2::before {
     rgba(128, 131, 255, 0.32) 72.64%
   );
 }
+
 
 .grey_background::after {
   content: "";
@@ -85,15 +86,16 @@ h2::before {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 5vh;
   background: linear-gradient(
     190.99deg,
     rgba(116, 209, 174, 0.32) 1.82%,
     rgba(116, 209, 174, 0.32) 30.9%,
-    rgba(128, 131, 255, 0.32) 72.64%
-  );
-  border-radius: 0 0 50% 90%;
-}
+    rgba(128, 131, 255,  0.32) 72.64%
+    );
+    border-radius: 0 0 50% 90%;
+  }
+
 .inside_wrapper {
   display: flex;
   flex-direction: column;
@@ -102,17 +104,17 @@ h2::before {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 100px;
+  top: 10vh;
 }
 
 input {
-  margin-bottom: 1.5rem;
-  border: 1px solid #000000;
-  border-radius: 25px;
-  padding: 15px;
+  margin-bottom: 1.5vh;
+  border: 0.1vh solid #000000;
+  border-radius: 2.5vh;
+  padding: 1.5vh;
   font-size: 1rem;
   width: 110%;
-  margin-left: -30px;
+  margin-left: -3vh;
 }
 
 input::placeholder {
@@ -128,7 +130,7 @@ input::placeholder {
 
 .eye-icon {
   position: absolute;
-  right: -5px;
+  right: -0.5vh;
   top: 35%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -150,22 +152,22 @@ input::placeholder {
 
 .login-button {
   display: block;
-  margin: 1rem auto 0;
+  margin: 1vh auto 0;
   background: #8083ff;
-  border-radius: 25px;
+  border-radius: 2.5vh;
   border: none;
-  padding: 0.5rem 2rem;
+  padding: 1vh 1vh;
   font-size: 1rem;
   cursor: pointer;
-  width: 183px;
+  width: 18.3vh;
   font-family: "Open sans", sans-serif;
   color: #ffffff;
+  font-size: 2vh;
 }
-
 
 .signup,
 .forgot {
-  margin-top: 0.8rem;
+  margin-top: 0.8vh;
   font-family: "Open Sans", sans-serif;
   font-size: 0.65rem;
   text-align: center;

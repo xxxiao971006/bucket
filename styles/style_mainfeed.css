@@ -2,31 +2,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 .wrapper {
-  border: solid 0.25rem black;
-  box-shadow: 0 0 6vmin rgba(0, 0, 0, 0.2);
-  border-radius: 2vmin;
-  position: relative;
-  width: 40vh;
-  height: 80vh;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  max-width: 375px; /* limit the maximum width */
+  height: 100vh;
+  width: 100%;
+  background: #FFFEFE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   overflow: hidden;
-  
 }
 
 .navbar img {
-  margin: 0 10px;
+  margin: 0 1vh;
 }
 
 .navbar a[href="/search"] {
-  margin-right: 40px;
+  margin-right: 4vh;
 }
 
 .navbar a[href="/notes"] {
-  margin-left: 40px;
+  margin-left: 4vh;
 }
 
 .navbar {
@@ -34,15 +32,15 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 6vh;
   background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(128, 131, 255, 0.75);
-  border-radius: 10px;
+  box-shadow: 0vh 0vh 1vh rgba(128, 131, 255, 0.75);
+  border-radius: 1vh;
   position: absolute;
   bottom: 0;
   left: 0;
   padding: 0;
-  border: 20px solid var(-clr);
+  border: 2vh solid var(-clr);
 }
 
 .circle {
@@ -50,11 +48,11 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -25px;
+  top: -2.5vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
+  width: 6vh;
+  height: 6vh;
   border-radius: 50%;
   background: linear-gradient(
       270deg,
@@ -65,39 +63,43 @@
 }
 
 a[href="/feeds/buckets?show=inprogress"] img {
-  width: 40px;
-  height: 40px;
+  width: 4vh;
+  height: 4vh;
 }
 
+
 .homefeedTop {
-  margin-top: 45px;
+  margin-top: 5vh; /* adjust as needed */
+  width: 90%; /* adjust as needed */
+  height: auto;
   display: flex;
   justify-content: center;
-  gap: 35px;
+  align-items: center;
   background-color: #8083ff;
   border-radius: 100px;
   border: 1px solid #8083ff;
-  width: 70%;
   box-shadow: 0px 0px 10px rgba(145, 146, 240, 0.75);
+  position: relative;
+  left: 50%; 
+  transform: translateX(-50%); 
 }
-
 
 .post {
   background-color: #ffffff;
   border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 20px;
-  margin-top: 10px;
   position: relative;
+  padding: 2vh; /* adjust as needed */
+  margin-bottom: 2vh; /* adjust as needed */
+  margin-top: 2vh; /* adjust as needed */
+  margin-left: 5%; 
   max-width:80%;
-  margin-left: 25px;
 }
 
 .post p {
   font-family: "Opens Sans", sans-serif;
-  font-size: 14px;
-  margin: 0 0 10px;
-  line-height: 15px;
+  font-size: 2vh; /* adjust as needed */
+  line-height: 2.5vh; /* adjust as needed */
+  margin-bottom: 1vh;
   font-style: normal;
   word-wrap: break-word;
 
@@ -109,14 +111,13 @@ a[href="/feeds/buckets?show=inprogress"] img {
 
 
 .user-picture {
-  width: 40px;
-  height: 40px;
+  width: 5vh;
+  height: 5vh;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 1.33vh;
   background-color: #b1b1b1;
   position: absolute;
-  top: 18px;
-  left: 22px;
+  top: 2.40vh;
 }
 
 .username {
@@ -143,7 +144,7 @@ p.post-message{
 }
 
 .post-content {
-  margin-left: 60px;
+  margin-left: 6vh; /* adjust as needed */
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
@@ -156,13 +157,10 @@ p.post-message{
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: calc(80vh - 230px);
   width: 100%;
-  padding: 0 15px;
   margin-top: 10px;
-  padding-bottom: 20px;
-  
+  max-height: calc(80vh - 5vh); /* adjust as needed */
+  padding: 0 3vh; /* adjust as needed */
+  padding-bottom: 20vh; /* adjust as needed */
 }
-
-
 
