@@ -122,7 +122,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
   justify-content: center;
   z-index: 1;
   background-color: #b1b1b1;
-  top: 40%;  
+  top: 110%;  
   left: 15px; 
   transform: translateY(-50%); 
 }
@@ -138,7 +138,7 @@ input {
   padding-left: 6vh;
   border-color: #8083ff;
   position: relative;
-  top: 2vh;
+  top: 18vh;
   left: 0vh;
 }
 
@@ -155,11 +155,11 @@ input[type="text"]::placeholder {
   color: #8083ff;
 }
 
-.bucketTitle {
+.newBucketTitle{
   font-size: 1.75vh;
   font-family: "Open Sans";
   font-style: normal;
   position: relative;
-  top: 3vh; /* adjust as necessary */
-  left: 4vh;
+  top: 14vh; /* adjust as necessary */
+  left: 0vh;
 }
