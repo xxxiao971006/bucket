@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 .wrapper {
-  max-width: 375px; /* limit the maximum width */
+  /* max-width: 375px; limit the maximum width */
   height: 100vh;
   width: 100%;
   background: #fffefe;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
+  /* border-radius: 30px; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,15 +15,19 @@
   overflow: hidden;
 }
 
+#bucket-title {
+  font-size: 3.4vh;
+}
+
 .add-button {
-  font-size: 1.4vh;
+  font-size: 2.4vh;
   font-weight: bold;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
   text-decoration: none;
   border: 0.1vh solid #8083ff;
   border-radius: 3vh;
-  padding: 0.4vh 0.8vh;
+  padding: 1.4vh 1.8vh;
   background-color: #ffffff;
   color: #8083ff;
   position: absolute;
@@ -54,7 +58,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 6vh;
+  height: 7vh;
   background-color: #ffffff;
   box-shadow: 0vh 0vh 1vh rgba(128, 131, 255, 0.75);
   border-radius: 1vh;
@@ -65,17 +69,27 @@
   border: 2vh solid var(-clr);
 }
 
+.circle:hover {
+  background: linear-gradient(
+      270deg,
+      rgba(227, 224, 243, 0.245) 0%,
+      rgba(128, 131, 255, 0.255) 100%
+    ),
+    #6467fa;
+}
+
 .circle {
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -2.5vh;
+  top: -5.5vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 6vh;
-  height: 6vh;
-  border-radius: 50%;
+  width: 9vh;
+  height: 9vh;
+  transition: background 0.5s ease;
+  border-radius: 61%;
   background: linear-gradient(
       270deg,
       rgba(227, 224, 243, 0.245) 0%,
@@ -95,7 +109,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
 
 .status-select {
   font-family: "Open Sans", sans-serif;
-  font-size: 1.4vh;
+  font-size: 2.4vh;
   font-weight: 700;
   line-height: 2vh;
   border-radius: 3vh;

@@ -27,7 +27,7 @@
           <circle cx="19" cy="16.25" r="3" fill="#8083FF" />
         </svg>
       </div>
-      <div class="profile-photo" style="background-image: url('<%= data[0].profilePhoto %>');"></div>
+      <div class="profile-photo"></div>
       <p class="username">@<%= data[0].username %>
       </p>
       <p class="netBucket">
@@ -37,16 +37,16 @@
         <button type="submit" class="edit-button">Edit Profile</button>
       </form>
       <div class="buttons">
-        <button>All</button>
-        <button>Media</button>
-        <button>Message Posts</button>
+        <button style="width: 100px;">All</button>
+        <button style="width: 100px;">Media</button>
+        <button style="width: 100px;">Posts</button>
       </div>
     </div>
     <form class="user-info" action="/profile/" method="POST">
       <div class="posts-container">
         <div class="user-input-wrapper">
           <div class="wrapwrap" style="display: flex; align-items: flex-start">
-            <div class="user-avatar"></div>
+            <img src="https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg" class="user-avatar">
             <div>
               <select name="bucket">
                 <option value="">Please choose your bucket</option>
@@ -69,21 +69,22 @@
     </form>
     <% data.forEach(post=> { %>
       <div class="post">
-        <div class="user-picture"></div>
-        <div class="post-content">
+       <img src="https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg" style="z-index: 0; margin-top: 15px;" class="user-picture user-avatar">
+        <div class="post-content" style="padding: 10px;">
           <p class="username-inside">
             <%=post.username%>
           </p>
           <p class="bucket-info">
-            <%= post.bucketName[0] %>
+            <%= post.bucketName[0] %> <span class="<%= post.completed[0].replace(" ", "") %>"><%= post.completed[0] %></span>
           </p>
-          <!-- <p> <%= post.completed[0] %></p> -->
           <p class="post-message">
             <%= post.messages %>
           </p>
         </div>
       </div>
       <% }) %>
+      <br>
+      <br>
   </div>
   <div class="navbar">
     <a href="/feeds/home">
