@@ -68,9 +68,9 @@ button {
 .buttons {
   display: flex;
   justify-content: space-between;
-  font-size: 1.4px;
+  width: 80%; /* adjust as needed */
+  margin: 0 auto; /* centers the buttons container horizontally */
 }
-
 
 .buttons button:first-child {
   margin-right: 9vh;

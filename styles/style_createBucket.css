@@ -141,8 +141,8 @@ a[href="/feeds/buckets?show=inprogress"] img {
 }
 
 .bucket-img {
-  width: 6vh;
-  height: 6vh;
+  width: 8vh;
+  height: 8vh;
   object-fit: contain;
   margin-right: 1vh;
 }
