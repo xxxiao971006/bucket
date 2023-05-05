@@ -15,9 +15,10 @@ model User {
   username  String
   email     String   @unique
   password  String
-   following     User[]   @relation("UserToFollow", references: [id])
-  followers     User[]   @relation("UserToFollow")
+  following User[]   @relation("UserFollows", references: [id])
   buckets   Bucket[]
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id])
 }
 
 enum Tag {
