@@ -14,16 +14,14 @@
   align-items: center;
   justify-content: flex-start;
   overflow-y: scroll;
-
 }
 .wrapper::-webkit-scrollbar {
   display: none;
 }
 
-
 .wrapper {
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
 }
 
 .navbar {
@@ -46,14 +44,27 @@
   margin: 0 10px;
 }
 
+.circle:hover {
+  background: linear-gradient(
+      270deg,
+      rgba(227, 224, 243, 0.245) 0%,
+      rgba(128, 131, 255, 0.255) 100%
+    ),
+    #6467fa;
+}
+
 .circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -50px;
+  top: -5.5vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+  width: 9vh;
+  height: 9vh;
+  transition: background 0.5s ease;
+  border-radius: 61%;
   background: linear-gradient(
       270deg,
       rgba(227, 224, 243, 0.245) 0%,
@@ -65,7 +76,6 @@
 a[href="/feeds/buckets?show=inprogress"] img {
   margin-top: 10px;
 }
-
 
 .post {
   background-color: #ffffff;

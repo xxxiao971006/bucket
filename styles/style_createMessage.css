@@ -1,14 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-
 .wrapper {
-  max-width: 375px; /* limit the maximum width */
+  /* max-width: 375px; limit the maximum width */
   height: 100vh;
   width: 100%;
-  background: #FFFEFE;
+  background: #fffefe;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
+  /* border-radius: 30px; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,7 +24,7 @@
 }
 
 .cancel {
-  font-size: 1.75vh;
+  font-size: 2.75vh;
   font-family: "Open Sans", sans-serif;
   font-style: light;
   border: none;
@@ -38,7 +37,8 @@
 }
 
 [type="submit"] {
-  font-size: 1.75vh;
+  font-size: 2.75vh;
+  padding: 7px;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
   border: 0.27vh solid #8083ff;
@@ -57,7 +57,6 @@
   color: #ffffff;
 }
 
-
 .navbar img {
   margin: 0 1vh;
 }
@@ -75,7 +74,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 6vh;
+  height: 7vh;
   background-color: #ffffff;
   box-shadow: 0vh 0vh 1vh rgba(128, 131, 255, 0.75);
   border-radius: 1vh;
@@ -86,17 +85,27 @@
   border: 2vh solid var(-clr);
 }
 
+.circle:hover {
+  background: linear-gradient(
+      270deg,
+      rgba(227, 224, 243, 0.245) 0%,
+      rgba(128, 131, 255, 0.255) 100%
+    ),
+    #6467fa;
+}
+
 .circle {
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -2.5vh;
+  top: -5.5vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 6vh;
-  height: 6vh;
-  border-radius: 50%;
+  width: 9vh;
+  height: 9vh;
+  transition: background 0.5s ease;
+  border-radius: 61%;
   background: linear-gradient(
       270deg,
       rgba(227, 224, 243, 0.245) 0%,
@@ -121,10 +130,13 @@ a[href="/feeds/buckets?show=inprogress"] img {
   align-items: center;
   justify-content: center;
   z-index: 1;
-  background-color: #b1b1b1;
-  top: 110%;  
-  left: 15px; 
-  transform: translateY(-50%); 
+  /* background-color: #b1b1b1; */
+  background: url(https://media.pitchfork.com/photos/5a00b09…/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg);
+  background-size: cover;
+  background-position: center;
+  top: 110%;
+  left: 15px;
+  transform: translateY(-50%);
 }
 
 input {
@@ -144,7 +156,7 @@ input {
 
 .input-container {
   position: relative;
-  top: 6vh; 
+  top: 6vh;
   left: 0vh;
 }
 
@@ -155,11 +167,34 @@ input[type="text"]::placeholder {
   color: #8083ff;
 }
 
-.newBucketTitle{
+.newBucketTitle {
   font-size: 1.75vh;
   font-family: "Open Sans";
   font-style: normal;
   position: relative;
   top: 14vh; /* adjust as necessary */
   left: 0vh;
+}
+
+.create_post {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  width: 100%;
+  height: 220px;
+  padding: 6px 14px;
+  font-size: 18px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding-left: 60px;
+  border: none;
+  position: relative;
+  top: 10px;
+  padding-top: 10%;
+}
+
+.create_post::placeholder {
+  font-size: 14px;
+  font-family: "Open Sans";
+  font-style: normal;
+  color: #8083ff;
 }
