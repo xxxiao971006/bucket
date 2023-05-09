@@ -5,9 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/style_mainfeed.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+
     <script defer src="myscripts.js"></script>
     <title>Main Feed</title>
   </head>
+  <script>
+    function toggleLike(event) {
+  const likeButton = event.target.closest('.like-button');
+  const heartIcon = likeButton.querySelector('i');
+  heartIcon.classList.toggle('far');
+  heartIcon.classList.toggle('fas');
+}
+    
+  </script>
   <body>
     <div class="wrapper">
       <div class="posts-container">
@@ -19,6 +30,15 @@
             <p class="bucket-info"><%= post.bucketName[0] %> <span class="<%= post.completed[0].replace(" ", "") %>"><%= post.completed[0] %></span></p>
           
             <p class="post-message"><%= post.messages %></p>
+            <div class="post-actions">
+                <button type="button" class="like-button" onclick="toggleLike(event)">
+                <i class="far fa-heart"></i>
+              </button>  
+              <button class="comment-button">
+                <i class="far fa-comment-alt"></i>
+              </button>
+                      
+            </div>
           </div>
         </div>
         <% }) %>

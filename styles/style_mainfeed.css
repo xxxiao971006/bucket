@@ -43,6 +43,7 @@
   border: 2vh solid var(-clr);
 }
 
+
 .circle:hover {
   background: linear-gradient(
       270deg,
@@ -167,6 +168,7 @@ p.post-message {
   margin-top: 10px;
   max-height: calc(80vh - 5vh); /* adjust as needed */
   padding-bottom: 20vh; /* adjust as needed */
+  margin-left: 5vh;
 }
 
 .grey_background {
@@ -227,3 +229,28 @@ p.post-message {
   color: #55be36;
   padding: 5px;
 }
+
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-button,
+.like-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 0 20px;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.comment-button, .like-button {
+  transition: transform 0.3s ease;
+}
+
+.comment-button:hover, .like-button:hover {
+  transform: scale(1.1);
+}
+

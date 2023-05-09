@@ -17,7 +17,7 @@
 }
 
 .background-container {
-  background-color: #ededed;
+  background-color: #ffffff;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -29,6 +29,7 @@
   box-sizing: border-box;
   border-radius: 0 20px 20px;
   height: 45vh;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
@@ -39,8 +40,8 @@ h1 {
 }
 
 .profile-photo {
-  width: 70px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: url("https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg");
   background-size: cover;
@@ -51,6 +52,7 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 30%;
 }
 
 button {
@@ -71,14 +73,6 @@ button {
   margin: 0 auto;
 }
 
-/* .buttons button:first-child {
-  margin-right: 5%; 
-
-}
-
-.buttons button:nth-child(2) {
-  margin-right: 3%; 
-} */
 
 .edit-button {
   font-family: "Open Sans", sans-serif;
@@ -89,8 +83,8 @@ button {
   border: none;
   cursor: pointer;
   background-color: transparent;
-  color: black;
-  border: 1px solid black;
+  color: #8083ff;
+  border: 1px solid #8083ff;
   transition: all 0.3s ease-in-out;
 }
 
@@ -164,7 +158,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
 
 .setting {
   position: absolute;
-  top: 3.6vh;
+  top: 4.6vh;
   left: 3.6vh;
   cursor: pointer;
 }
@@ -191,7 +185,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
   padding: 2vh;
   margin-bottom: 2vh;
   margin-top: 2vh;
-  margin-left: 5%;
+  margin-left: 8%;
   max-width: 80%;
 }
 
@@ -263,7 +257,6 @@ p.post-message {
   border-radius: 10px;
   width: 80%;
   height: 150px;
-  /* padding: 6px 14px; */
   font-size: 18px;
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -342,7 +335,7 @@ select {
 .add-button img {
   width: 40px;
   height: 40px;
-  padding-left: 5px;
+  padding-left: 87px;
 }
 
 select {
@@ -368,4 +361,40 @@ select {
   font-weight: 700;
   color: #55be36;
   padding: 5px;
+}
+
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-button,
+.like-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 0 5px;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.comment-button, .like-button {
+  transition: transform 0.3s ease;
+}
+
+.comment-button:hover, .like-button:hover {
+  transform: scale(1.1);
+}
+
+
+.add-friends-button {
+  position: absolute;
+  top: 3.6vh;
+  right: 20px;
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  /* color: #8083ff; */
 }

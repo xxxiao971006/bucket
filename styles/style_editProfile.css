@@ -18,7 +18,7 @@
 
 .cancel,
 .save {
-  font-size: 1.4vh;
+  font-size: 2vh;
   font-family: "Open Sans", sans-serif;
   font-style: light;
   border: none;
@@ -29,7 +29,8 @@
 }
 
 .cancel {
-  left: 1vh;
+  top:2vh;
+  left: 2vh;
   background-color: #ffffff;
   color: #000000;
 }
@@ -41,7 +42,16 @@
   margin-bottom: 1vh;
 }
 
-h1, h2 {
+h1{
+  text-align: center;
+  font-size: 4vh;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+}
+h2 {
   text-align: center;
   font-size: 2vh;
   font-family: "Open Sans", sans-serif;
@@ -51,13 +61,20 @@ h1, h2 {
   margin-bottom: 2vh;
 }
 
-img {
-  width: 10vh;
-  height: 10vh;
+.profile-photo {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  background-color: #000000;
+  background: url("https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30%;
 }
 
 .picture-container {
@@ -96,7 +113,6 @@ img {
   text-align: center;
   font-family: "Open Sans", sans-serif;
   border: none;
-  padding: 0.4vh 0.8vh;
   position: relative;
   top: 1vh;
   cursor: pointer;

@@ -6,33 +6,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../styles/style_profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+
   <title>My Profile</title>
   <script>
-    function updateScrollHeight() {
+function toggleLike(event) {
+  const likeButton = event.target.closest('.like-button');
+  const heartIcon = likeButton.querySelector('i');
+  heartIcon.classList.toggle('far');
+  heartIcon.classList.toggle('fas');
+}
+function updateScrollHeight() {
       const postsContainer = document.querySelector(".posts-container");
       postsContainer.scrollTop = postsContainer.scrollHeight;
     }
-  </script>
+    </script>
 </head>
 <body>
   <div class="flex-container">
   <div class="wrapper">
     <div class="background-container">
+      <form action="/profile/settings" class="settings-form" method="GET">
+        <button>
       <div class="setting">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="45px" height="40px">
-          <rect x="4" y="6.5" width="16" height="1" fill="#8083FF" />
+          <rect x="4" y="6.5" width="16" height="1" fill="#000000" />
           <circle cx="12" cy="7.25" r="3" fill="white" />
-          <circle cx="12" cy="7.25" r="3" stroke="#8083FF" fill="none" />
-          <rect x="12" y="15.5" width="16" height="1" fill="#8083FF" />
-          <circle cx="19" cy="16.25" r="3" fill="#8083FF" />
+          <circle cx="12" cy="7.25" r="3" stroke="#000000" fill="none" />
+          <rect x="12" y="15.5" width="16" height="1" fill="#000000" />
+          <circle cx="19" cy="16.25" r="3" fill="#000000" />
         </svg>
       </div>
+    </button>
+    </form>
       <div class="profile-photo"></div>
       <p class="username">@<%= data[0].username %>
       </p>
       <p class="netBucket">
         <%=totalBucketTitle.length%> goals
       </p>
+      <button class="add-friends-button">
+        <i class="fas fa-user-plus"></i>
+      </button>
       <form action="/profile/edit" class="edit-form">
         <button type="submit" class="edit-button">Edit Profile</button>
       </form>
@@ -80,6 +95,14 @@
           <p class="post-message">
             <%= post.messages %>
           </p>
+          <div class="post-actions">
+            <button type="button" class="like-button" onclick="toggleLike(event)">
+              <i class="far fa-heart"></i>
+            </button>  
+            <button class="comment-button">
+              <i class="far fa-comment-alt"></i>
+            </button>
+          </div>
         </div>
       </div>
       <% }) %>

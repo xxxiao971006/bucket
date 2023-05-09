@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../styles/style_createBucket.css" />
   <title>Show Bucket 🪣</title>
+  <script src="https://unpkg.com/dom-confetti@0.0.13"></script>
+
 </head>
 
 <body>
@@ -24,14 +26,30 @@
         <form method="GET" action="/createBucket">
           <div class="bucket-item">
             <img src="../styles/images/inProgress_icon_noBackground.png" class="bucket-img" id="bucket-img" />
-              <p>
-                <%=title%>
-              </p>
-              <input type="hidden" name="btnData" value="<%title%>" />
+            <p>
+              <%=title%>
+            </p>
+            <input type="hidden" name="btnData" value="<%title%>" />
             </a>
           </div>
         </form>
         <%});%>
+    </div>
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <div class="modal-gifs">
+          <img class="partying-face" src="../styles/images/party-popper_1f389.png" alt="Partying Face">
+          <img class="party-popper" src="../styles/images/partying-face_1f973.png" alt="Party Popper">
+          <img class="party-popper-inverted" src="../styles/images/party-popper_1f389.png" alt="Party Popper Inverted">
+        </div>
+
+        <h2>WooHoo!</h2>
+        <p class="congrats">Congratulations on completing a goal !</p>
+        <button class="post-btn" id="post-picture-video">Post a Picture/Video</button>
+        <button class="post-btn" id="post-message">Post a Message</button>
+        <button class="post-btn" id="none">None</button>
+
+      </div>
     </div>
 
     <div class="navbar">
@@ -55,20 +73,99 @@
     </div>
   </div>
 </body>
+<script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0"></script>
 <script>
-  // function goBack() {
-  //   window.history.back();
-  // }
+  // Function to update bucket images based on task category
+  function updateBucketImages() {
+    const statusSelect = document.querySelector(".status-select");
 
+    if (statusSelect.value === "/feeds/buckets?show=inprogress") {
+      bucketImgs.forEach((bucketImg) => {
+        bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
+      });
+    } else if (statusSelect.value === "/feeds/buckets?show=completed") {
+      bucketImgs.forEach((bucketImg) => {
+        bucketImg.src = "../styles/images/completed_icon_noBackground.png";
+      });
+    }
+  }
+
+  // Function to update the bucket title
+  function updateBucketTitle() {
+    const bucketTitle = document.getElementById("bucket-title");
+    const statusSelect = document.querySelector(".status-select");
+    if (statusSelect.value === "/feeds/buckets?show=inprogress") {
+      bucketTitle.innerText = "In Progress Bucket List 🪣";
+    } else if (statusSelect.value === "/feeds/buckets?show=completed") {
+      bucketTitle.innerText = "Completed Bucket✅";
+    }
+  }
+
+  // Function to update the bucket title and images based on the URL
+  function updateBucketTitleAndImagesFromUrl() {
+    const bucketTitle = document.getElementById("bucket-title");
+    const currentUrl = new URL(window.location.href);
+    const showParam = currentUrl.searchParams.get("show");
+    if (showParam === "completed") {
+      bucketTitle.innerText = "Completed Bucket✅";
+      document.querySelector(".status-select").value = "/feeds/buckets?show=completed";
+    } else {
+      bucketTitle.innerText = "In Progress Bucket List 🪣";
+      document.querySelector(".status-select").value = "/feeds/buckets?show=inprogress";
+    }
+    updateBucketImages();
+  }
+
+  // Event listeners
   const bucketImgs = document.querySelectorAll(".bucket-img");
+  const modal = document.getElementById("modal");
+
+  function fireConfetti() {
+    const end = Date.now() + 1000; // animation duration: 3000ms
+
+    function frame() {
+      confetti({
+        particleCount: 7,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#a568f6', '#e63d87', '#00c7e4', '#fdd67e']
+      });
+      confetti({
+        particleCount: 7,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#a568f6', '#e63d87', '#00c7e4', '#fdd67e']
+      });
+
+      if (Date.now() < end) {
+        // requestAnimationFrame(frame);
+        setTimeout(frame, 50);
+      }
+    };
+
+    frame();
+  }
+
   bucketImgs.forEach((bucketImg) => {
     bucketImg.addEventListener("click", () => {
-      if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
-        bucketImg.src = "../styles/images/red_icon_noBackground.png";
-      } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
-        bucketImg.src = "../styles/images/completed_icon_noBackground.png";
-      } else {
-        bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
+      const statusSelect = document.querySelector(".status-select");
+
+      if (statusSelect.value === "/feeds/buckets?show=inprogress") {
+        if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
+          bucketImg.src = "../styles/images/red_icon_noBackground.png";
+          modal.style.display = "block";
+          fireConfetti();
+        } else {
+          bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
+        }
+      } else if (statusSelect.value === "/feeds/buckets?show=completed") {
+        if (bucketImg.src.endsWith("completed_icon_noBackground.png")) {
+          bucketImg.src = "../styles/images/red_icon_noBackground.png";
+        } else {
+          bucketImg.src = "../styles/images/completed_icon_noBackground.png";
+        }
       }
     });
   });
@@ -77,8 +174,6 @@
     const selectedOption = this.value;
     const currentUrl = window.location.href;
     const currentStatus = currentUrl.includes("completed") ? "completed" : "In Progress Bucketlist🪣";
-
-
     if (selectedOption.includes(currentStatus) === false) {
       window.location = selectedOption;
     }
@@ -91,38 +186,18 @@
     document.querySelector('option[value="/feeds/buckets?show=inprogress"]').selected = true;
   }
 
-  function updateBucketTitle() {
-    const bucketTitle = document.getElementById("bucket-title");
-    const statusSelect = document.querySelector(".status-select");
-
-    if (statusSelect.value === "/feeds/buckets?show=inprogress") {
-      bucketTitle.innerText = "In Progress Bucket List 🪣";
-    } else if (statusSelect.value === "/feeds/buckets?show=completed") {
-      bucketTitle.innerText = "Completed Bucket✅";
-    }
-  }
-
-
-  function updateBucketTitleFromUrl() {
-    const bucketTitle = document.getElementById("bucket-title");
-
-    const currentUrl = new URL(window.location.href);
-
-    const showParam = currentUrl.searchParams.get("show");
-
-    if (showParam === "completed") {
-      bucketTitle.innerText = "Completed Bucket✅";
-      document.querySelector(".status-select").value = "/feeds/buckets?show=completed";
-    } else {
-      bucketTitle.innerText = "In Progress Bucket List 🪣";
-      document.querySelector(".status-select").value = "/feeds/buckets?show=inprogress";
-    }
-  }
-
-  updateBucketTitleFromUrl();
-
+  updateBucketTitleAndImagesFromUrl();
   const statusSelect = document.querySelector(".status-select");
   statusSelect.addEventListener("change", updateBucketTitle);
+  statusSelect.addEventListener("change", updateBucketImages);
+
+// Close the modal when clicking outside of it
+window.addEventListener('click', function (event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+});
+
 </script>
 
 </html>

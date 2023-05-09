@@ -29,7 +29,7 @@ router.post(
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/auth/login");
+  res.redirect("/");
 });
 
 module.exports = router;

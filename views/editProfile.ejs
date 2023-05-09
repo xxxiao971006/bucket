@@ -14,7 +14,7 @@
         <button class="save">Save</button>
         <h1>Edit Profile</h1>
         <div class="picture-container">
-          <img src="user_picture.jpg" alt="User Picture" class="user-picture" />
+          <div class="profile-photo"></div>
           <button class="edit-picture">Edit Picture</button>
         </div>
 
@@ -22,11 +22,10 @@
           class="changeUserName"
           type="text"
           name="changeUserName"
-          placeholder="<%= user.username %>"
+          placeholder="<%= data[0].username %>"
         ></textarea>
       </form>
-
-      <!-- <h2 class="username" id="displayUsername"><%= user.username %></h2> -->
+    
       <p class="change-username">This could be your first name or a nickname</p>
     </div>
   </body>

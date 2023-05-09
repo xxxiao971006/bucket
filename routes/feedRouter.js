@@ -23,7 +23,7 @@ router.get("/createBucket", (req, res) => {
   const bucketlists = data.map((bucket) => {
     return bucket.title;
   });
-  res.render("createBucket", { bucketlists });
+  res.render("creatingNewBucket", { bucketlists });
 });
 
 router.get("/createMessage", (req, res) => {
