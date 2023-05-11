@@ -76,6 +76,9 @@ router.get("/buckets", async (req, res) => {
   res.render("showBuckets", { buckets });
 });
 
+router.post("/buckets", async (req, res) => {
+});
+
 router.post("/addTask", async (req, res) => {
   try {
     const { task, path } = req.body;

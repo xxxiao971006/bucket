@@ -36,7 +36,9 @@
       </li>
       <% }) %>
     </ul>
-
+    <form action="/feeds/buckets" method="POST" >
+    <button id="completeBucketlist">Complete Bucketlist</button>
+    </form>
     <script>
  
       function addProgressBar(){
@@ -54,7 +56,6 @@
         const pathArr = window.location.pathname.split("/");
         const path = pathArr[pathArr.length - 1]
         const res = await fetch("/feeds/addTask", { body: JSON.stringify({ task, path }), method: "POST", headers: { "Content-Type": "application/json"} });
-        // debugger;
         const { success, taskId } = await res.json();
         if (success) {
           document.querySelector("ul").innerHTML += 
