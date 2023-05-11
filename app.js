@@ -25,6 +25,7 @@ app.set("view engine", "ejs");
 app.use("/styles", express.static(__dirname + "/styles"));
 app.use(express.static("static"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //ROUTERS:
 const home = require("./routes/home");
@@ -43,7 +44,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

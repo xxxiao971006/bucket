@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Bucket Progress</title>
+  </head>
+  <body>
+    <h1><%=bucketTitle%></h1>
+    <% if (tasks.Task.length >0) { %>
+    <progress
+      id="file"
+      value="<%= numOfCompleted %>"
+      max="<%= tasks.Task.length %>"
+    >
+      32%
+    </progress>
+    <br />
+    <br />
+    <input type="text" name="taskEntry" placeholder="Enter a task">
+    <button id="addTask">Add</button>
+    <ul>
+      <% tasks.Task.forEach(function(task) { %>
+      <li>
+        <label>
+          <input <%= task.completed ? "checked='checked'": null %> type="checkbox" name="milestoneTask" value="<%= task.id %>" />
+          <%= task.message %>
+        </label>
+      </li>
+      <% }) %>
+    </ul>
+
+    <% } %>
+
+    <script>
+      async function addTaskHandler() {
+        const task = document.querySelector("input[name=taskEntry]").value;
+        const pathArr = window.location.pathname.split("/");
+        const path = pathArr[pathArr.length - 1]
+        debugger;
+        const res = await fetch("/feeds/addTask", { body: JSON.stringify({ task, path }), method: "POST", headers: { "Content-Type": "application/json"} });
+        
+        const { success, taskId } = await res.json();
+        if (success) {
+          document.querySelector("ul").innerHTML += 
+          `
+            <li>
+              <label>
+                <input type="checkbox" name="milestoneTask" value="${taskId}" />
+                ${task}
+              </label>
+            </li>
+          `
+          addCheckboxListeners();
+        }
+
+      }
+
+      document.querySelector("#addTask").addEventListener("click", addTaskHandler);
+      addCheckboxListeners();
+      function addCheckboxListeners() {
+        let checkboxNodes = Array.from(document.querySelectorAll("input[name=milestoneTask]"));
+        checkboxNodes.forEach(function (checkbox) {
+          checkbox.addEventListener("change", async function (event) {
+            const taskId = event.target.value;
+            const completed = event.target.checked;
+
+            const res = await fetch(`/feeds/updateTask/${taskId}`, { body: JSON.stringify({ completed }), method: "POST", headers: { "Content-Type": "application/json"} });
+          });
+        });
+      }
+      
+    </script>
+  </body>
+</html>

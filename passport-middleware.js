@@ -3,16 +3,14 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const database = require("./fake-db");
 
-const localLogin = new LocalStrategy(
-  (username, password, done) => {
-    const user = database.getUserByUsernameAndPassword(username, password);
-    return user
-      ? done(null, user)
-      : done(null, false, {
-          message: "Your login details are not valid. Please try again",
-        });
-  }
-);
+const localLogin = new LocalStrategy(async (username, password, done) => {
+  const user = await database.getUserByUsernameAndPassword(username, password);
+  return user
+    ? done(null, user)
+    : done(null, false, {
+        message: "Your login details are not valid. Please try again",
+      });
+});
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -20,8 +18,8 @@ passport.serializeUser(function (user, done) {
   // Creates a special variable for us called req.user
 });
 
-passport.deserializeUser(function (id, done) {
-  let user = database.getUserByUserId(id);
+passport.deserializeUser(async function (id, done) {
+  let user = await database.getUserByUserId(id);
   if (user) {
     done(null, user);
   } else {

@@ -5,6 +5,7 @@ const {
   createNewBucket,
   showBuckets,
   getUserByUserId,
+  getAllMessage
 } = require("../fake-db");
 const bodyParser = require("body-parser");
 
@@ -14,15 +15,15 @@ const { ensureAuthenticated } = require("../middleware");
 
 router.use(ensureAuthenticated);
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const user_id = req.user.id;
-  const data = getUserFeed(user_id);
-  const totalBucketTitle = showBuckets("all", req.user);
-  res.render("profile", { data, totalBucketTitle });
+  const data = await getAllMessage(user_id);
+  const user = await getUserByUserId(user_id);
+  const totalBucketTitle = await showBuckets("all", req.user.id);
+  res.render("profile", { data, user, totalBucketTitle });
 });
 
 router.post("/", (req, res) => {
-  // console.log(req.body);
   const { newMessage, bucket } = req.body;
   const user_id = req.user.id;
   createNewBucket(user_id, bucket, newMessage);

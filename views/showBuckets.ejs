@@ -20,14 +20,14 @@
     </div>
     <h1 id="bucket-title">In Progress</h1>
     <div class="bucket-content">
-      <% bucketTitles.forEach(title=> {%>
+      <% buckets.forEach(bucket=> {%>
         <form method="GET" action="/createBucket">
           <div class="bucket-item">
             <img src="../styles/images/inProgress_icon_noBackground.png" class="bucket-img" id="bucket-img" />
-              <p>
-                <%=title%>
-              </p>
-              <input type="hidden" name="btnData" value="<%title%>" />
+              <a href="/feeds/bucket/<%= bucket.id %>">
+                <%= bucket.title %>
+              </a>
+              <input type="hidden" name="btnData" value="<%bucket.title%>" />
             </a>
           </div>
         </form>

@@ -9,46 +9,38 @@
   </head>
   <body>
     <div class="wrapper">
-      <!-- <button class="arrow-left" onclick="goBack()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          width="18px"
-          height="18px"
-        >
-          <path
-            fill="currentColor"
-            d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z"
-          />
-        </svg>
-      </button> -->
-      <div class="top-controls">
-        <!-- <a href="/feeds/createBucket" class="add-button">Create Bucketlist🪣</a style= > -->
-        <!-- <select class="status-select">
-          <option value="/feeds/buckets?show=inprogress">In Progress</option>
-          <option value="/feeds/buckets?show=completed">Completed</option>
-        </select> -->
-      </div>
-      <div class="bucket-content">
-        <%bucketlists.forEach(bucket => {%>
-        <form method="GET" action="/createBucket">
-          <div class="bucket-item">
-            <img
-              src="../styles/images/inProgress_icon_noBackground.png"
-              class="bucket-img"
-              id="bucket-img"
-            />
-            <a
-              href="/feeds/createMessage?bucket=<%= bucket%>"
-              class="bucket-link"
-            >
-              <p><%=bucket%></p>
-              <input type="hidden" name="btnData" value="<%bucket%>" />
-            </a>
-          </div>
-        </form>
-        <%});%>
-      </div>
+      <h1> New Goal <h1>
+        <form id="createNewBucketForm" method="POST" action="/feeds/createBucket">
+          <button id="submitBtn" type="submit">Create New Bucketlist</button>
+
+          <p>Set Due Date</p>
+          <input type="date" id="dueDate" name="dueDate"
+          value=<%=today%>
+          min=<%today%> max="2018-12-31">
+   
+        <div class="input-container">
+          <div class="profile-photo"></div>
+          <p class="newBucketTitle">Your New Bucketlist: </p>
+          <textarea
+            style="outline: none; resize: none"
+            type="text"
+            name="newBucket"
+            placeholder="What's your next goal?"
+            class="create_post"
+            required></textarea>
+          </textarea>
+        </div>
+      
+        
+        <p>Choose your Tag</p>
+        <% tags.forEach(tag => { %>
+          <input type="checkbox" id="tag" name="tag" value="<%=tag.id%>">
+          <label for="<%=tag.id%>"><%=tag.tagName%></label><br>
+        <% }) %>
+      </form>      
+      
+
+      
 
       <div class="navbar">
         <a href="/feeds/home">
@@ -95,23 +87,28 @@
         </a>
       </div>
     </div>
-  </body>
-  <script>
-    function goBack() {
-      window.history.back();
-    }
+    <script>
+      const form = document.querySelector("form");
 
-    const bucketImgs = document.querySelectorAll(".bucket-img");
-    bucketImgs.forEach((bucketImg) => {
-      bucketImg.addEventListener("click", () => {
-        if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
-          bucketImg.src = "../styles/images/red_icon_noBackground.png";
-        } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
-          bucketImg.src = "../styles/images/completed_icon_noBackground.png";
-        } else {
-          bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
-        }
+  
+      function goBack() {
+        window.history.back();
+      }
+  
+  
+  
+      const bucketImgs = document.querySelectorAll(".bucket-img");
+      bucketImgs.forEach((bucketImg) => {
+        bucketImg.addEventListener("click", () => {
+          if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
+            bucketImg.src = "../styles/images/red_icon_noBackground.png";
+          } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
+            bucketImg.src = "../styles/images/completed_icon_noBackground.png";
+          } else {
+            bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
+          }
+        });
       });
-    });
-  </script>
+    </script>
+  </body>
 </html>

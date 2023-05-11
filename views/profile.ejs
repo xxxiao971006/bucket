@@ -28,7 +28,7 @@
         </svg>
       </div>
       <div class="profile-photo"></div>
-      <p class="username">@<%= data[0].username %>
+      <p class="username">@<%= user.username %>
       </p>
       <p class="netBucket">
         <%=totalBucketTitle.length%> goals
@@ -51,8 +51,8 @@
               <select name="bucket">
                 <option value="">Please choose your bucket</option>
                 <% totalBucketTitle.forEach(element=> { %>
-                  <option value="<%=element%>">
-                    <%=element%>
+                  <option value="<%=element.title%>">
+                    <%=element.title%>
                   </option>
                   <% }) %>
               </select>
@@ -67,22 +67,28 @@
           </div>
         </div>
     </form>
+
+
+
     <% data.forEach(post=> { %>
       <div class="post">
-       <img src="https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg" style="z-index: 0; margin-top: 15px;" class="user-picture user-avatar">
+       <img src=<%=user.profileImg%> style="z-index: 0; margin-top: 15px;" class="user-picture user-avatar">
         <div class="post-content" style="padding: 10px;">
           <p class="username-inside">
-            <%=post.username%>
+            <%=user.username%>
           </p>
           <p class="bucket-info">
-            <%= post.bucketName[0] %> <span class="<%= post.completed[0].replace(" ", "") %>"><%= post.completed[0] %></span>
+            <%= post.bucket.title %> <span class="<%= post.bucket.completed ? 'Completed': 'InProgress' %>"><%= post.bucket.completed ? 'Completed': 'In Progress' %></span>
           </p>
           <p class="post-message">
-            <%= post.messages %>
+            <%= post.content %>
           </p>
         </div>
       </div>
       <% }) %>
+
+
+
       <br>
       <br>
   </div>

@@ -11,17 +11,43 @@
   <body>
     <div class="wrapper">
       <div class="posts-container">
-        <% feed.forEach(post => { %>
-        <div class="post">
-          <img src='<%= post.username === `samsmith` ? "https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg": `https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg`%>' style="z-index: 0;" class="user-picture user-avatar">
-          <div class="post-content" style="padding: 10px;">
-            <p class="username"><%=post.username%></p>
-            <p class="bucket-info"><%= post.bucketName[0] %> <span class="<%= post.completed[0].replace(" ", "") %>"><%= post.completed[0] %></span></p>
-          
-            <p class="post-message"><%= post.messages %></p>
-          </div>
-        </div>
+
+        <% feed.user.buckets.forEach( bucket => { %> 
+          <% bucket.messages.forEach( message => { %>
+            <div class="post">
+              <img src="<%=feed.user.profileImg %>" style="z-index: 0;" class="user-picture user-avatar">
+              <div class="post-content" style="padding: 10px">
+                <p class="feed.user.username"><%= feed.user.username %></p>
+                <p class="bucket-info">
+                  <%= bucket.title %>
+                  <span class="<%= bucket.completed ? 'Completed': 'InProgress' %>"><%= bucket.completed ? 'Completed': 'In Progress' %></span>
+                </p>
+                <p class="post-message"><%= message.content %></p>
+              </div>
+            </div>
+      <% }) %>
+     <% }) %>
+     
+        <% feed.following.forEach(user => { %> 
+          <% user.buckets.forEach( bucket => { %> 
+            <% bucket.messages.forEach( message => { %>
+              <div class="post">
+                <img src="<%=user.profileImg %>" style="z-index: 0;" class="user-picture user-avatar">
+                <div class="post-content" style="padding: 10px">
+                  <p class="username"><%= user.username %></p>
+                  <p class="bucket-info">
+                    <%= bucket.title %>
+                    <span class="<%= bucket.completed ? 'Completed': 'InProgress' %>"><%= bucket.completed ? 'Completed': 'In Progress' %></span>
+                  </p>
+                  <p class="post-message"><%= message.content %></p>
+                </div>
+              </div>
         <% }) %>
+       <% }) %>
+      <% }) %>
+
+     
+
       </div>
       <div class="navbar">
         <a href="/feeds/home">

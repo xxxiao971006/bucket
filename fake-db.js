@@ -1,238 +1,5 @@
-//Data
-const users = [
-  {
-    id: 1,
-    username: "samsmith",
-    email: "samsmith@gmail.com",
-    password: "sam123",
-    following: [3, 4, 5],
-    message: [1001, 1002],
-  },
-  {
-    id: 2,
-    username: "janedoe",
-    email: "janedoe@gmail.com",
-    password: "jane123",
-    following: [1, 4, 7],
-    message: [1003],
-  },
-  {
-    id: 3,
-    username: "johnbrown",
-    email: "johnbrown@gmail.com",
-    password: "john123",
-    following: [1, 2],
-    message: [1004],
-  },
-  {
-    id: 4,
-    username: "annalee",
-    email: "annalee@gmail.com",
-    password: "anna123",
-    following: [1, 2, 6],
-    message: [1005],
-  },
-  {
-    id: 5,
-    username: "davidc",
-    email: "davidc@gmail.com",
-    password: "david123",
-    following: [1],
-    message: [1006],
-  },
-  {
-    id: 6,
-    username: "mikejones",
-    email: "mikejones@gmail.com",
-    password: "mike123",
-    following: [4, 7],
-    message: [1007, 1008],
-  },
-  {
-    id: 7,
-    username: "jessicas",
-    email: "jessicas@gmail.com",
-    password: "jessica123",
-    following: [2, 6],
-    message: [1009],
-  },
-  {
-    id: 8,
-    username: "a",
-    email: "a@gmail.com",
-    password: "a",
-    following: [1, 4, 5],
-    message: [],
-  },
-];
+const prisma = require("./prisma/client");
 
-const filters = [
-  {
-    id: 1,
-    filter: "Travel",
-  },
-  {
-    id: 2,
-    filter: "Adventure",
-  },
-  {
-    id: 3,
-    filter: "Food",
-  },
-  {
-    id: 4,
-    filter: "Study",
-  },
-  {
-    id: 5,
-    filter: "Fun",
-  },
-  {
-    id: 6,
-    filter: "Nature",
-  },
-  {
-    id: 7,
-    filter: "Culture",
-  },
-  {
-    id: 8,
-    filter: "Exercise",
-  },
-  {
-    id: 9,
-    filter: "Others",
-  },
-];
-
-const buckets = [
-  {
-    id: 1,
-    title: "Ride a roller coaster",
-    filter: [2, 5],
-  },
-  {
-    id: 2,
-    title: "Run a marathon",
-    filter: [8],
-  },
-  {
-    id: 3,
-    title: "Mentor someone",
-    filter: [4],
-  },
-  {
-    id: 4,
-    title: "Visit friends",
-    filter: [5],
-  },
-  {
-    id: 5,
-    title: "Go skiing",
-    filter: [2, 5, 8],
-  },
-  {
-    id: 6,
-    title: "Adopt a pet",
-    filter: [9],
-  },
-  {
-    id: 7,
-    title: "Go fishing",
-    filter: [5],
-  },
-  {
-    id: 8,
-    title: "Go swimming",
-    filter: [5, 8],
-  },
-];
-
-const messages = [
-  {
-    id: 1001,
-    user_id: 1,
-    bucket_id: 1,
-    message:
-      "I am going to mentor someone! I am so excited to help other students!",
-    timestamp: "2021-06-19T17:10:12.891Z",
-    completed: false,
-  },
-  {
-    id: 1002,
-    user_id: 1,
-    bucket_id: 5,
-    message:
-      "Libero fugit ex assumenda exercitationem praesentium atque debitis. Dolorum rem maiores aliquam ex qui. Sed maiores saepe saepe ullam libero est temporibus veniam deleniti. Minima dolores esse voluptate officia.",
-    timestamp: "2022-06-19T17:10:12.891Z",
-    completed: true,
-  },
-  {
-    id: 1003,
-    user_id: 2,
-    bucket_id: 8,
-    message:
-      "Ducimus magni ducimus ducimus aperiam saepe ratione. Non ad adipisci repellendus vitae nostrum vitae quo dolorum. Debitis corporis sint non quisquam eaque tempore autem.",
-    timestamp: "2022-08-25T04:55:34.847Z",
-    completed: true,
-  },
-  {
-    id: 1004,
-    user_id: 7,
-    bucket_id: 1,
-    message:
-      "Eum ullam quae totam impedit quo quo reprehenderit. Consectetur officiis optio dolores quaerat. Aliquam aliquid rem neque reiciendis sapiente incidunt. In nihil aspernatur reiciendis nobis vero atque voluptatibus tempora modi.",
-    timestamp: "2023-01-19T20:17:57.732Z",
-    completed: false,
-  },
-  {
-    id: 1005,
-    user_id: 5,
-    bucket_id: 1,
-    message:
-      "Accusamus sed excepturi culpa suscipit maxime. A animi veniam architecto repellendus voluptatibus ex. Tenetur pariatur sit quo consequuntur nam eum eius. Accusantium quisquam perferendis ipsum assumenda voluptate qui. Repudiandae esse quibusdam.",
-    timestamp: "2022-12-04T10:43:12.497Z",
-    completed: false,
-  },
-  {
-    id: 1006,
-    user_id: 6,
-    bucket_id: 7,
-    message:
-      "Laudantium quam dicta culpa iste recusandae laboriosam nemo consequatur. Incidunt minima quae natus maiores maxime optio sequi aliquid. Illum quasi ipsa quidem numquam. Quidem pariatur sunt nobis minus asperiores illum. Odit doloribus eius quod nobis quis.",
-    timestamp: "2022-12-08T13:14:23.625Z",
-    completed: true,
-  },
-  {
-    id: 1007,
-    user_id: 1,
-    bucket_id: 7,
-    message:
-      "Sed minima doloribus distinctio explicabo praesentium inventore. Illum possimus natus illo iure error nostrum. Minus nobis labore maxime. Sed in a necessitatibus. Adipisci earum culpa tenetur. Quos veniam expedita consequatur eos eius molestiae consectetur.",
-    timestamp: "2022-09-15T23:22:10.862Z",
-    completed: false,
-  },
-  {
-    id: 1008,
-    user_id: 1,
-    bucket_id: 3,
-    message:
-      "Recusandae eaque esse itaque excepturi. Maxime deserunt deserunt quidem accusantium autem ipsam laudantium. Possimus sequi ipsa illo cupiditate consequatur minus magni quam temporibus. Repellat debitis vitae rem similique debitis. Deleniti numquam expedita eveniet.",
-    timestamp: "2023-04-22T05:12:10.383Z",
-    completed: true,
-  },
-  {
-    id: 1009,
-    user_id: 3,
-    bucket_id: 6,
-    message:
-      "Recusandae eaque esse itaque excepturi. Maxime deserunt deserunt quidem accusantium autem ipsam laudantium. Possimus sequi ipsa illo cupiditate consequatur minus magni quam temporibus. Repellat debitis vitae rem similique debitis. Deleniti numquam expedita eveniet.",
-    timestamp: "2023-04-22T05:12:10.383Z",
-    completed: true,
-  },
-];
-
-//Functions
 const getUsernameById = (id) => {
   return users.find((user) => user.id == id).username;
 };
@@ -256,9 +23,14 @@ const getMessageIdsByUserId = (user_Id) => {
   return userInformation ? userInformation.message : null;
 };
 
-const getBucketByBucketId = (id) => {
-  return buckets.find((bucket) => bucket.id == id).title;
-}; //gives the bucket title
+
+const getBucketTitleByBucketId = async (id) => {
+  const bucketTitle = await prisma.bucket.findUnique({
+    where: {id: id},
+    select: {title: true}
+  })
+  return bucketTitle ;
+};
 
 const sortPosts = (posts) => {
   try {
@@ -270,54 +42,131 @@ const sortPosts = (posts) => {
   }
 };
 
-const getUserFeed = (user_id) => {
-  let userMessage = getUserMessageIdByUserId(user_id);
-  let myPosts = userMessage.map((userMessageId) => {
-    return {
-      username: getUsernameById(user_id), //samsmith
-      completed: [
-        getMessagesByMessageId(userMessageId).completed
-          ? "Completed"
-          : "In Progress",
-      ],
-      bucketName: [
-        getBucketByBucketId(getMessagesByMessageId(userMessageId).bucket_id),
-      ],
-      messages: [getMessagesByMessageId(userMessageId).message],
-      createdAt: getMessagesByMessageId(userMessageId).timestamp.slice(0, 10),
-    };
+//👍
+function exclude(user, keys) {
+  for (let key of keys) {
+    delete user[key];
+  }
+  return user;
+}
+
+//👍
+const createNewTasks = async (taskMessage, bucket_id) => {
+  try {
+    const newTask = await prisma.task.create({
+      data: {
+
+        message: taskMessage,
+        completed: false,
+        bucket: {connect: {id: bucket_id}}
+      }
+      // data: {
+      //   message: taskMessage,
+      //   bucket: {connect: bucket_id}
+      // }
+    })
+    return newTask;  
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
+
+const updateTask = async (completion, task_id) => {
+  const task = await prisma.task.update({
+    where: {
+      id: task_id
+    },
+    data: {
+      completed: completion
+    }
   });
-  const outcome = sortPosts(myPosts);
+  return task;
+}
+
+//👍
+const getTasks = async (bucket_id) => {
+  const tasks = await prisma.bucket.findUnique({
+    where: { id: bucket_id },
+    select: { Task: true },
+  });
+  return tasks;
+};
+
+
+const getMainFeed = async (user_id) => {
+  const mainFeed = await prisma.user.findUnique({
+    where: { id: user_id },
+    select: {
+      following: {
+        select: {
+          username: true,
+          profileImg: true,
+          buckets: {
+            select: {
+              title: true,
+              completed: true,
+              messages: {
+                orderBy: { createdAt: "asc" },
+                select: {
+                  content: true,
+                  likes: true,
+                  createdAt: true,
+                  comments: {
+                    select: { content: true, createdAt: true },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      username: true,
+      profileImg: true,
+      buckets: {
+        select: {
+          title: true,
+          completed: true,
+          messages: {
+            orderBy: { createdAt: "asc" },
+            select: {
+              content: true,
+              likes: true,
+              createdAt: true,
+              comments: {
+                select: { content: true, createdAt: true },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  const outcome = {
+    following: mainFeed.following.map((following) => {
+      return {
+        username: following.username,
+        profileImg: following.profileImg,
+        buckets: following.buckets,
+      };
+    }),
+    user: {
+      username: mainFeed.username,
+      profileImg: mainFeed.profileImg,
+      buckets: mainFeed.buckets,
+    },
+  };
+
   return outcome;
 };
 
-const getMainFeed = (user_id) => {
-  let friends = getFollowingByUserId(user_id);
-  friends = friends.map((friendId) => {
-    return {
-      username: getUsernameById(friendId),
-      completed: getMessageIdsByUserId(friendId).map((msgId) =>
-        getMessagesByMessageId(msgId).completed ? "Completed" : "In Progress"
-      ),
-      bucketName: getMessageIdsByUserId(friendId).map((msgId) =>
-        getBucketByBucketId(getMessagesByMessageId(msgId).bucket_id)
-      ),
-      messages: getMessageIdsByUserId(friendId).map(
-        (msgId) => getMessagesByMessageId(msgId).message
-      ),
-      createdAt: getMessageIdsByUserId(friendId).map((msgId) =>
-        getMessagesByMessageId(msgId).timestamp.slice(0, 10)
-      )[0],
-    };
+//👍: get user by user id
+const getUserByUserId = async (user_id) => {
+  const user = await prisma.user.findUnique({
+    where: { id: user_id },
   });
-  let mine = getUserFeed(user_id);
-  let outcomeBeforeSorting = [...friends, ...mine];
-  const outcome = sortPosts(outcomeBeforeSorting);
-  return outcome;
-};
-
-const getUserByUserId = (user_id) => {
-  return users.find((user) => user.id == user_id);
+  return user;
+  // return users.find((user) => user.id == user_id);
 };
 
 const getBucketIdByBucketTitle = (bucket_title) => {
@@ -330,82 +179,128 @@ const updateUserMessage = (user_id, new_Message_Id) => {
   user.message.push(new_Message_Id);
 };
 
-const createNewBucket = (user_id, bucketTitle, messageInput) => {
-  const maxId = Math.max(...messages.map((message) => message.id));
-  const newId = maxId + 1;
-  let newMessage;
-  if (bucketTitle && messageInput) {
-    newMessage = {
-      id: newId,
-      user_id: user_id,
-      bucket_id: getBucketIdByBucketTitle(bucketTitle),
-      message: messageInput,
-      timestamp: new Date().toISOString(),
+//👍: creating new Bucket
+const createNewBucket = async (dueDate, newBucket, userId, tagId) => {
+  const newBucketlist = await prisma.bucket.create({
+    data: {
+      dueDate: new Date(dueDate),
+      title: newBucket,
+      user: {connect: {id: userId}},
+      tag: {connect: {id: tagId}},
       completed: false,
-    };
-    messages.push(newMessage);
-    updateUserMessage(user_id, newMessage.id);
-  }
-};
+    }
+  })
+  return newBucketlist;
+  };
 
-const getUserByUsernameAndPassword = (username, password) => {
-  return users.find(
-    (user) => user.username == username && user.password == password
-  );
-};
-
-const createUser = (user) => {
-  const { email, username, password } = user;
-  const existingUser = users.find((user) => {
-    return user.email === email || user.username === username;
+//👍: returning whole user information
+const getUserByUsernameAndPassword = async (username, password) => {
+  const user = await prisma.user.findUnique({
+    where: { username: username },
   });
+
+  if (user) {
+    if (user.password === password) {
+      return user;
+    }
+  }
+  return false;
+};
+
+//👍: Create new user. 
+const createUser = async (user) => {
+  const { email, username, password } = user;
+  const existingUser = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
   if (existingUser) {
     return false;
   } else {
-    const maxId = Math.max(...users.map((user) => user.id));
-    const newId = maxId + 1;
-    const newUser = {
-      id: newId,
-      username: username,
-      email: email,
-      password: password,
-      following: [],
-      message: [],
-    };
-    users.push(newUser);
+    const newUser = await prisma.user.create({
+      data: {
+        email: email,
+        username: username,
+        password: password,
+        profileImg:
+          "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg",
+      },
+    });
     return newUser;
   }
 };
 
-const showBuckets = (status, currentUser) => {
-  const user = getUserByUserId(currentUser.id);
-  const messageIds = user.message;
-  const bucketIdsBeforeFiltering = messageIds.map((id) => {
-    const foundMsg = getMessagesByMessageId(id);
-
-    if (status == "inprogress") {
-      if (!foundMsg.completed) return foundMsg.bucket_id;
-    } else if (status == "all") {
-      return foundMsg.bucket_id;
-    } else {
-      if (foundMsg.completed) return foundMsg.bucket_id;
+//👍: Get all messages of the user
+const getAllMessage = async (user_id) => {
+  const allMessage = await prisma.message.findMany({
+    where: {
+      bucket: {
+        user: {
+          id: user_id
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    select: {
+      content: true,
+      createdAt: true,
+      likes:true,
+      comments:true,
+      bucket: {
+        select: {
+          title: true,
+          completed: true
+        }
+      }
     }
-  });
-  const bucketIds = [...new Set([...bucketIdsBeforeFiltering])].filter(
-    (val) => val !== undefined
-  );
-  const bucketTitles = bucketIds.map((id) => getBucketByBucketId(id));
-  return bucketTitles;
+  })
+
+  return allMessage;
+}
+
+//👍: Showing all the buckets on the list. 
+const showBuckets = async (status, currentUser) => {
+  let buckets = null;
+  if (status === "all") {
+    buckets = await prisma.bucket.findMany({ where: { userId: currentUser }, select: { id: true, title: true} });
+  } else if (status === "completed") {
+    buckets = await prisma.bucket.findMany({
+      where: {
+        AND: [{ userId: currentUser }, { completed: true }],
+      },
+      select: { id: true, title: true}
+    });
+  } else if (status === "inprogress") {
+    buckets = await prisma.bucket.findMany({
+      where: {
+        AND: [{ userId: currentUser }, { completed: false }],
+      },
+      select: { id: true, title: true}
+    });
+  }
+  return buckets;
 };
 
+//👍: Get all tags
+const getAllTags = async () => {
+  const tag = await prisma.tag.findMany();
+  return tag;
+}
+
+
 module.exports = {
-  buckets,
   createNewBucket,
-  getBucketByBucketId,
+  getBucketTitleByBucketId,
   getMainFeed,
+  getTasks,
   getUserByUsernameAndPassword,
   getUserByUserId,
   createUser,
   showBuckets,
-  getUserFeed,
+  getAllTags,
+  createNewTasks,
+  getAllMessage,
+  updateTask
 };
