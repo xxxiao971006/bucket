@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/style_creatingNewBucket.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+  <title>Your New Bucket 😁</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="background-container">
+      <button class="arrow-left" onclick="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="3vh" height="3vh">
+          <path fill="#8083ff"
+            d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z" />
+        </svg>
+      </button>
+      <div class="textarea-container">
+        <textarea placeholder="New Goal ✏️"></textarea>
+      </div>
+      <div class="calendar-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="3vh" height="3vh" fill="#8083ff">
+          <path d="M21,4H20V2H18V4H6V2H4V4H3C1.35,4,0,5.35,0,7v12c0,1.65,1.35,3,3,3h18c1.65,0,3-1.35,3-3V7C24,5.35,22.65,4,21,4z M21,20H3V8h18V20z M6,10H4v2h2V10z M6,14H4v2h2V14z M6,18H4v2h2V18z M10,10H8v2h2V10z M10,14H8v2h2V14z M10,18H8v2h2V18z M14,10h-2v2h2V10z M14,14h-2v2h2V14z M14,18h-2v2h2V18z M18,10h-2v2h2V10z M18,14h-2v2h2V14z M18,18h-2v2h2V18z"/>
+      </svg>
+      
+        <input type="text" id="date-picker" placeholder="Set Due Date" readonly />
+    </div>    
+      <div class="select-container">
+        <select id="priority-level">
+          <option value="" disabled selected>Set Priority Level</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+    </div>
+    <h1>Set Daily Tasks</h1>
+    <button class="Create-Goal">Create New Goal </button>
+  </div>
+</body>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+
+  const datePicker = document.getElementById('date-picker');
+  const flatpickrInstance = flatpickr(datePicker, {
+    dateFormat: "M d, Y",
+    onChange: function (selectedDates, dateStr, instance) {
+      datePicker.value = dateStr;
+    }
+  });
+
+  const prioritySelect = document.getElementById('priority-level');
+  prioritySelect.addEventListener('change', () => {
+    const selectedOption = prioritySelect.options[prioritySelect.selectedIndex];
+    prioritySelect.style.color = window.getComputedStyle(selectedOption).color;
+  });
+
+</script>
+
+</html>

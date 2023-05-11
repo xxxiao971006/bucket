@@ -32,8 +32,15 @@ router.post("/", (req, res) => {
 
 router.get("/edit", (req, res) => {
   const user_id = req.user.id;
-  const user = getUserByUserId(user_id);
-  res.render("editProfile", { user });
+  const data = getUserFeed(user_id);
+  // const totalBucketTitle = showBuckets("all", req.user);
+  res.render("editProfile", { data });
+});
+
+router.get("/settings", (req, res) => {
+  const user_id = req.user.id;
+  const data = getUserFeed(user_id);
+  res.render("settings", { data });
 });
 
 module.exports = router;
