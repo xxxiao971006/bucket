@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   createNewBucket,
+  completeBucketlist,
   getUserFeed,
   getMainFeed,
   showBuckets,
@@ -13,6 +14,7 @@ const {
 } = require("../fake-db");
 
 const { ensureAuthenticated } = require("../middleware");
+const { bucket } = require('../prisma/client');
 router.use(ensureAuthenticated);
 
 // router.get("/tasks", (req, res) => {
@@ -27,7 +29,7 @@ router.get("/home", async (req, res) => {
   //
 }); 
 
-//☝️: Problem: need to change checkbox to radio (only choosing one)!
+//☝️ Problem: need to change checkbox to radio (only choosing one)!
 router.get("/createBucket", async (req, res) => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -73,11 +75,24 @@ router.get("/buckets", async (req, res) => {
   const { show } = req.query; // "inprogress" "completed"
   const currentUser = req.user;
   const buckets = await showBuckets(show, currentUser.id);
+  // console.log(buckets)
   res.render("showBuckets", { buckets });
 });
 
 router.post("/buckets", async (req, res) => {
+  try {
+    const {bucket_id} = req.body;
+    const bucketId = Number(bucket_id);
+    await completeBucketlist(bucketId);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.log(error);
+  }
+
+
+  
 });
+
 
 router.post("/addTask", async (req, res) => {
   try {
@@ -112,6 +127,7 @@ router.get("/createMessage", (req, res) => {
 router.get("/bucket/:id", async (req, res) => {
   let numOfCompleted = 0;
   
+  const bucket_id = req.params.id;
   const tasks = await getTasks(parseInt(req.params.id));
   const bucketTitle = (await getBucketTitleByBucketId(parseInt(req.params.id))).title;
 
@@ -119,12 +135,20 @@ router.get("/bucket/:id", async (req, res) => {
     if (task.completed) {
       numOfCompleted++;
     }
-  })
-;
-  
+  });
   res.render("showBucket", { tasks, numOfCompleted,bucketTitle });
 });
 
+router.post("/bucket/:id", async (req, res) => {
+  try {
+    const {bucket_id} = req.body;
+    const bucketId = Number(bucket_id);
+    await completeBucketlist(bucketId);
+    res.status(200).json({ success: true});
+  } catch (error) {
+   console.log(error) 
+  }
+});
 
 
 

@@ -1,10 +1,5 @@
 const prisma = require("./prisma/client");
 
-const getBucketIdByBucketTitle = (bucket_title) => {
-  const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
-  return bucketFound ? bucketFound.id : null;
-};
-
 
 
 const getUsernameById = (id) => {
@@ -30,8 +25,6 @@ const getMessageIdsByUserId = (user_Id) => {
   return userInformation ? userInformation.message : null;
 };
 
-
-
 const sortPosts = (posts) => {
   try {
     return posts.sort((a, b) => {
@@ -40,6 +33,19 @@ const sortPosts = (posts) => {
   } catch (error) {
     throw new Error("Method not implemented.");
   }
+};
+
+
+const completeBucketlist = async (bucket_id) => {
+  await prisma.bucket.update({
+    where: { id: bucket_id },
+    data: { completed: true }
+  }) 
+ };
+
+ const getBucketIdByBucketTitle = (bucket_title) => {
+  const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
+  return bucketFound ? bucketFound.id : null;
 };
 
 //👍
@@ -176,8 +182,6 @@ const getUserByUserId = async (user_id) => {
   return user;
   // return users.find((user) => user.id == user_id);
 };
-
-
 
 //👍: creating new Bucket
 const createNewBucket = async (dueDate, newBucket, userId, tagId) => {
@@ -316,5 +320,6 @@ module.exports = {
   getAllTags,
   createNewTasks,
   getAllMessage,
-  updateTask
+  updateTask,
+  completeBucketlist
 };

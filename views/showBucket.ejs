@@ -8,12 +8,14 @@
   </head>
   <body>
     <h1><%=bucketTitle%></h1>
-    <% if (tasks.Task.length == 0) { %>
-     <p>You currently don't have any milestone tasks. Do you want to add?</p>
-    <% } %>
-    
-    <% if (tasks.Task.length >0) { %>
-    <progress
+
+
+
+    <% if(tasks.Task.length == 0){ %>
+      <p>You currently don't have any milestone tasks. Do you want to add?</p>
+
+    <% } else{ %>  
+      <progress
       id="progressbar"
       value="<%= numOfCompleted %>"
       max="<%= tasks.Task.length %>"
@@ -22,7 +24,7 @@
     </progress>
     <br />
     <br />
-    <% } %>
+   <% } %>
 
     <input type="text" name="taskEntry" placeholder="Enter a task">
     <button id="addTask">Add</button>
@@ -36,14 +38,17 @@
       </li>
       <% }) %>
     </ul>
-    <form action="/feeds/buckets" method="POST" >
     <button id="completeBucketlist">Complete Bucketlist</button>
-    </form>
     <script>
  
       function addProgressBar(){
         const progressBar = document.getElementById("progressbar");
         progressBar.value++;
+      }
+      
+      function completeProgressBar(){
+        const progressBar = document.getElementById("progressbar");
+        progressBar.value = 100;
       }
 
       function minusProgressBar(){
@@ -58,6 +63,7 @@
         const res = await fetch("/feeds/addTask", { body: JSON.stringify({ task, path }), method: "POST", headers: { "Content-Type": "application/json"} });
         const { success, taskId } = await res.json();
         if (success) {
+          completeProgressBar();
           document.querySelector("ul").innerHTML += 
           `
             <li>
@@ -91,6 +97,23 @@
         });
       }
       
+      async function completeBucketlist(){
+        console.log("I was hit");
+        const urlArr = window.location.pathname.split("/");
+        const bucket_id = urlArr[urlArr.length - 1];
+        console.log(bucket_id);
+
+        const res = await fetch("/feeds/bucket/:id", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
+        const { success } = await res.json();
+        
+        if (success) {
+          completeProgressBar()
+          document.querySelector("ul").innerHTML = "Bucketlist Completed!" 
+        }
+      }
+      
+      const completeBtn = document.querySelector("#completeBucketlist");
+      completeBtn.addEventListener("click", completeBucketlist);
     </script>
   </body>
 </html>

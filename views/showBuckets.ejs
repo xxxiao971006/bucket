@@ -149,14 +149,23 @@
   }
 
   bucketImgs.forEach((bucketImg) => {
-    bucketImg.addEventListener("click", () => {
+    bucketImg.addEventListener("click", async () => {
       const statusSelect = document.querySelector(".status-select");
+      const link = bucketImg.nextElementSibling;
+      const href = link.href;
+      const hrefArr = href.split("/");
+      const bucket_id = hrefArr[hrefArr.length-1];
 
       if (statusSelect.value === "/feeds/buckets?show=inprogress") {
         if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
           bucketImg.src = "../styles/images/red_icon_noBackground.png";
           modal.style.display = "block";
-          fireConfetti();
+          
+          const res = await fetch("/feeds/buckets", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
+          const { success } = await res.json();
+          if (success) {
+            fireConfetti();
+        }
         } else {
           bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
         }
@@ -164,7 +173,8 @@
         if (bucketImg.src.endsWith("completed_icon_noBackground.png")) {
           bucketImg.src = "../styles/images/red_icon_noBackground.png";
         } else {
-          bucketImg.src = "../styles/images/completed_icon_noBackground.png";
+          bucketImg.src = "../styles/images/completed_icon_noBackground.png"
+          ;
         }
       }
     });
