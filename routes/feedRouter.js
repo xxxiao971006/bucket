@@ -15,22 +15,19 @@ const {
 const { ensureAuthenticated } = require("../middleware");
 router.use(ensureAuthenticated);
 
-//☝️
+// router.get("/tasks", (req, res) => {
+//   const tasks = getTasks()
+// })
+
+//☝️: Problem: Only showing some followings. 
 router.get("/home", async (req, res) => {
   const user_id = req.user.id;
   const feed = await getMainFeed(user_id);
   res.render("mainfeed", { feed });
-  //Problem: Only showing some followings. 
+  //
 }); 
 
-
-router.get("/tasks", (req, res) => {
-  const tasks = getTasks()
-})
-
-//////////////////////////////////////////////////////////////
-//Creating Routes: [/createBucket => /profile]
-
+//☝️: Problem: need to change checkbox to radio (only choosing one)!
 router.get("/createBucket", async (req, res) => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -39,7 +36,6 @@ router.get("/createBucket", async (req, res) => {
   const today = year + '-' + month + '-' + day;
   const tags = await getAllTags();
   res.render("createBucket", { today, tags });
-  //Problem: need to change checkbox to radio (only choosing one)!
 });
 
 router.post("/createBucket", async (req, res) => {
@@ -54,7 +50,6 @@ router.post("/createBucket", async (req, res) => {
     res.redirect("/feeds/createBucket");
   }
 });
-/////////////////////////////////////////////////////
 
 router.get("/createTask", async (req, res) => {
   //how to get the the bucket id that this user just created? 
@@ -104,27 +99,31 @@ router.post("/updateTask/:taskId", async (req, res) => {
  
 })
 
-
 router.get("/createMessage", (req, res) => {
   const bucketTitle = req.query.bucket;
   const data = getUserFeed(req.user.id);
   res.render("createMessage", { data, bucketTitle });
 });
 
-//🔥: When click in progress bucket, shows the tasks and progress bar.
+//☝️ Problem: when un-check, minus -1 progress bar. 
 router.get("/bucket/:id", async (req, res) => {
+  let numOfCompleted = 0;
+  
   const tasks = await getTasks(parseInt(req.params.id));
   const bucketTitle = (await getBucketTitleByBucketId(parseInt(req.params.id))).title;
-  let numOfCompleted;
 
   tasks.Task.forEach(task => {
     if (task.completed) {
       numOfCompleted++;
     }
   })
+;
   
-  console.log(tasks);
   res.render("showBucket", { tasks, numOfCompleted,bucketTitle });
 });
+
+
+
+
 
 module.exports = router;

@@ -1,5 +1,12 @@
 const prisma = require("./prisma/client");
 
+const getBucketIdByBucketTitle = (bucket_title) => {
+  const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
+  return bucketFound ? bucketFound.id : null;
+};
+
+
+
 const getUsernameById = (id) => {
   return users.find((user) => user.id == id).username;
 };
@@ -24,13 +31,6 @@ const getMessageIdsByUserId = (user_Id) => {
 };
 
 
-const getBucketTitleByBucketId = async (id) => {
-  const bucketTitle = await prisma.bucket.findUnique({
-    where: {id: id},
-    select: {title: true}
-  })
-  return bucketTitle ;
-};
 
 const sortPosts = (posts) => {
   try {
@@ -49,6 +49,14 @@ function exclude(user, keys) {
   }
   return user;
 }
+
+const getBucketTitleByBucketId = async (id) => {
+  const bucketTitle = await prisma.bucket.findUnique({
+    where: {id: id},
+    select: {title: true}
+  })
+  return bucketTitle ;
+};
 
 //👍
 const createNewTasks = async (taskMessage, bucket_id) => {
@@ -169,15 +177,7 @@ const getUserByUserId = async (user_id) => {
   // return users.find((user) => user.id == user_id);
 };
 
-const getBucketIdByBucketTitle = (bucket_title) => {
-  const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
-  return bucketFound ? bucketFound.id : null;
-};
 
-const updateUserMessage = (user_id, new_Message_Id) => {
-  let user = getUserByUserId(user_id);
-  user.message.push(new_Message_Id);
-};
 
 //👍: creating new Bucket
 const createNewBucket = async (dueDate, newBucket, userId, tagId) => {
@@ -289,9 +289,23 @@ const getAllTags = async () => {
   return tag;
 }
 
+const addNewMessage = async (content, bucket_id) => {
+  await prisma.message.create({
+    data: {
+      content: content,
+      bucket: {connect: bucket_id}
+    },
+  });
+
+
+  let user = getUserByUserId(user_id);
+  user.message.push(new_Message_Id);
+};
+
 
 module.exports = {
   createNewBucket,
+  addNewMessage,
   getBucketTitleByBucketId,
   getMainFeed,
   getTasks,

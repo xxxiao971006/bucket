@@ -61,12 +61,12 @@ function updateScrollHeight() {
       <div class="posts-container">
         <div class="user-input-wrapper">
           <div class="wrapwrap" style="display: flex; align-items: flex-start">
-            <img src="https://media.pitchfork.com/photos/5a00b098ec4b2c2177a85205/1:1/w_800,h_800,c_limit/samsmith_thrill.jpg" class="user-avatar">
+            <img src= <%=user.profileImg%> class="user-avatar">
             <div>
-              <select name="bucket">
+              <select name="bucke_id">
                 <option value="">Please choose your bucket</option>
                 <% totalBucketTitle.forEach(element=> { %>
-                  <option value="<%=element.title%>">
+                  <option value="<%=element.id%>">
                     <%=element.title%>
                   </option>
                   <% }) %>

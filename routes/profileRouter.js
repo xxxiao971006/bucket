@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getUserFeed,
-  createNewBucket,
+  addNewMessage,
   showBuckets,
   getUserByUserId,
   getAllMessage
@@ -12,7 +12,6 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 
 const { ensureAuthenticated } = require("../middleware");
-
 router.use(ensureAuthenticated);
 
 router.get("/", async (req, res) => {
@@ -23,10 +22,9 @@ router.get("/", async (req, res) => {
   res.render("profile", { data, user, totalBucketTitle });
 });
 
-router.post("/", (req, res) => {
-  const { newMessage, bucket } = req.body;
-  const user_id = req.user.id;
-  createNewBucket(user_id, bucket, newMessage);
+router.post("/", async (req, res) => {
+  const { bucket_id, newMessage } = req.body;
+  await addNewMessage(user_id, bucket, newMessage);
   res.redirect("/profile/");
 });
 
