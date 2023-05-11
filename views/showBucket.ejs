@@ -8,6 +8,10 @@
   </head>
   <body>
     <h1><%=bucketTitle%></h1>
+    <% if (tasks.Task.length == 0) { %>
+     <p>You currently don't have any milestone tasks. Do you want to add?</p>
+    <% } %>
+    
     <% if (tasks.Task.length >0) { %>
     <progress
       id="progressbar"
@@ -19,6 +23,7 @@
     <br />
     <br />
     <% } %>
+
     <input type="text" name="taskEntry" placeholder="Enter a task">
     <button id="addTask">Add</button>
     <ul>
