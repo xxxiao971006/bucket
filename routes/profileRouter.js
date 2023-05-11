@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { bucket_id, newMessage } = req.body;
-  await addNewMessage(user_id, bucket, newMessage);
+  await addNewMessage(newMessage, bucket_id);
   res.redirect("/profile/");
 });
 

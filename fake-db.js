@@ -290,16 +290,16 @@ const getAllTags = async () => {
 }
 
 const addNewMessage = async (content, bucket_id) => {
-  await prisma.message.create({
+  const bucketId = Number(bucket_id);
+  console.log(bucketId);
+  const newMessage = await prisma.message.create({
     data: {
       content: content,
-      bucket: {connect: bucket_id}
+      bucket: {connect: {id: bucketId}},
+      likes: 0
     },
-  });
-
-
-  let user = getUserByUserId(user_id);
-  user.message.push(new_Message_Id);
+  })
+  return newMessage;
 };
 
 
