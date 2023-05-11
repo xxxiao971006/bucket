@@ -161,7 +161,7 @@
           bucketImg.src = "../styles/images/red_icon_noBackground.png";
           modal.style.display = "block";
           
-          const res = await fetch("/feeds/buckets", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
+          const res = await fetch("/feeds/completeBuckets", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
           const { success } = await res.json();
           if (success) {
             fireConfetti();
@@ -172,6 +172,11 @@
       } else if (statusSelect.value === "/feeds/buckets?show=completed") {
         if (bucketImg.src.endsWith("completed_icon_noBackground.png")) {
           bucketImg.src = "../styles/images/red_icon_noBackground.png";
+          
+          
+          const res = await fetch("/feeds/deleteBucket", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
+          const { success } = await res.json();
+
         } else {
           bucketImg.src = "../styles/images/completed_icon_noBackground.png"
           ;

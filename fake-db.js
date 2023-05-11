@@ -36,13 +36,6 @@ const sortPosts = (posts) => {
 };
 
 
-const completeBucketlist = async (bucket_id) => {
-  await prisma.bucket.update({
-    where: { id: bucket_id },
-    data: { completed: true }
-  }) 
- };
-
  const getBucketIdByBucketTitle = (bucket_title) => {
   const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
   return bucketFound ? bucketFound.id : null;
@@ -62,6 +55,19 @@ const getBucketTitleByBucketId = async (id) => {
     select: {title: true}
   })
   return bucketTitle ;
+};
+
+const completeBucketlist = async (bucket_id) => {
+  await prisma.bucket.update({
+    where: { id: bucket_id },
+    data: { completed: true }
+  }) 
+ };
+
+const deleteBucketlist = async (bucket_id) => {
+  await prisma.bucket.delete({ 
+    where: { id: bucket_id }, 
+    include: { Task: true, messages: true } })
 };
 
 //👍
@@ -106,7 +112,6 @@ const getTasks = async (bucket_id) => {
   });
   return tasks;
 };
-
 
 const getMainFeed = async (user_id) => {
   const mainFeed = await prisma.user.findUnique({
@@ -308,6 +313,7 @@ const addNewMessage = async (content, bucket_id) => {
 
 
 module.exports = {
+  deleteBucketlist,
   createNewBucket,
   addNewMessage,
   getBucketTitleByBucketId,

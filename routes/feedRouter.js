@@ -4,6 +4,7 @@ const {
   createNewBucket,
   completeBucketlist,
   getUserFeed,
+  deleteBucketlist,
   getMainFeed,
   showBuckets,
   getTasks,
@@ -79,7 +80,7 @@ router.get("/buckets", async (req, res) => {
   res.render("showBuckets", { buckets });
 });
 
-router.post("/buckets", async (req, res) => {
+router.post("/completeBuckets", async (req, res) => {
   try {
     const {bucket_id} = req.body;
     const bucketId = Number(bucket_id);
@@ -88,11 +89,19 @@ router.post("/buckets", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-
-  
 });
 
+router.post("/deleteBucket", async ( req , res ) => {
+  try {
+    const {bucket_id} = req.body;
+    const bucketId = Number(bucket_id);
+    await deleteBucketlist(bucketId);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.log(error);
+  }
+
+})
 
 router.post("/addTask", async (req, res) => {
   try {

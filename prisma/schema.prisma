@@ -45,7 +45,7 @@ model Bucket {
 model Task {
   id       Int    @id @default(autoincrement())
   message  String
-  bucket   Bucket @relation(fields: [bucketId], references: [id])
+  bucket   Bucket @relation(fields: [bucketId], references: [id], onDelete: Cascade)
   bucketId Int
   completed Boolean
 }
@@ -53,7 +53,7 @@ model Task {
 model Message {
   id        Int       @id @default(autoincrement())
   content   String
-  bucket    Bucket    @relation(fields: [bucketId], references: [id])
+  bucket    Bucket    @relation(fields: [bucketId], references: [id], onDelete: Cascade)
   bucketId  Int
   comments  Comment[]
   likes     Int
