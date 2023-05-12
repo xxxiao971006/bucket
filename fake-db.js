@@ -138,6 +138,7 @@ const getMainFeed = async (user_id) => {
     select: {
       following: {
         select: {
+          id: true,
           username: true,
           profileImg: true,
           buckets: {
@@ -159,6 +160,7 @@ const getMainFeed = async (user_id) => {
           },
         },
       },
+      id: true,
       username: true,
       profileImg: true,
       buckets: {
@@ -183,6 +185,7 @@ const getMainFeed = async (user_id) => {
   const outcome = {
     following: mainFeed.following.map((following) => {
       return {
+        id: following.id,
         username: following.username,
         profileImg: following.profileImg,
         buckets: following.buckets,

@@ -18,27 +18,25 @@ const { ensureAuthenticated } = require("../middleware");
 const { bucket } = require('../prisma/client');
 router.use(ensureAuthenticated);
 
-// router.get("/tasks", (req, res) => {
-//   const tasks = getTasks()
-// })
-
 //☝️: Problem: Only showing some followings. 
 router.get("/home", async (req, res) => {
   const user_id = req.user.id;
   const feed = await getMainFeed(user_id);
-  res.render("mainfeed", { feed });
+  console.log(feed);
+  res.render("mainfeed", { feed, user_id });
   //
 }); 
 
 //☝️ Problem: need to change checkbox to radio (only choosing one)!
 router.get("/createBucket", async (req, res) => {
+  const user_id = req.user.id;
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
   const day = ('0' + currentDate.getDate()).slice(-2);
   const today = year + '-' + month + '-' + day;
   const tags = await getAllTags();
-  res.render("createBucket", { today, tags });
+  res.render("createBucket", { today, tags, user_id });
 });
 
 router.post("/createBucket", async (req, res) => {
@@ -75,8 +73,9 @@ router.post("/createTask", async (req, res) => {
 router.get("/buckets", async (req, res) => {
   const { show } = req.query; // "inprogress" "completed"
   const currentUser = req.user;
+  const currentUserId = currentUser.id;
   const buckets = await showBuckets(show, currentUser.id);
-  res.render("showBuckets", { buckets });
+  res.render("showBuckets", { buckets, user_id: currentUserId });
 });
 
 router.post("/completeBuckets", async (req, res) => {
@@ -127,13 +126,15 @@ router.post("/updateTask/:taskId", async (req, res) => {
 
 router.get("/createMessage", (req, res) => {
   const bucketTitle = req.query.bucket;
+  const user_id = req.user.id;
   const data = getUserFeed(req.user.id);
-  res.render("createMessage", { data, bucketTitle });
+  res.render("createMessage", { data, user_id, bucketTitle });
 });
 
 //☝️ Problem: when un-check, minus -1 progress bar. 
 router.get("/bucket/:id", async (req, res) => {
   let numOfCompleted = 0;
+  const user_id = req.user.id;
   
   const bucket_id = req.params.id;
   const tasks = await getTasks(parseInt(req.params.id));
@@ -144,7 +145,7 @@ router.get("/bucket/:id", async (req, res) => {
       numOfCompleted++;
     }
   });
-  res.render("showBucket", { tasks, numOfCompleted,bucketTitle });
+  res.render("showBucket", { tasks, user_id, numOfCompleted,bucketTitle });
 });
 
 router.post("/bucket/:id", async (req, res) => {
