@@ -25,10 +25,10 @@
   justify-content: flex-start;
   position: relative;
   padding-top: 5vh;
-  padding-bottom: 5px;
+  padding-bottom: 0.4vh;
   box-sizing: border-box;
   border-radius: 0 20px 20px;
-  height: 45vh;
+  height: 45vh auto;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -215,7 +215,7 @@ a[href="/feeds/buckets?show=inprogress"] img {
 .username {
   font-weight: normal;
   margin: 0;
-  line-height: 19px;
+  line-height: 0.4vh;
   display: inline;
 }
 
@@ -299,8 +299,8 @@ select {
 
 .user-avatar {
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 5vh;
+  height: auto;
   border-radius: 50%;
   background-color: #b1b1b1;
   z-index: 1;
@@ -367,6 +367,7 @@ select {
 .post-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .comment-button,
 .like-button {
