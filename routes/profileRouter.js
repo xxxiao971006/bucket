@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getUserFeed,
+  changeUsername,
   addNewMessage,
   showBuckets,
   getUserByUserId,
@@ -31,11 +32,22 @@ router.post("/", async (req, res) => {
   res.redirect("/profile/");
 });
 
-router.get("/edit", (req, res) => {
+router.get("/edit", async (req, res) => {
   const user_id = req.user.id;
-  const data = getUserFeed(user_id);
-  // const totalBucketTitle = showBuckets("all", req.user);
-  res.render("editProfile", { data });
+  const userInfo = await getUserByUserId(user_id);
+  res.render("editProfile", { data: userInfo });
+});
+
+router.post("/edit", async (req, res) => {
+  try {
+    const user_id = req.user.id;
+    const {newUsername} = req.body;
+    await changeUsername(user_id, newUsername);
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.redirect("/profile/");
 });
 
 router.get("/settings", (req, res) => {
