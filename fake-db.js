@@ -9,8 +9,6 @@ const getUserMessageIdByUserId = (user_id) => {
   return userInformation ? userInformation.message : null;
 };
 
-
-
 const getFollowingByUserId = (user_Id) => {
   const userInformation = users.find((user) => user.id == user_Id);
   return userInformation ? userInformation.following : null;
@@ -30,7 +28,6 @@ const sortPosts = (posts) => {
     throw new Error("Method not implemented.");
   }
 };
-
 
  const getBucketIdByBucketTitle = (bucket_title) => {
   const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
@@ -201,6 +198,12 @@ const getMainFeed = async (user_id) => {
   return outcome;
 };
 
+const changeUsername = async (userId, newUsername) => {
+  await prisma.user.update({ 
+    where: { id: userId }, 
+    data: { username: newUsername } });
+}
+
 //👍: get user by user id
 const getUserByUserId = async (user_id) => {
   const user = await prisma.user.findUnique({
@@ -349,6 +352,7 @@ const addNewMessage = async (content, bucket_id) => {
 
 
 module.exports = {
+  changeUsername,
   deleteBucketlist,
   createNewBucket,
   likeOrUnlikeMessage,

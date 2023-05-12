@@ -10,7 +10,7 @@
   <body>
     <div class="wrapper">
       <button class="cancel" onclick="goBack()">Cancel</button>
-      <form action="/profile/" method="POST">
+      <form action="/profile/edit" method="POST">
         <button class="save">Save</button>
         <h1>Edit Profile</h1>
         <div class="picture-container">
@@ -21,8 +21,8 @@
         <textarea
           class="changeUserName"
           type="text"
-          name="changeUserName"
-          placeholder="<%= data[0].username %>"
+          name="newUsername"
+          placeholder="<%= data.username %>"
         ></textarea>
       </form>
     
