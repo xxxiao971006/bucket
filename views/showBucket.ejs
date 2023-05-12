@@ -98,10 +98,8 @@
       }
       
       async function completeBucketlist(){
-        console.log("I was hit");
         const urlArr = window.location.pathname.split("/");
         const bucket_id = urlArr[urlArr.length - 1];
-        console.log(bucket_id);
 
         const res = await fetch("/feeds/bucket/:id", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
         const { success } = await res.json();

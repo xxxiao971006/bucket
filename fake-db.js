@@ -1,7 +1,5 @@
 const prisma = require("./prisma/client");
 
-
-
 const getUsernameById = (id) => {
   return users.find((user) => user.id == id).username;
 };
@@ -11,9 +9,7 @@ const getUserMessageIdByUserId = (user_id) => {
   return userInformation ? userInformation.message : null;
 };
 
-const getMessagesByMessageId = (messageId) => {
-  return messages.find((message) => message.id == messageId);
-};
+
 
 const getFollowingByUserId = (user_Id) => {
   const userInformation = users.find((user) => user.id == user_Id);
@@ -41,6 +37,8 @@ const sortPosts = (posts) => {
   return bucketFound ? bucketFound.id : null;
 };
 
+//PRISMA FUNCTIONS (below):
+
 //👍
 function exclude(user, keys) {
   for (let key of keys) {
@@ -48,6 +46,30 @@ function exclude(user, keys) {
   }
   return user;
 }
+
+//❗: need to work, incomplete (also talk about how likes going to work)
+const likeOrUnlikeMessage = async (message_id, status) => {
+  if(status === "like"){ 
+    await prisma.message.update({
+      where: { id: message_id },
+      data: { likes: { increment: 1 } },
+  })} else if(status === "unlike"){
+    await prisma.message.update({ 
+      where: { id: message_id }, 
+      data: { likes: { decrement: 1 } }})
+  }
+};
+
+const commentMessage = async(comment, message_id, user_id) => {
+  const newComment = await prisma.comment.create({
+    data: {
+      content: comment,
+      messageId: message_id,
+      userId: user_id,
+    },
+  });
+  return newComment;
+};
 
 const getBucketTitleByBucketId = async (id) => {
   const bucketTitle = await prisma.bucket.findUnique({
@@ -239,6 +261,15 @@ const createUser = async (user) => {
   }
 };
 
+const getAllComments = async (message_id) => {
+  const comments = await prisma.comment.findMany({
+    where: {
+      messageId: message_id
+    }
+  })
+  return comments;
+};
+
 //👍: Get all messages of the user
 const getAllMessage = async (user_id) => {
   const allMessage = await prisma.message.findMany({
@@ -253,6 +284,7 @@ const getAllMessage = async (user_id) => {
       createdAt: 'desc'
     },
     select: {
+      id: true,
       content: true,
       createdAt: true,
       likes:true,
@@ -268,6 +300,11 @@ const getAllMessage = async (user_id) => {
 
   return allMessage;
 }
+
+const getMessagesByMessageId = async (messageId) => {
+ const message =  await prisma.message.findUnique({ where: { id: messageId } })
+ return message;
+};
 
 //👍: Showing all the buckets on the list. 
 const showBuckets = async (status, currentUser) => {
@@ -300,7 +337,6 @@ const getAllTags = async () => {
 
 const addNewMessage = async (content, bucket_id) => {
   const bucketId = Number(bucket_id);
-  console.log(bucketId);
   const newMessage = await prisma.message.create({
     data: {
       content: content,
@@ -315,6 +351,7 @@ const addNewMessage = async (content, bucket_id) => {
 module.exports = {
   deleteBucketlist,
   createNewBucket,
+  likeOrUnlikeMessage,
   addNewMessage,
   getBucketTitleByBucketId,
   getMainFeed,
@@ -327,5 +364,8 @@ module.exports = {
   createNewTasks,
   getAllMessage,
   updateTask,
-  completeBucketlist
+  completeBucketlist,
+  commentMessage,
+  getAllComments,
+  getMessagesByMessageId,
 };
