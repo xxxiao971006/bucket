@@ -251,7 +251,7 @@ progress{
 
   document.querySelector("#addTask").addEventListener("click", addTaskHandler);
 
-  addCheckboxListeners();
+      addCheckboxListeners();
 
   function addCheckboxListeners() {
     let checkboxNodes = Array.from(document.querySelectorAll("input[name=milestoneTask]"));
@@ -262,6 +262,14 @@ progress{
 
         const res = await fetch(`/feeds/updateTask/${taskId}`, { body: JSON.stringify({ completed }), method: "POST", headers: { "Content-Type": "application/json" } });
 
+            addProgressBar();
+          });
+        });
+      }
+      
+      async function completeBucketlist(){
+        const urlArr = window.location.pathname.split("/");
+        const bucket_id = urlArr[urlArr.length - 1];
         addProgressBar();
       });
     });

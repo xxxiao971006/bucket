@@ -31,12 +31,14 @@ app.use(express.json());
 const home = require("./routes/home");
 const feedRouter = require("./routes/feedRouter");
 const profileRouter = require("./routes/profileRouter");
+const searchRouter = require("./routes/searchRouter");
 const authFunctions = require("./routes/authFunctions");
 
 app.use("/", home);
 app.use("/feeds", feedRouter);
 app.use("/profile", profileRouter);
 app.use("/auth", authFunctions);
+app.use("/search", searchRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

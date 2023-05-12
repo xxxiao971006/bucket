@@ -18,36 +18,47 @@ router.use(bodyParser.urlencoded({ extended: false }));
 const { ensureAuthenticated } = require("../middleware");
 router.use(ensureAuthenticated);
 
-router.get("/", async (req, res) => {
-  const user_id = req.user.id;
+router.get("/:user_id", async (req, res) => {
+  const loggedin_user_id = req.user.id;
+  const userId = req.params.user_id;
+  const user_id = Number(userId);
   const data = await getAllMessage(user_id);
   const user = await getUserByUserId(user_id);
-  const totalBucketTitle = await showBuckets("all", req.user.id);
-  res.render("profile", { data, user, totalBucketTitle });
+  const totalBucketTitle = await showBuckets("all", user_id);
+  res.render("profile", { loggedin_user_id, data, user_id, user, totalBucketTitle });
 });
 
-router.post("/", async (req, res) => {
-  const { bucket_id, newMessage } = req.body;
-  await addNewMessage(newMessage, bucket_id);
-  res.redirect("/profile/");
-});
-
-router.get("/edit", async (req, res) => {
-  const user_id = req.user.id;
-  const userInfo = await getUserByUserId(user_id);
-  res.render("editProfile", { data: userInfo });
-});
-
-router.post("/edit", async (req, res) => {
+router.post("/:user_id", async (req, res) => {
   try {
-    const user_id = req.user.id;
-    const {newUsername} = req.body;
-    await changeUsername(user_id, newUsername);
+    const user_id = req.params.user_id;
+    const { bucket_id, newMessage } = req.body;
+    await addNewMessage(newMessage, bucket_id);
+    res.redirect(`/profile/${user_id}`);
   } catch (error) {
     console.log(error);
   }
 
-  res.redirect("/profile/");
+});
+
+router.get("/edit/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const user_id = Number(userId);
+  const userInfo = await getUserByUserId(user_id);
+  res.render("editProfile", { data: userInfo });
+});
+
+router.post("/edit/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user_id = Number(userId);
+    const {newUsername} = req.body;
+    await changeUsername(user_id, newUsername);
+    res.redirect(`/profile/${user_id}`);
+  } catch (error) {
+    console.log(error);
+  }
+
+
 });
 
 router.get("/settings", (req, res) => {
