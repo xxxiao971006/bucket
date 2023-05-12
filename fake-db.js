@@ -1,24 +1,5 @@
 const prisma = require("./prisma/client");
 
-const getUsernameById = (id) => {
-  return users.find((user) => user.id == id).username;
-};
-
-const getUserMessageIdByUserId = (user_id) => {
-  const userInformation = users.find((user) => user.id == user_id);
-  return userInformation ? userInformation.message : null;
-};
-
-const getFollowingByUserId = (user_Id) => {
-  const userInformation = users.find((user) => user.id == user_Id);
-  return userInformation ? userInformation.following : null;
-};
-
-const getMessageIdsByUserId = (user_Id) => {
-  const userInformation = users.find((user) => user.id == user_Id);
-  return userInformation ? userInformation.message : null;
-};
-
 const sortPosts = (posts) => {
   try {
     return posts.sort((a, b) => {
@@ -29,11 +10,6 @@ const sortPosts = (posts) => {
   }
 };
 
- const getBucketIdByBucketTitle = (bucket_title) => {
-  const bucketFound = buckets.find((bucket) => bucket.title == bucket_title);
-  return bucketFound ? bucketFound.id : null;
-};
-
 //PRISMA FUNCTIONS (below):
 
 //👍
@@ -42,6 +18,21 @@ function exclude(user, keys) {
     delete user[key];
   }
   return user;
+}
+
+const getBucketTitleByMessageId = async (messageId) => {
+  const bucketTitle = await prisma.message.findUnique({
+    where: { id: messageId },
+    select: {
+      bucket: {
+        select: {
+          title: true
+        }
+      }
+    }
+  }).then(message => message.bucket.title)
+
+  return bucketTitle
 }
 
 //❗: need to work, incomplete (also talk about how likes going to work)
@@ -375,4 +366,5 @@ module.exports = {
   commentMessage,
   getAllComments,
   getMessagesByMessageId,
+  getBucketTitleByMessageId,
 };
