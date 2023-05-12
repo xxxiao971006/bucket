@@ -1,114 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style_createBucket.css" />
-    <title>Create Bucket 🪣</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <h1> New Goal <h1>
-        <form id="createNewBucketForm" method="POST" action="/feeds/createBucket">
-          <button id="submitBtn" type="submit">Create New Bucketlist</button>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../styles/style_creatingNewBucket.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<title>Your New Bucket 😁</title>
+</head>
 
-          <p>Set Due Date</p>
-          <input type="date" id="dueDate" name="dueDate"
-          value=<%=today%>
+<body>
+  <div class="wrapper">
+    <div class="background-container">
+      <button class="arrow-left" onclick="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="3vh" height="3vh">
+          <path fill="#8083ff"
+            d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z" />
+        </svg>
+      </button>
+      <h1> New Goal ✏️</h1>
+      <form id="createNewBucketForm" method="POST" action="/feeds/createBucket">
+
+        <p class="setDueDate">Set Due Date</p>
+        <div class="date-container">
+          <input type="date" id="dueDate" name="dueDate" value=<%=today%>
           min=<%today%> max="2018-12-31">
-   
+        </div>
+        <div class="select-container">
+          <select id="priority-level">
+            <option value="" disabled selected>Set Priority Level</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
         <div class="input-container">
           <div class="profile-photo"></div>
           <p class="newBucketTitle">Your New Bucketlist: </p>
-          <textarea
-            style="outline: none; resize: none"
-            type="text"
-            name="newBucket"
-            placeholder="What's your next goal?"
-            class="create_post"
-            required></textarea>
+          <textarea style="outline: none; resize: none" type="text" name="newBucket"
+            placeholder="What's your next goal?(type here)" class="create_post" required></textarea>
           </textarea>
         </div>
-      
-        
-        <p>Choose your Tag</p>
-        <% tags.forEach(tag => { %>
-          <input type="checkbox" id="tag" name="tag" value="<%=tag.id%>">
-          <label for="<%=tag.id%>"><%=tag.tagName%></label><br>
-        <% }) %>
-      </form>      
-      
-
-      
-
-      <div class="navbar">
-        <a href="/feeds/home">
-          <img
-            src="../styles/images/home_icon_noBackground.png"
-            alt="Home"
-            width="40"
-            height="40"
-          />
-        </a>
-        <a href="/search">
-          <img
-            src="../styles/images/search_icon_noBackground.png"
-            alt="Search"
-            width="40"
-            height="40"
-          />
-        </a>
-        <div class="circle">
-          <a href="/feeds/buckets?show=inprogress">
-            <img
-              src="../styles/images/bucket_icon_noBackground.png"
-              alt="Bucket"
-              width="50"
-              height="50"
-            />
-          </a>
-        </div>
-        <a href="/notes">
-          <img
-            src="../styles/images/note_icon_noBackground.png"
-            alt="Notes"
-            width="40"
-            height="40"
-          />
-        </a>
-        <a href="/profile">
-          <img
-            src="../styles/images/profile_icon_noBackground.png"
-            alt="Profile"
-            width="40"
-            height="40"
-          />
-        </a>
+    </div>
+    <div class="tag-section">
+      <p>Choose your Tag</p>
+      <div class="tag-grid">
+        <% tags.forEach(tag=> { %>
+          <div class="tag-container">
+            <input type="checkbox" id="tag" name="tag" value="<%=tag.id%>">
+            <label for="<%=tag.id%>">
+              <%=tag.tagName%>
+            </label>
+          </div>
+          <% }) %>
       </div>
     </div>
-    <script>
-      const form = document.querySelector("form");
 
-  
-      function goBack() {
-        window.history.back();
-      }
-  
-  
-  
-      const bucketImgs = document.querySelectorAll(".bucket-img");
-      bucketImgs.forEach((bucketImg) => {
-        bucketImg.addEventListener("click", () => {
-          if (bucketImg.src.endsWith("inProgress_icon_noBackground.png")) {
-            bucketImg.src = "../styles/images/red_icon_noBackground.png";
-          } else if (bucketImg.src.endsWith("red_icon_noBackground.png")) {
-            bucketImg.src = "../styles/images/completed_icon_noBackground.png";
-          } else {
-            bucketImg.src = "../styles/images/inProgress_icon_noBackground.png";
-          }
-        });
-      });
-    </script>
-  </body>
+
+    <!-- <button id="submitBtn" type="submit">Create New Bucketlist</button> -->
+    <div class="button-container">
+      <button class="Create-Goal" id="submitBtn" type="submit">Create New Goal </button>
+    </div>
+
+    </form>
+  </div>
+  <script>
+    const form = document.querySelector("form");
+
+
+    function goBack() {
+      window.history.back();
+    }
+
+
+
+    const prioritySelect = document.getElementById('priority-level');
+     prioritySelect.addEventListener('change', () => { 
+      const selectedOption = prioritySelect.options[prioritySelect.selectedIndex]; 
+      prioritySelect.style.color = window.getComputedStyle(selectedOption).color; 
+    });
+  </script>
+</body>
+
 </html>

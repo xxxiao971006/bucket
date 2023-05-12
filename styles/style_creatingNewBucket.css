@@ -91,30 +91,17 @@ textarea:focus {
   background-color: transparent;
 }
 
-#date-picker {
-  color: #8083ff;
-  font-family: "Open Sans", sans-serif;
-  font-size: 2vh;
-  font-weight: 800;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-#date-picker::placeholder {
-  color: #8083ff;
-}
 
 .select-container {
   display: flex;
   justify-content: center;
-  margin-top: 18vh;
+  margin-top: 0vh;
   background-color: transparent;
 }
 
 select {
   font-family: "Open Sans", sans-serif;
-  font-size: 2vh;
+  font-size: 2.4vh;
   font-weight: 800;
   padding: 0.5rem;
   border-radius: 0.5vh;
@@ -141,26 +128,18 @@ h1 {
   font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 800;
-  font-size: 4vh;
+  font-size: 3.4vh;
   line-height: 4vh;
   text-align: center;
   color: #000000;
   margin-top: 6vh;
+  padding-left: 4vh;
 }
 
-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-
-select:focus::-ms-value {
-  color: #000000;
-  background-color: transparent;
-}
 
 .Create-Goal {
   display: block;
-  margin:44vh auto 0;
+  margin:auto;
   background: #8083ff;
   border-radius: 2.5vh;
   border: none;
@@ -173,5 +152,91 @@ select:focus::-ms-value {
   color: #ffffff;
   font-size: 2vh;
   bottom: 5vh;
+  position: absolute;
+  left: 50%;  /* centering horizontally */
+  transform: translateX(-50%); /* centering horizontally */
 
+}
+
+.Create-Goal:hover {
+  background: #8083ff;
+  color: #ffffff;
+}
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin-top: 2vh;
+}
+
+.setDueDate{
+  font-size: 2.4vh;
+  color: #000000;
+  text-align: center;
+}
+
+#dueDate{
+  text-align: center;
+}
+
+.date-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  margin-top: 2vh;
+}
+
+textarea::placeholder {
+  font-size: 2vh; 
+}
+
+[type="date"]::-webkit-datetime-edit,
+[type="date"]::-webkit-datetime-edit-fields-wrapper,
+[type="date"]::-webkit-datetime-edit-text {
+  color: #8083ff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+[type="date"]{
+  border: none;
+  background-color: transparent;
+  color: #8083ff;
+  font-size: 2.4vh;
+  align-items: center;
+}
+
+.newBucketTitle{
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2vh;
+  line-height: 4vh;
+  text-align: center;
+  color: #8083ff;
+  margin-top: 6vh;
+ 
+}
+
+p {
+  text-align: center;
+}
+
+
+.tag-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  margin-top: 18vh;
+}
+
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 7vh; 
 }
