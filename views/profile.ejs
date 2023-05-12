@@ -48,31 +48,34 @@
         <button style="width: 100px;">Posts</button>
       </div>
     </div>
-    <form class="user-info" action="/profile/" method="POST">
-      <div class="posts-container">
-        <div class="user-input-wrapper">
-          <div class="wrapwrap" style="display: flex; align-items: flex-start">
-            <img src= <%=user.profileImg%> class="user-avatar">
-            <div>
-              <select name="bucket_id">
-                <option value="">Please choose your bucket</option>
-                <% totalBucketTitle.forEach(element=> { %>
-                  <option value="<%=element.id%>">
-                    <%=element.title%>
-                  </option>
-                  <% }) %>
-              </select>
-            </div>
+          <% if (loggedin_user_id === user_id) { %>
+            <form class="user-info" action="/profile/" method="POST">
+              <div class="posts-container">
+                <div class="user-input-wrapper">
+                  <div class="wrapwrap" style="display: flex; align-items: flex-start">
+                    <img src= <%=user.profileImg%> class="user-avatar">
+                    <div>
+                      <select name="bucket_id">
+                        <option value="">Please choose your bucket</option>
+                        <% totalBucketTitle.forEach(element=> { %>
+                          <option value="<%=element.id%>">
+                            <%=element.title%>
+                          </option>
+                          <% }) %>
+                      </select>
+                    </div>
+                  </div>
+            <div class="createInput">
+              <textarea style="outline: none; resize: none" type="text" name="newMessage"
+                placeholder="What's on your mind?" class="create_post"></textarea>
+              <button type="submit" class="add-button">
+                <img src="../styles/images/send_icon_noBackground.png" alt="Add" width="24" height="24">
+              </button>
+            </div>        
           </div>
-          <div class="createInput">
-            <textarea style="outline: none; resize: none" type="text" name="newMessage"
-              placeholder="What's on your mind?" class="create_post"></textarea>
-            <button type="submit" class="add-button">
-              <img src="../styles/images/send_icon_noBackground.png" alt="Add" width="24" height="24">
-            </button>
-          </div>
-        </div>
-    </form>
+        </form>
+          <% } %>
+
 
 
 

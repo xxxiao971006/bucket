@@ -19,13 +19,13 @@ const { ensureAuthenticated } = require("../middleware");
 router.use(ensureAuthenticated);
 
 router.get("/:user_id", async (req, res) => {
-  // const user_id = req.user.id;
+  const loggedin_user_id = req.user.id;
   const userId = req.params.user_id;
   const user_id = Number(userId);
   const data = await getAllMessage(user_id);
   const user = await getUserByUserId(user_id);
   const totalBucketTitle = await showBuckets("all", user_id);
-  res.render("profile", { data, user_id, user, totalBucketTitle });
+  res.render("profile", { loggedin_user_id, data, user_id, user, totalBucketTitle });
 });
 
 router.post("/", async (req, res) => {
