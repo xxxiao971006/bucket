@@ -1,72 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Bucket Progress</title>
-  </head>
-  <body>
-    <h1><%=bucketTitle%></h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../styles/style_showBucket.css" rel="stylesheet" />
+  <title>Your Bucket Progress 😉</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="background-container">
+      <button class="arrow-left" onclick="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="3vh" height="3vh">
+          <path fill="#8083ff"
+            d="M314.6,449.6L65.9,256l248.7-193.6c6.5-5.1,6.9-14.5,1.8-21s-14.5-6.9-21-1.8l-271.4,212c-3.7,2.9-5.7,7.4-5.7,12.1s2,9.2,5.7,12.1l271.4,212c2.8,2.2,6.2,3.3,9.6,3.3c3.4,0,6.7-1.1,9.6-3.3C321.1,464.1,321.1,454.7,314.6,449.6z" />
+        </svg>
+      </button>
+      <h1>
+        <%=bucketTitle%>
+      </h1>
 
 
 
-    <% if(tasks.Task.length == 0){ %>
-      <p>You currently don't have any milestone tasks. Do you want to add?</p>
+      <% if(tasks.Task.length==0){ %>
+        <p>You currently don't have any milestone tasks. Do you want to add?</p>
 
-    <% } else{ %>  
-      <progress
-      id="progressbar"
-      value="<%= numOfCompleted %>"
-      max="<%= tasks.Task.length %>"
-    >
-      32%
-    </progress>
-    <br />
-    <br />
-   <% } %>
+        <% } else{ %>
+          <progress id="progressbar" value="<%= numOfCompleted %>" max="<%= tasks.Task.length %>">
+            32%
+          </progress>
+          <br />
+          <br />
+          <% } %>
 
-    <input type="text" name="taskEntry" placeholder="Enter a task">
-    <button id="addTask">Add</button>
-    <ul>
-      <% tasks.Task.forEach(function(task) { %>
-      <li>
-        <label>
-          <input <%= task.completed ? "checked='checked'": null %> type="checkbox" name="milestoneTask" value="<%= task.id %>" />
-          <%= task.message %>
-        </label>
-      </li>
-      <% }) %>
-    </ul>
-    <button id="completeBucketlist">Complete Bucketlist</button>
+            <input type="text" name="taskEntry" placeholder="Enter a task">
+            <button id="addTask">Add</button>
+            <ul>
+              <% tasks.Task.forEach(function(task) { %>
+                <li>
+                  <label>
+                    <input <%=task.completed ? "checked='checked'" : null %> type="checkbox" name="milestoneTask"
+                    value="<%= task.id %>" />
+                      <%= task.message %>
+                  </label>
+                </li>
+                <% }) %>
+            </ul>
+            <button id="completeBucketlist">Complete Bucketlist</button>
 
+    </div>
+  </div>
+</body>
+  <script>
 
-    <script>
- 
-      function addProgressBar(){
-        const progressBar = document.getElementById("progressbar");
-        progressBar.value++;
-      }
-      
-      function completeProgressBar(){
-        const progressBar = document.getElementById("progressbar");
-        progressBar.value = 100;
-      }
+function goBack() {
+      window.history.back();
+    }
 
-      function minusProgressBar(){
-        const progressBar = document.getElementById("progressbar");
-        progressBar.value--;
-      }
+    function addProgressBar() {
+      const progressBar = document.getElementById("progressbar");
+      progressBar.value++;
+    }
 
-      async function addTaskHandler() {
-        const task = document.querySelector("input[name=taskEntry]").value;
-        const pathArr = window.location.pathname.split("/");
-        const path = pathArr[pathArr.length - 1]
-        const res = await fetch("/feeds/addTask", { body: JSON.stringify({ task, path }), method: "POST", headers: { "Content-Type": "application/json"} });
-        const { success, taskId } = await res.json();
-        if (success) {
-          completeProgressBar();
-          document.querySelector("ul").innerHTML += 
+    function completeProgressBar() {
+      const progressBar = document.getElementById("progressbar");
+      progressBar.value = 100;
+    }
+
+    function minusProgressBar() {
+      const progressBar = document.getElementById("progressbar");
+      progressBar.value--;
+    }
+
+    async function addTaskHandler() {
+      const task = document.querySelector("input[name=taskEntry]").value;
+      const pathArr = window.location.pathname.split("/");
+      const path = pathArr[pathArr.length - 1]
+      const res = await fetch("/feeds/addTask", { body: JSON.stringify({ task, path }), method: "POST", headers: { "Content-Type": "application/json" } });
+      const { success, taskId } = await res.json();
+      if (success) {
+        completeProgressBar();
+        document.querySelector("ul").innerHTML +=
           `
             <li>
               <label>
@@ -75,47 +90,45 @@
               </label>
             </li>
           `
-          addCheckboxListeners();
-        }
-        
-        minusProgressBar();
+        addCheckboxListeners();
       }
 
-      document.querySelector("#addTask").addEventListener("click", addTaskHandler);
+      minusProgressBar();
+    }
 
-      addCheckboxListeners();
+    document.querySelector("#addTask").addEventListener("click", addTaskHandler);
 
-      function addCheckboxListeners() {
-        let checkboxNodes = Array.from(document.querySelectorAll("input[name=milestoneTask]"));
-        checkboxNodes.forEach(function (checkbox) {
-          checkbox.addEventListener("change", async function (event) {
-            const taskId = event.target.value;
-            const completed = event.target.checked;
+    addCheckboxListeners();
 
-            const res = await fetch(`/feeds/updateTask/${taskId}`, { body: JSON.stringify({ completed }), method: "POST", headers: { "Content-Type": "application/json"} });
+    function addCheckboxListeners() {
+      let checkboxNodes = Array.from(document.querySelectorAll("input[name=milestoneTask]"));
+      checkboxNodes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", async function (event) {
+          const taskId = event.target.value;
+          const completed = event.target.checked;
 
-            addProgressBar();
-          });
+          const res = await fetch(`/feeds/updateTask/${taskId}`, { body: JSON.stringify({ completed }), method: "POST", headers: { "Content-Type": "application/json" } });
+
+          addProgressBar();
         });
-      }
-      
-      async function completeBucketlist(){
-        console.log("I was hit");
-        const urlArr = window.location.pathname.split("/");
-        const bucket_id = urlArr[urlArr.length - 1];
-        console.log(bucket_id);
+      });
+    }
 
-        const res = await fetch("/feeds/bucket/:id", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json"} });
-        const { success } = await res.json();
-        
-        if (success) {
-          completeProgressBar()
-          document.querySelector("ul").innerHTML = "Bucketlist Completed!" 
-        }
+    async function completeBucketlist() {
+      const urlArr = window.location.pathname.split("/");
+      const bucket_id = urlArr[urlArr.length - 1];
+
+      const res = await fetch("/feeds/bucket/:id", { body: JSON.stringify({ bucket_id }), method: "POST", headers: { "Content-Type": "application/json" } });
+      const { success } = await res.json();
+
+      if (success) {
+        completeProgressBar()
+        document.querySelector("ul").innerHTML = "Bucketlist Completed!"
       }
-      
-      const completeBtn = document.querySelector("#completeBucketlist");
-      completeBtn.addEventListener("click", completeBucketlist);
-    </script>
-  </body>
+    }
+
+    const completeBtn = document.querySelector("#completeBucketlist");
+    completeBtn.addEventListener("click", completeBucketlist);
+  </script>
+
 </html>

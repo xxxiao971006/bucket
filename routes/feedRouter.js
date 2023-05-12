@@ -76,7 +76,6 @@ router.get("/buckets", async (req, res) => {
   const { show } = req.query; // "inprogress" "completed"
   const currentUser = req.user;
   const buckets = await showBuckets(show, currentUser.id);
-  // console.log(buckets)
   res.render("showBuckets", { buckets });
 });
 

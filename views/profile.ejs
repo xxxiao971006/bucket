@@ -9,18 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
 
   <title>My Profile</title>
-  <script>
-function toggleLike(event) {
-  const likeButton = event.target.closest('.like-button');
-  const heartIcon = likeButton.querySelector('i');
-  heartIcon.classList.toggle('far');
-  heartIcon.classList.toggle('fas');
-}
-function updateScrollHeight() {
-      const postsContainer = document.querySelector(".posts-container");
-      postsContainer.scrollTop = postsContainer.scrollHeight;
-    }
-    </script>
+ 
 </head>
 <body>
   <div class="flex-container">
@@ -102,9 +91,9 @@ function updateScrollHeight() {
             <button type="button" class="like-button" onclick="toggleLike(event)">
               <i class="far fa-heart"></i>
             </button>  
-            <button class="comment-button">
+            <a href="/profile/comment/<%=post.id%>" class="comment-button">
               <i class="far fa-comment-alt"></i>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -136,6 +125,18 @@ function updateScrollHeight() {
   </div>
   </div>
 </div>
+ <script>
+function toggleLike(event) {
+  const likeButton = event.target.closest('.like-button');
+  const heartIcon = likeButton.querySelector('i');
+  heartIcon.classList.toggle('far');
+  heartIcon.classList.toggle('fas');
+}
+function updateScrollHeight() {
+      const postsContainer = document.querySelector(".posts-container");
+      postsContainer.scrollTop = postsContainer.scrollHeight;
+    }
+    </script>
 </body>
 
 </html>

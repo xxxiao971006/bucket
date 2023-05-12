@@ -5,7 +5,10 @@ const {
   addNewMessage,
   showBuckets,
   getUserByUserId,
-  getAllMessage
+  getAllMessage,
+  getAllComments,
+  getMessagesByMessageId,
+  commentMessage,
 } = require("../fake-db");
 const bodyParser = require("body-parser");
 
@@ -40,5 +43,37 @@ router.get("/settings", (req, res) => {
   const data = getUserFeed(user_id);
   res.render("settings", { data });
 });
+
+router.get("/comment/:messageId", async ( req, res ) => {
+  const messageId = req.params.messageId;
+  const message_id = Number(messageId);
+  // const user_id = req.user.id;
+  const comments = await getAllComments(message_id);
+  const message = await getMessagesByMessageId(message_id);
+
+  const modifiedComments = await Promise.all(comments.map(async (comment) =>  { 
+    const commentor = await getUserByUserId(comment.userId);
+    const commentorName = commentor.username;
+    const commentorProfile = commentor.profileImg;
+    return {
+    id: comment.id,
+    comment: comment.content,
+    messageId: comment.messageId,
+    username: commentorName,
+    userProfile: commentorProfile,
+    createdAt: comment.createdAt
+  }}));
+  res.render("comment", {comments: modifiedComments, message});
+});
+
+router.post("/comment/:messageId", async ( req, res ) => {
+  const user_id = req.user.id;
+  const message_id = req.params.messageId;
+  const messageId = Number(message_id);
+  const {newComment} = req.body;
+  const comment = await commentMessage(newComment, messageId, user_id);
+  res.redirect(`/profile/comment/${message_id}`);
+})
+
 
 module.exports = router;
