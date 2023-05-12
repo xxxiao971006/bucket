@@ -34,22 +34,25 @@ router.post("/", async (req, res) => {
   res.redirect("/profile/");
 });
 
-router.get("/edit", async (req, res) => {
-  const user_id = req.user.id;
+router.get("/edit/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const user_id = Number(userId);
   const userInfo = await getUserByUserId(user_id);
   res.render("editProfile", { data: userInfo });
 });
 
-router.post("/edit", async (req, res) => {
+router.post("/edit/:userId", async (req, res) => {
   try {
-    const user_id = req.user.id;
+    const userId = req.params.userId;
+    const user_id = Number(userId);
     const {newUsername} = req.body;
     await changeUsername(user_id, newUsername);
+    res.redirect(`/profile/${user_id}`);
   } catch (error) {
     console.log(error);
   }
 
-  res.redirect("/profile/");
+
 });
 
 router.get("/settings", (req, res) => {
