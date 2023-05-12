@@ -28,10 +28,16 @@ router.get("/:user_id", async (req, res) => {
   res.render("profile", { loggedin_user_id, data, user_id, user, totalBucketTitle });
 });
 
-router.post("/", async (req, res) => {
-  const { bucket_id, newMessage } = req.body;
-  await addNewMessage(newMessage, bucket_id);
-  res.redirect("/profile/");
+router.post("/:user_id", async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    const { bucket_id, newMessage } = req.body;
+    await addNewMessage(newMessage, bucket_id);
+    res.redirect(`/profile/${user_id}`);
+  } catch (error) {
+    console.log(error);
+  }
+
 });
 
 router.get("/edit/:userId", async (req, res) => {

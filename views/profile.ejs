@@ -52,7 +52,7 @@
       </div>
     </div>
           <% if (loggedin_user_id === user_id) { %>
-            <form class="user-info" action="/profile/" method="POST">
+            <form class="user-info" action="/profile/<%=user_id%>" method="POST">
               <div class="posts-container">
                 <div class="user-input-wrapper">
                   <div class="wrapwrap" style="display: flex; align-items: flex-start">
