@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
+  getBucketTitleByMessageId,
   getUserFeed,
   changeUsername,
   addNewMessage,
@@ -70,9 +71,10 @@ router.get("/settings", (req, res) => {
 router.get("/comment/:messageId", async ( req, res ) => {
   const messageId = req.params.messageId;
   const message_id = Number(messageId);
-  // const user_id = req.user.id;
   const comments = await getAllComments(message_id);
   const message = await getMessagesByMessageId(message_id);
+  const bucketTitle = await getBucketTitleByMessageId(message_id);
+  console.log(bucketTitle);
 
   const modifiedComments = await Promise.all(comments.map(async (comment) =>  { 
     const commentor = await getUserByUserId(comment.userId);
@@ -84,9 +86,10 @@ router.get("/comment/:messageId", async ( req, res ) => {
     messageId: comment.messageId,
     username: commentorName,
     userProfile: commentorProfile,
-    createdAt: comment.createdAt
+    createdAt: comment.createdAt,
   }}));
-  res.render("comment", {comments: modifiedComments, message});
+  console.log(modifiedComments);
+  res.render("comment", {comments: modifiedComments, message, bucketTitle});
 });
 
 router.post("/comment/:messageId", async ( req, res ) => {
