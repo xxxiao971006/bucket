@@ -26,7 +26,16 @@
                 </p>
                 <p class="post-message"><%= message.content %></p>
               </div>
+              <div class="post-actions">
+                <button type="button" class="like-button" onclick="toggleLike(event)">
+                  <i class="far fa-heart"></i>
+                </button>  
+                <a href="/profile/comment/<%=message.id%>" class="comment-button">
+                  <i class="far fa-comment-alt"></i>
+                </a>
+              </div>
             </div>
+
      <% }) %>
 
       </div>
