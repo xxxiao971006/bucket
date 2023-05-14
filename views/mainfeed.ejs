@@ -33,9 +33,10 @@
                 <a href="/profile/comment/<%=message.id%>" class="comment-button">
                   <i class="far fa-comment-alt"></i>
                 </a>
+                <button type="button" class="setting-button">...</button>
+                </button> 
               </div>
             </div>
-
      <% }) %>
 
       </div>
@@ -87,11 +88,15 @@
 
     <script>
       function toggleLike(event) {
-    const likeButton = event.target.closest('.like-button');
-    const heartIcon = likeButton.querySelector('i');
-    heartIcon.classList.toggle('far');
-    heartIcon.classList.toggle('fas');
-  }
+        const likeButton = event.target.closest('.like-button');
+        const heartIcon = likeButton.querySelector('i');
+        heartIcon.classList.toggle('far');
+        heartIcon.classList.toggle('fas');
+      }
+
+
+
+
       
     </script>
   </body>

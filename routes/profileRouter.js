@@ -88,7 +88,6 @@ router.get("/comment/:messageId", async ( req, res ) => {
     userProfile: commentorProfile,
     createdAt: comment.createdAt,
   }}));
-  console.log(modifiedComments);
   res.render("comment", {comments: modifiedComments, message, bucketTitle});
 });
 
