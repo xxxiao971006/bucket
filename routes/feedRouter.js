@@ -3,9 +3,9 @@ const router = express.Router();
 const {
   createNewBucket,
   completeBucketlist,
-  getUserFeed,
+  getAllMessages,
+  // getUserFeed,
   deleteBucketlist,
-  getMainFeed,
   showBuckets,
   getTasks,
   getAllTags,
@@ -21,7 +21,7 @@ router.use(ensureAuthenticated);
 //☝️: Problem: Only showing some followings. 
 router.get("/home", async (req, res) => {
   const user_id = req.user.id;
-  const feed = await getMainFeed(user_id);
+  const feed = await getAllMessages(user_id);
   res.render("mainfeed", { feed, user_id });
   //
 }); 

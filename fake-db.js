@@ -1,15 +1,5 @@
 const prisma = require("./prisma/client");
 
-const sortPosts = (posts) => {
-  try {
-    return posts.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-  } catch (error) {
-    throw new Error("Method not implemented.");
-  }
-};
-
 //PRISMA FUNCTIONS (below):
 
 //👍
@@ -123,75 +113,6 @@ const getTasks = async (bucket_id) => {
   return tasks;
 };
 
-const getMainFeed = async (user_id) => {
-  const mainFeed = await prisma.user.findUnique({
-    where: { id: user_id },
-    select: {
-      following: {
-        select: {
-          id: true,
-          username: true,
-          profileImg: true,
-          buckets: {
-            select: {
-              title: true,
-              completed: true,
-              messages: {
-                orderBy: { createdAt: "asc" },
-                select: {
-                  content: true,
-                  likes: true,
-                  createdAt: true,
-                  comments: {
-                    select: { content: true, createdAt: true },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      id: true,
-      username: true,
-      profileImg: true,
-      buckets: {
-        select: {
-          title: true,
-          completed: true,
-          messages: {
-            orderBy: { createdAt: "asc" },
-            select: {
-              content: true,
-              likes: true,
-              createdAt: true,
-              comments: {
-                select: { content: true, createdAt: true },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-  const outcome = {
-    following: mainFeed.following.map((following) => {
-      return {
-        id: following.id,
-        username: following.username,
-        profileImg: following.profileImg,
-        buckets: following.buckets,
-      };
-    }),
-    user: {
-      username: mainFeed.username,
-      profileImg: mainFeed.profileImg,
-      buckets: mainFeed.buckets,
-    },
-  };
-
-  return outcome;
-};
-
 const changeUsername = async (userId, newUsername) => {
   await prisma.user.update({ 
     where: { id: userId }, 
@@ -267,37 +188,6 @@ const getAllComments = async (message_id) => {
   return comments;
 };
 
-//👍: Get all messages of the user
-const getAllMessage = async (user_id) => {
-  const allMessage = await prisma.message.findMany({
-    where: {
-      bucket: {
-        user: {
-          id: user_id
-        }
-      }
-    },
-    orderBy: {
-      createdAt: 'desc'
-    },
-    select: {
-      id: true,
-      content: true,
-      createdAt: true,
-      likes:true,
-      comments:true,
-      bucket: {
-        select: {
-          title: true,
-          completed: true
-        }
-      }
-    }
-  })
-
-  return allMessage;
-}
-
 const getMessagesByMessageId = async (messageId) => {
  const message =  await prisma.message.findUnique({ where: { id: messageId } })
  return message;
@@ -344,15 +234,84 @@ const addNewMessage = async (content, bucket_id) => {
   return newMessage;
 };
 
+//👍: returns user's following with userid and username.
+const getUserFollowing = async (user_id) => {
+  const userFollowing = await prisma.user.findUnique({ 
+    where: { id: user_id }, 
+    select: { following: { 
+      select: { id: true, username: true } 
+    } 
+  } 
+});
+return userFollowing;
+};
+
+//👍: Get all messages of the user
+const getAllMessageOfOneUser = async (user_id) => {
+  const allMessage = await prisma.message.findMany({
+    where: {
+      bucket: {
+        user: {
+          id: user_id
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      likes: true,
+      comments: true,
+      bucket: { select: { title: true, completed: true, user: { select: { id: true, username: true, profileImg: true } } } },
+      // bucketId: { select: { user: { select: { profileImg: true } } } 
+    }
+  })
+
+  return allMessage;
+}
+
+//👍: Get all messages of the user and following's (mainfeed)
+const getAllMessages = async(user_id) => {
+  //getting user message:
+  const userMessages = await getAllMessageOfOneUser(user_id);
+  const userFollowing = await getUserFollowing(user_id);
+  
+  //getting user following and message:
+  const followingIds = userFollowing.following.map((user) => user.id);
+  const followingMessage = await Promise.all(followingIds.map(async (id) => {
+    return await getAllMessageOfOneUser(id)
+  }));
+
+  const combinedMessageArr = [...userMessages, ...followingMessage];
+  const unsortedResult = (combinedMessageArr.filter(r => r.length != 0).flat());
+  
+  return (sortPosts(unsortedResult));
+}
+
+const sortPosts = (posts) => {
+  try {
+    return posts.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  } catch (error) {
+    throw new Error("Method not implemented.");
+  }
+};
+
+const main = async() => {await getAllMessages(1)}
+main();
 
 module.exports = {
+  getAllMessages,
   changeUsername,
   deleteBucketlist,
   createNewBucket,
   likeOrUnlikeMessage,
   addNewMessage,
   getBucketTitleByBucketId,
-  getMainFeed,
   getTasks,
   getUserByUsernameAndPassword,
   getUserByUserId,
@@ -360,7 +319,7 @@ module.exports = {
   showBuckets,
   getAllTags,
   createNewTasks,
-  getAllMessage,
+  getAllMessageOfOneUser,
   updateTask,
   completeBucketlist,
   commentMessage,

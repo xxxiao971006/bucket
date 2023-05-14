@@ -7,7 +7,7 @@ const {
   addNewMessage,
   showBuckets,
   getUserByUserId,
-  getAllMessage,
+  getAllMessageOfOneUser,
   getAllComments,
   getMessagesByMessageId,
   commentMessage,
@@ -23,7 +23,7 @@ router.get("/:user_id", async (req, res) => {
   const loggedin_user_id = req.user.id;
   const userId = req.params.user_id;
   const user_id = Number(userId);
-  const data = await getAllMessage(user_id);
+  const data = await getAllMessageOfOneUser(user_id);
   const user = await getUserByUserId(user_id);
   const totalBucketTitle = await showBuckets("all", user_id);
   res.render("profile", { loggedin_user_id, data, user_id, user, totalBucketTitle });
