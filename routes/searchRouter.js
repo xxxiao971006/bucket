@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
+  getAllUsers,
   getUserFollowing,
   getAllTags,
   messagesByTag,
@@ -31,48 +32,54 @@ router.post("/", async (req, res) => {
 
   const data = await getUserFollowing(req.user.id);
   const followings = Object.values(data).flat();
+
   const followingBuckets = followings.map((following) =>
-    following.buckets.map((bucket) => {
-      const outcome = {
-        id: bucket.id,
-        title: bucket.title,
-      };
-      return outcome;
-    })
+    following.buckets.map((bucket) => ({
+      id: bucket.id,
+      title: bucket.title,
+    }))
   );
+  
   const tags = await getAllTags();
-  const followingNames = followings.map((following) => {
-    const outcome = { followingId: following.id, username: following.username };
-    return outcome;
-  });
-  const followingBucketTitles = followingBuckets.flat();
+  
+  const followingNames = followings.map((following) => ({
+    followingId: following.id,
+    username: following.username,
+  }));
+  
+  const followingBucketTitles = followingBuckets.flat().map(({ title }) => title);
 
   let allSimilarBucket = [];
+  const allUsers = await getAllUsers();
 
   const matchingTag = tags.find(
     (tag) => tag.tagName.toLowerCase() === searchInput.toLowerCase()
   );
+  
   const matchingName = followingNames.find(
     (name) => name.username.toLowerCase() === searchInput.toLowerCase()
   );
 
-  if (!matchingTag || !matchingName) {
-    followingBucketTitles.forEach((bucket) => {
-      const bucketWordsArr = bucket.title.toLowerCase().split(" ");
+  const findingNewUser = allUsers.find(
+    (name) => name.username.toLowerCase() === searchInput.toLowerCase()
+  );
+
+  if (!matchingTag || !matchingName ) {
+    followingBucketTitles.forEach((bucketTitle) => {
+      const bucketWordsArr = bucketTitle.toLowerCase().split(" ");
       const searchInputArr = searchInput.toLowerCase().split(" ");
 
       for (let i = 0; i < searchInputArr.length; i++) {
         for (let j = 0; j < bucketWordsArr.length; j++) {
-          if (bucketWordsArr[j] == searchInputArr[i]) {
-            allSimilarBucket.push(bucket.title);
+          if (bucketWordsArr[j] === searchInputArr[i]) {
+            allSimilarBucket.push(bucketTitle);
           }
         }
       }
     });
   }
 
-  let uniqueBucketTitles = [...new Set(allSimilarBucket)];
-  // console.log(uniqueBucketTitles);
+  const uniqueBucketTitles = [...new Set(allSimilarBucket)];
 
   async function getBucketIds(arr) {
     return await Promise.all(
@@ -92,10 +99,15 @@ router.post("/", async (req, res) => {
     const data = await getBucketIds(uniqueBucketTitles);
     const queryString = querystring.stringify({ data: JSON.stringify(data) });
     res.redirect(`/search/search/?${queryString}`);
+  } else if (findingNewUser) {
+    const userId = findingNewUser.id;
+    const user_id = Number(userId);
+    res.redirect(`/profile/${user_id}`);
   } else {
     res.redirect("/search/");
   }
 });
+
 
 router.get("/tag/:tag_id", async (req, res) => {
   const userid = req.user.id;
@@ -133,8 +145,7 @@ router.get("/search", async (req, res) => {
       return JSON.stringify(obj) === JSON.stringify(message);
     });
   });
-  
-  console.log(uniqueMessages);
+
 
   res.render("possibleBuckets", {feed: uniqueMessages, user_id});
 });

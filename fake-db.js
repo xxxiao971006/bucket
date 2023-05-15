@@ -1,14 +1,18 @@
 const prisma = require("./prisma/client");
 
-//PRISMA FUNCTIONS (below):
-
-//👍
 function exclude(user, keys) {
   for (let key of keys) {
     delete user[key];
   }
   return user;
 }
+
+const getAllUsers = async () => {
+  const users = await prisma.user.findMany({
+    select: { id: true, username: true, profileImg: true },
+  });
+  return users;
+};
 
 const getBucketTitleByMessageId = async (messageId) => {
   const bucketTitle = await prisma.message
@@ -83,7 +87,6 @@ const deleteBucketlist = async (bucket_id) => {
   });
 };
 
-//👍
 const createNewTasks = async (taskMessage, bucket_id) => {
   try {
     const newTask = await prisma.task.create({
@@ -92,10 +95,6 @@ const createNewTasks = async (taskMessage, bucket_id) => {
         completed: false,
         bucket: { connect: { id: bucket_id } },
       },
-      // data: {
-      //   message: taskMessage,
-      //   bucket: {connect: bucket_id}
-      // }
     });
     return newTask;
   } catch (error) {
@@ -115,7 +114,6 @@ const updateTask = async (completion, task_id) => {
   return task;
 };
 
-//👍
 const getTasks = async (bucket_id) => {
   const tasks = await prisma.bucket.findUnique({
     where: { id: bucket_id },
@@ -131,7 +129,6 @@ const changeUsername = async (userId, newUsername) => {
   });
 };
 
-//👍: get user by user id
 const getUserByUserId = async (user_id) => {
   const user = await prisma.user.findUnique({
     where: { id: user_id },
@@ -140,7 +137,6 @@ const getUserByUserId = async (user_id) => {
   // return users.find((user) => user.id == user_id);
 };
 
-//👍: creating new Bucket
 const createNewBucket = async (dueDate, newBucket, userId, tagId) => {
   const newBucketlist = await prisma.bucket.create({
     data: {
@@ -154,7 +150,6 @@ const createNewBucket = async (dueDate, newBucket, userId, tagId) => {
   return newBucketlist;
 };
 
-//👍: returning whole user information
 const getUserByUsernameAndPassword = async (username, password) => {
   const user = await prisma.user.findUnique({
     where: { username: username },
@@ -168,7 +163,6 @@ const getUserByUsernameAndPassword = async (username, password) => {
   return false;
 };
 
-//👍: Create new user.
 const createUser = async (user) => {
   const { email, username, password } = user;
   const existingUser = await prisma.user.findUnique({
@@ -205,7 +199,6 @@ const getMessagesByMessageId = async (messageId) => {
   return message;
 };
 
-//👍: Showing all the buckets on the list.
 const showBuckets = async (status, currentUser) => {
   let buckets = null;
   if (status === "all") {
@@ -231,7 +224,6 @@ const showBuckets = async (status, currentUser) => {
   return buckets;
 };
 
-//👍: Get all tags
 const getAllTags = async () => {
   const tag = await prisma.tag.findMany();
   return tag;
@@ -249,7 +241,6 @@ const addNewMessage = async (content, bucket_id) => {
   return newMessage;
 };
 
-//👍: returns user's following with userid and username.
 const getUserFollowing = async (user_id) => {
   const userFollowing = await prisma.user.findUnique({
     where: { id: user_id },
@@ -381,10 +372,9 @@ const getMessagesofCertainBucket = async (user_id, bucket_id) => {
       },
     },
   });
-  
+
   return data;
 };
-
 
 // const main = async () => {
 //   await getMessagesofCertainBucket(2, 8);
@@ -392,6 +382,7 @@ const getMessagesofCertainBucket = async (user_id, bucket_id) => {
 // main();
 
 module.exports = {
+  getAllUsers,
   getMessagesofCertainBucket,
   getAllMessagesByBucketId,
   getAllMessages,
