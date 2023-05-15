@@ -20,7 +20,7 @@ const { ensureAuthenticated } = require("../middleware");
 router.use(ensureAuthenticated);
 
 router.get("/:user_id", async (req, res) => {
-  const loggedin_user_id = req.user.id;
+  const loggedin_user_id = req.params.user_id;
   const userId = req.params.user_id;
   const user_id = Number(userId);
   const data = await getAllMessageOfOneUser(user_id);
@@ -74,7 +74,6 @@ router.get("/comment/:messageId", async ( req, res ) => {
   const comments = await getAllComments(message_id);
   const message = await getMessagesByMessageId(message_id);
   const bucketTitle = await getBucketTitleByMessageId(message_id);
-  console.log(bucketTitle);
 
   const modifiedComments = await Promise.all(comments.map(async (comment) =>  { 
     const commentor = await getUserByUserId(comment.userId);
