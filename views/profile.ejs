@@ -43,7 +43,7 @@
       <button class="add-friends-button">
         <i class="fas fa-user-plus"></i>
       </button>
-      <% if (loggedin_user_id === user_id) { %>
+      <% if (loginuser_id === user_id) { %>
         <form action="/profile/edit/<%=user_id%>" class="edit-form">
           <button type="submit" class="edit-button">Edit Profile</button>
         </form>
@@ -54,7 +54,7 @@
         <button style="width: 100px;">Posts</button>
       </div>
     </div>
-          <% if (loggedin_user_id === user_id) { %>
+          <% if (loginuser_id === user_id) { %>
             <form class="user-info" action="/profile/<%=user_id%>" method="POST">
               <div class="posts-container">
                 <div class="user-input-wrapper">
