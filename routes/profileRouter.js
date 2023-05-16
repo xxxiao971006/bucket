@@ -25,6 +25,7 @@ router.get("/:user_id", async (req, res) => {
   const St_userId = req.params.user_id;
   const user_id = Number(St_userId);
   const data = await getAllMessageOfOneUser(user_id);
+  // console.log(data);
   const user = await getUserByUserId(user_id);
   const totalBucketTitle = await showBuckets("all", user_id);
   res.render("profile", { loginuser_id, data, user_id, user, totalBucketTitle });

@@ -96,9 +96,17 @@
             <%= post.content %>
           </p>
           <div class="post-actions">
-            <button type="button" class="like-button" onclick="toggleLike(event)">
-              <i class="far fa-heart"></i>
-            </button>  
+            <input type="hidden" name="messageId" value="<%= post.id %>" />
+            
+            <% if (post.likes.filter(like => like.userId === user_id).length > 0) { %>
+              <button type="button" class="like-button" onclick="toggleLike(event)">
+                <i class="far fa-heart fas"></i>
+              </button>
+            <% } else { %>
+              <button type="button" class="like-button" onclick="toggleLike(event)">
+                <i class="far fa-heart"></i>
+              </button>
+            <% } %>
             <a href="/profile/comment/<%=post.id%>" class="comment-button">
               <i class="far fa-comment-alt"></i>
             </a>
@@ -156,12 +164,36 @@
 </div>
 
  <script>
-function toggleLike(event) {
-  const likeButton = event.target.closest('.like-button');
-  const heartIcon = likeButton.querySelector('i');
-  heartIcon.classList.toggle('far');
-  heartIcon.classList.toggle('fas');
+
+const post = async (url, data) => {
+     const res = await fetch(url, {
+        body: JSON.stringify(data),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+       });
+      return await res.json().catch((err) => console.log(err));
+      };
+
+    async function likeUnlikeMessage(status, messageId) {
+      const something = await post("/feeds/likeMessage", { status, messageId });
+      if (something.message) {alert(something.message);}
+    };
+
+      async function toggleLike(event) {
+        const likeButton = event.target.closest(".like-button");
+        const inputElement = likeButton.parentNode.querySelector('input[name="messageId"]');
+        const messageId = inputElement.value;
+        const heartIcon = likeButton.querySelector("i");
+
+        if (heartIcon.classList.contains("fas")) {
+          heartIcon.classList.remove("fas");
+          await likeUnlikeMessage("unlike", messageId);
+        } else {
+          heartIcon.classList.add("fas");
+          await likeUnlikeMessage("like", messageId);
+  }
 }
+
 function updateScrollHeight() {
       const postsContainer = document.querySelector(".posts-container");
       postsContainer.scrollTop = postsContainer.scrollHeight;
