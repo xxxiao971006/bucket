@@ -11,7 +11,7 @@ const {
   createNewTasks,
   getBucketTitleByBucketId,
   updateTask
-} = require("../fake-db");
+} = require("../database");
 const { ensureAuthenticated } = require("../middleware");
 const { bucket } = require('../prisma/client');
 router.use(ensureAuthenticated);
