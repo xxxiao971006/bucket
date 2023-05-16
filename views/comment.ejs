@@ -160,12 +160,13 @@ div{
     <h1><strong> Bucket Title:</strong> <%=bucketTitle%></h1>
     </div>
     <h2><%=message.content%></h2>
+    <img src=<%=message.message_userInfo.profileImg%>>
+
 
     <% comments.forEach(comment => { %>
         <div>
             <%=comment.comment%> -- by --  <%=comment.username%>
-            <!-- <%=comment.userProfile%> --> 
-            <!-- Above is the profile url -->
+            <img src=<%=comment.userProfile%>>
         </div>
     <% }) %>
 
