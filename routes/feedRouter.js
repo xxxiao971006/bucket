@@ -168,6 +168,8 @@ router.get("/bucket/:id", async (req, res) => {
       numOfCompleted++;
     }
   });
+
+  console.log(tasks);
   res.render("showBucket", { tasks, user_id, numOfCompleted, bucketTitle });
 });
 
