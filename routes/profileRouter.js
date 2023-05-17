@@ -123,8 +123,9 @@ router.post("/comment/:messageId", async (req, res) => {
   res.redirect(`/profile/comment/${message_id}`);
 });
 
-// router.post("/likeUnlike", (req,res) => {
+router.post("/friendUnfriend", (req,res) => {
+  
 
-// })
+})
 
 module.exports = router;

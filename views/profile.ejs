@@ -202,10 +202,10 @@
     }
   }
 
-  // function friendUnfriend() {
-  //   const something = await post("/feeds/likeMessage", { status, messageId });
+  async function friendUnfriend() {
+    const something = await post("/profile/friendUnfriend", { status, messageId });
 
-  // }
+  }
 
   function updateScrollHeight() {
     const postsContainer = document.querySelector(".posts-container");
