@@ -40,14 +40,16 @@
       <p class="netBucket">
         <%=totalBucketTitle.length%> goals
       </p>
-      <button class="add-friends-button">
+      <!-- <button class="add-friends-button">
         <i class="fas fa-user-plus"></i>
-      </button>
+      </button> -->
       <% if (loginuser_id === user_id) { %>
         <form action="/profile/edit/<%=user_id%>" class="edit-form">
           <button type="submit" class="edit-button">Edit Profile</button>
         </form>
-      <% } %>
+      <% } else if (loginuser_id != user_id) { %>
+        <button type="submit" class="addFriend-button">Add Friend</button>
+      <%}%>
       <div class="buttons">
         <button style="width: 100px;">All</button>
         <button style="width: 100px;">Media</button>
@@ -163,42 +165,54 @@
   </div>
 </div>
 
- <script>
+<script>
 
-const post = async (url, data) => {
-     const res = await fetch(url, {
-        body: JSON.stringify(data),
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-       });
-      return await res.json().catch((err) => console.log(err));
-      };
+  const friendBtn = document.querySelector(".addFriend-button");
 
-    async function likeUnlikeMessage(status, messageId) {
-      const something = await post("/feeds/likeMessage", { status, messageId });
-      if (something.message) {alert(something.message);}
-    };
+  const post = async (url, data) => {
+    const res = await fetch(url, {
+      body: JSON.stringify(data),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    return await res.json().catch((err) => console.log(err));
+  };
 
-      async function toggleLike(event) {
-        const likeButton = event.target.closest(".like-button");
-        const inputElement = likeButton.parentNode.querySelector('input[name="messageId"]');
-        const messageId = inputElement.value;
-        const heartIcon = likeButton.querySelector("i");
-
-        if (heartIcon.classList.contains("fas")) {
-          heartIcon.classList.remove("fas");
-          await likeUnlikeMessage("unlike", messageId);
-        } else {
-          heartIcon.classList.add("fas");
-          await likeUnlikeMessage("like", messageId);
-  }
-}
-
-function updateScrollHeight() {
-      const postsContainer = document.querySelector(".posts-container");
-      postsContainer.scrollTop = postsContainer.scrollHeight;
+  async function likeUnlikeMessage(status, messageId) {
+    const something = await post("/feeds/likeMessage", { status, messageId });
+    if (something.message) {
+      alert(something.message);
     }
-    </script>
+  }
+
+  async function toggleLike(event) {
+    const likeButton = event.target.closest(".like-button");
+    const inputElement = likeButton.parentNode.querySelector(
+      'input[name="messageId"]'
+    );
+    const messageId = inputElement.value;
+    const heartIcon = likeButton.querySelector("i");
+
+    if (heartIcon.classList.contains("fas")) {
+      heartIcon.classList.remove("fas");
+      await likeUnlikeMessage("unlike", messageId);
+    } else {
+      heartIcon.classList.add("fas");
+      await likeUnlikeMessage("like", messageId);
+    }
+  }
+
+  // function friendUnfriend() {
+  //   const something = await post("/feeds/likeMessage", { status, messageId });
+
+  // }
+
+  function updateScrollHeight() {
+    const postsContainer = document.querySelector(".posts-container");
+    postsContainer.scrollTop = postsContainer.scrollHeight;
+  }
+</script>
+
 </body>
 
 </html>

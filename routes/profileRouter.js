@@ -16,7 +16,7 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 
 const { ensureAuthenticated } = require("../middleware");
-const { getUserIdByBucketId } = require('../database');
+const { getUserIdByBucketId } = require("../database");
 router.use(ensureAuthenticated);
 
 router.get("/:user_id", async (req, res) => {
@@ -28,7 +28,13 @@ router.get("/:user_id", async (req, res) => {
   // console.log(data);
   const user = await getUserByUserId(user_id);
   const totalBucketTitle = await showBuckets("all", user_id);
-  res.render("profile", { loginuser_id, data, user_id, user, totalBucketTitle });
+  res.render("profile", {
+    loginuser_id,
+    data,
+    user_id,
+    user,
+    totalBucketTitle,
+  });
 });
 
 router.post("/:user_id", async (req, res) => {
@@ -40,7 +46,6 @@ router.post("/:user_id", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
 });
 
 router.get("/edit/:userId", async (req, res) => {
@@ -54,14 +59,12 @@ router.post("/edit/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const user_id = Number(userId);
-    const {newUsername} = req.body;
+    const { newUsername } = req.body;
     await changeUsername(user_id, newUsername);
     res.redirect(`/profile/${user_id}`);
   } catch (error) {
     console.log(error);
   }
-
-
 });
 
 router.get("/settings", (req, res) => {
@@ -70,7 +73,7 @@ router.get("/settings", (req, res) => {
   res.render("settings", { data });
 });
 
-router.get("/comment/:messageId", async ( req, res ) => {
+router.get("/comment/:messageId", async (req, res) => {
   const Str_message_id = req.params.messageId;
   const message_id = Number(Str_message_id);
   const comments = await getAllComments(message_id);
@@ -89,29 +92,39 @@ router.get("/comment/:messageId", async ( req, res ) => {
     message_userInfo: message_creator_info,
   };
 
-  const modifiedComments = await Promise.all(comments.map(async (comment) =>  { 
-    const commentor = await getUserByUserId(comment.userId);
-    const commentorName = commentor.username;
-    const commentorProfile = commentor.profileImg;
-    return {
-    id: comment.id,
-    comment: comment.content,
-    messageId: comment.messageId,
-    username: commentorName,
-    userProfile: commentorProfile,
-    createdAt: comment.createdAt,
-  }}));
-  res.render("comment", {comments: modifiedComments, message: modifiedMessage, bucketTitle});
+  const modifiedComments = await Promise.all(
+    comments.map(async (comment) => {
+      const commentor = await getUserByUserId(comment.userId);
+      const commentorName = commentor.username;
+      const commentorProfile = commentor.profileImg;
+      return {
+        id: comment.id,
+        comment: comment.content,
+        messageId: comment.messageId,
+        username: commentorName,
+        userProfile: commentorProfile,
+        createdAt: comment.createdAt,
+      };
+    })
+  );
+  res.render("comment", {
+    comments: modifiedComments,
+    message: modifiedMessage,
+    bucketTitle,
+  });
 });
 
-router.post("/comment/:messageId", async ( req, res ) => {
+router.post("/comment/:messageId", async (req, res) => {
   const user_id = req.user.id;
   const message_id = req.params.messageId;
   const messageId = Number(message_id);
-  const {newComment} = req.body;
+  const { newComment } = req.body;
   const comment = await commentMessage(newComment, messageId, user_id);
   res.redirect(`/profile/comment/${message_id}`);
-})
+});
 
+// router.post("/likeUnlike", (req,res) => {
+
+// })
 
 module.exports = router;
