@@ -22,6 +22,25 @@ const { ensureAuthenticated } = require("../middleware");
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(ensureAuthenticated);
 
+router.post("/friendUnfriend", async (req, res) => {
+  try {
+    const { friendshipValue, friend_id } = req.body;
+    const friendid = Number(friend_id);
+    const user_id = req.user.id;
+    if (friendshipValue === "Add Friend") {
+      await addFriend(user_id, friendid);
+      res.status(200).json({ success: true, message: "friended" });
+    } else {
+      await removeFriend(user_id, friendid);
+      res.status(200).json({ success: true, message: "unfriended" });
+
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "error" });
+  }
+});
+
 router.get("/:user_id", async (req, res) => {
   try {
     const loginUserId = Number(req.user.id);
@@ -161,21 +180,6 @@ router.post("/comment/:messageId", async (req, res) => {
   }
 });
 
-router.post("/friendUnfriend", async (req, res) => {
-  try {
-    const { friendshipValue, friend_id } = req.body;
-    const friendid = Number(friend_id);
-    const user_id = req.user.id;
-    if (friendshipValue === "Add Friend") {
-      await addFriend(user_id, friendid);
-    } else {
-      await removeFriend(user_id, friendid);
-    }
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.log(error);
-    res.json({ message: "error" });
-  }
-});
+
 
 module.exports = router;

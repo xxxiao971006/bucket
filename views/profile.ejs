@@ -12,8 +12,6 @@
  
 </head>
 <body>
-  <!-- Change zindex to 99 and change opacity to 1 using DOM -->
-  <!-- <div style="background-color: #ededed;z-index: 0;position: absolute;bottom: 0;height: 80vh;transition: all 0.3s cubic-bezier(0.47, 0, 0.75, 0.72);width: 100%;opacity: 0;">hello</div> -->
   <div class="flex-container">  
   <div class="wrapper">
     <div class="background-container">
@@ -102,8 +100,7 @@
           </p>
           <div class="post-actions">
             <input type="hidden" name="messageId" value="<%= post.id %>" />
-            
-            <% if (post.likes.filter(like => like.userId === userId).length > 0) { %>
+            <% if (post.likes.filter(like => like.userId === loginUserId).length > 0) { %>
               <button type="button" class="like-button" onclick="toggleLike(event)">
                 <i class="far fa-heart fas"></i>
               </button>
@@ -170,7 +167,7 @@
 
 <script>
 const friendBtn = document.querySelector(".friend-button");
-const friendshipValue = friendBtn.innerHTML;
+const postsContainer = document.querySelector(".posts-container");
 
 const post = async (url, data) => {
   try {
@@ -182,17 +179,22 @@ const post = async (url, data) => {
     return await res.json();
   } catch (error) {
     console.log(error);
+    return { error: "An error occurred" };
   }
 };
 
-async function likeUnlikeMessage(status, messageId) {
-  const response = await post("/feeds/likeMessage", { status, messageId });
-  if (response && response.message) {
-    alert(response.message);
+const likeUnlikeMessage = async (status, messageId) => {
+  try {
+    const response = await post("/feeds/likeMessage", { status, messageId });
+    if (response.message) {
+      alert(response.message);
+    }
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
-async function toggleLike(event) {
+const toggleLike = async (event) => {
   const likeButton = event.target.closest(".like-button");
   const inputElement = likeButton.parentNode.querySelector('input[name="messageId"]');
   const messageId = inputElement.value;
@@ -205,29 +207,31 @@ async function toggleLike(event) {
     heartIcon.classList.add("fas");
     await likeUnlikeMessage("like", messageId);
   }
-}
+};
 
-function updateScrollHeight() {
-  const postsContainer = document.querySelector(".posts-container");
+const updateScrollHeight = () => {
   postsContainer.scrollTop = postsContainer.scrollHeight;
-}
+};
 
-async function friendUnfriend(friendshipValue, friend_id) {
-  const response = await post("/profile/friendUnfriend", { friendshipValue, friend_id });
-  if (response && response.message) {
-    alert(response.message);
-  }
-}
-
-friendBtn.addEventListener("click", async () => {
-  console.log("I was hit");
+friendBtn.addEventListener("click", async (event) => {
+  event.preventDefault();
+  event.stopPropagation();
   const pathArr = window.location.pathname.split("/");
   const friend_id = pathArr[pathArr.length - 1];
+  let friendshipValue = friendBtn.innerHTML;
 
-  await friendUnfriend(friendshipValue, friend_id);
+  try {
+    const response = await post("/profile/friendUnfriend", { friendshipValue, friend_id });
+      if (response.message === "friended") {
+        friendBtn.innerHTML = "Unfriend";
+      } else if (response.message === "unfriended") {
+        friendBtn.innerHTML = "Add Friend";
+      }
+    }
+   catch (error) {
+    console.log(error);
+  }
 });
-
-
 </script>
 
 

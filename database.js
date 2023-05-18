@@ -369,6 +369,7 @@ const getUserFollowing = async (user_id) => {
 const getAllMessageOfOneUser = async (userId) => {
   try {
     const user_id = Number(userId);
+
     const allMessages = await prisma.message.findMany({
       where: {
         bucket: {
