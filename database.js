@@ -1,12 +1,5 @@
 const prisma = require("./prisma/client");
 
-function exclude(user, keys) {
-  for (let key of keys) {
-    delete user[key];
-  }
-  return user;
-}
-
 const getAllUsers = async () => {
   const users = await prisma.user.findMany({
     select: { id: true, username: true, profileImg: true },
@@ -48,7 +41,7 @@ const likeMessage = async (userId, messageId) => {
 const getLikeIdByUserIdMessageId = async (user_id, message_id) => {
   try {
     const like = await prisma.like.findFirst({
-      where: { 
+      where: {
         userId: user_id,
         messageId: message_id,
       },
@@ -61,8 +54,8 @@ const getLikeIdByUserIdMessageId = async (user_id, message_id) => {
 };
 
 const UnlikeMessage = async (userId, messageId) => {
-  const likeId = await getLikeIdByUserIdMessageId(userId,messageId);
-  
+  const likeId = await getLikeIdByUserIdMessageId(userId, messageId);
+
   try {
     await prisma.like.delete({
       where: {
@@ -306,21 +299,21 @@ const getAllMessageOfOneUser = async (user_id) => {
           title: true,
           tag: true,
           completed: true,
-          user: { select: { id: true, username: true, profileImg: true } },
+          user: {
+            select: {
+              id: true,
+              username: true,
+              profileImg: true,
+              following: { select: { id: true } },
+            },
+          },
         },
       },
     },
   });
 
-  return allMessages ;
+  return allMessages;
 };
-
-// const main = async() => {
-//    allMessages = await getAllMessageOfOneUser(1);
-//   console.log(allMessages);
-// }
-
-// main()
 
 //👍: Get all messages of the user and following's (mainfeed)
 const getAllMessages = async (user_id) => {
@@ -410,12 +403,33 @@ const getMessagesofCertainBucket = async (user_id, bucket_id) => {
   return data;
 };
 
+const addFriend = async (user_id, friend_id) => {
+  await prisma.user.update({
+    where: { id: user_id },
+    data: {
+      following: {
+        connect: { id: friend_id },
+      },
+    },
+  });
+};
+
+const removeFriend = async (user_id, friend_id) => {
+  await prisma.user.update({
+    where: { id: user_id },
+    data: { following: { disconnect: { id: friend_id } } },
+  });
+};
+
 // const main = async () => {
-//   await getMessagesofCertainBucket(2, 8);
+//   await removeFriend(11, 10);
 // };
+
 // main();
 
 module.exports = {
+  addFriend,
+  removeFriend,
   getAllUsers,
   getMessagesofCertainBucket,
   getAllMessagesByBucketId,

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bodyParser = require("body-parser");
 const {
   getBucketTitleByMessageId,
   changeUsername,
@@ -10,32 +11,35 @@ const {
   getAllComments,
   getMessagesByMessageId,
   commentMessage,
+  getUserIdByBucketId,
+  getUserFollowing,
+  addFriend,
+  removeFriend,
 } = require("../database");
-const bodyParser = require("body-parser");
 
 router.use(bodyParser.urlencoded({ extended: false }));
-
 const { ensureAuthenticated } = require("../middleware");
-const { getUserIdByBucketId } = require("../database");
 router.use(ensureAuthenticated);
 
 router.get("/:user_id", async (req, res) => {
-  const St_loginuser_id = req.user.id;
-  const loginuser_id = Number(St_loginuser_id);
-  const St_userId = req.params.user_id;
-  const user_id = Number(St_userId);
+  const loginuser_id = Number(req.user.id);
+  const user_id = Number(req.params.user_id);
   const data = await getAllMessageOfOneUser(user_id);
-  // console.log(data);
   const user = await getUserByUserId(user_id);
+  const userFollowing = await getUserFollowing(loginuser_id);
+  const userFollowingId = userFollowing.following.flat().map(user => user.id);
   const totalBucketTitle = await showBuckets("all", user_id);
+
+  console.log(userFollowingId);
+  
   res.render("profile", {
     loginuser_id,
     data,
     user_id,
     user,
     totalBucketTitle,
-  });
-});
+    userFollowingId
+})});
 
 router.post("/:user_id", async (req, res) => {
   try {
@@ -74,8 +78,7 @@ router.get("/settings", (req, res) => {
 });
 
 router.get("/comment/:messageId", async (req, res) => {
-  const Str_message_id = req.params.messageId;
-  const message_id = Number(Str_message_id);
+  const message_id = Number(req.params.messageId);
   const comments = await getAllComments(message_id);
   const message = await getMessagesByMessageId(message_id);
   const bucketTitle = await getBucketTitleByMessageId(message_id);
@@ -92,27 +95,27 @@ router.get("/comment/:messageId", async (req, res) => {
     message_userInfo: message_creator_info,
   };
 
-  const modifiedComments = await Promise.all(
-    comments.map(async (comment) => {
-      const commentor = await getUserByUserId(comment.userId);
-      const commentorName = commentor.username;
-      const commentorProfile = commentor.profileImg;
-      return {
-        id: comment.id,
-        comment: comment.content,
-        messageId: comment.messageId,
-        username: commentorName,
-        userProfile: commentorProfile,
-        createdAt: comment.createdAt,
-      };
-    })
-  );
+  const modifiedComments = await Promise.all(comments.map(async (comment) => {
+    const commentor = await getUserByUserId(comment.userId);
+    const commentorName = commentor.username;
+    const commentorProfile = commentor.profileImg;
+    return {
+      id: comment.id,
+      comment: comment.content,
+      messageId: comment.messageId,
+      username: commentorName,
+      userProfile: commentorProfile,
+      createdAt: comment.createdAt,
+    };
+  }));
+
   res.render("comment", {
     comments: modifiedComments,
     message: modifiedMessage,
     bucketTitle,
   });
 });
+
 
 router.post("/comment/:messageId", async (req, res) => {
   const user_id = req.user.id;
@@ -123,9 +126,21 @@ router.post("/comment/:messageId", async (req, res) => {
   res.redirect(`/profile/comment/${message_id}`);
 });
 
-router.post("/friendUnfriend", (req,res) => {
-  
-
+router.post("/friendUnfriend", async (req,res) => {
+  const { friendship, friendId } = req.body;
+  const friend_id = Number(friendId);
+  const user_id = req.user.id;
+  try {
+    if(friendship == "Add Friend"){
+      await addFriend(user_id, friend_id);
+    } else {
+      await removeFriend(user_id, friend_id);
+    }
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "error"});
+  }
 })
 
 module.exports = router;

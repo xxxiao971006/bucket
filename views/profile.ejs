@@ -40,15 +40,16 @@
       <p class="netBucket">
         <%=totalBucketTitle.length%> goals
       </p>
-      <!-- <button class="add-friends-button">
-        <i class="fas fa-user-plus"></i>
-      </button> -->
       <% if (loginuser_id === user_id) { %>
         <form action="/profile/edit/<%=user_id%>" class="edit-form">
           <button type="submit" class="edit-button">Edit Profile</button>
         </form>
-      <% } else if (loginuser_id != user_id) { %>
-        <button type="submit" class="addFriend-button">Add Friend</button>
+      <% } else { %>
+        <% if (userFollowingId.includes(user_id)) { %>
+          <button type="submit" class="friend-button">Unfriend</button>
+        <% } else { %>
+          <button type="submit" class="friend-button">Add Friend</button>
+        <%}%>
       <%}%>
       <div class="buttons">
         <button style="width: 100px;">All</button>
@@ -167,7 +168,7 @@
 
 <script>
 
-  const friendBtn = document.querySelector(".addFriend-button");
+  const friendBtn = document.querySelector(".friend-button");
 
   const post = async (url, data) => {
     const res = await fetch(url, {
@@ -179,12 +180,10 @@
   };
 
   async function likeUnlikeMessage(status, messageId) {
-    const something = await post("/feeds/likeMessage", { status, messageId });
-    if (something.message) {
-      alert(something.message);
-    }
-  }
-
+      const something = await post("/feeds/likeMessage", { status, messageId });
+      if (something.message) {alert(something.message);}
+    };
+    
   async function toggleLike(event) {
     const likeButton = event.target.closest(".like-button");
     const inputElement = likeButton.parentNode.querySelector(
@@ -202,6 +201,16 @@
     }
   }
 
+    async function friendUnfriendFunc(friendship, messageId) {
+    const friendship = friendBtn.innerHTML;
+    const pathArr = window.location.pathname.split("/");
+    const friend_id = pathArr[pathArr.length - 1];
+    const something = await post("/feeds/likeMessage", { friendship, friend_id });
+    if (something.message) {
+      alert(something.message);
+    }
+  }
+
   async function friendUnfriend() {
     const something = await post("/profile/friendUnfriend", { status, messageId });
 
@@ -211,6 +220,12 @@
     const postsContainer = document.querySelector(".posts-container");
     postsContainer.scrollTop = postsContainer.scrollHeight;
   }
+
+  friendBtn.addEventListener("click", () => {
+    console.log("I was hit!");
+  })
+
+
 </script>
 
 </body>
