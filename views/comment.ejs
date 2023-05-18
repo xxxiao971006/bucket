@@ -159,8 +159,8 @@ div{
             </button>
     <h1><strong> Bucket Title:</strong> <%=bucketTitle%></h1>
     </div>
-    <h2><%=message.message_content%></h2>
-    <img src=<%=message.message_userInfo.profileImg%>>
+    <h2><%=message.content%></h2>
+    <img src=<%=message.userInfo.profileImg%>>
 
 
     <% comments.forEach(comment => { %>
